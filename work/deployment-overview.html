@@ -1533,7 +1533,7 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(() => {
     thinkingCard.style.opacity = '1';
     thinkingCard.style.transform = 'translateY(0)';
-    scrollBottom();
+    scrollToStart(thinkingCard);
 
     PROC_STEPS.forEach((s, i) => {
       if (i > 0) {
@@ -1566,17 +1566,16 @@ document.addEventListener('DOMContentLoaded', function() {
     block2.classList.remove('hidden');
     block2.classList.add('fade-in');
 
+    scrollToStart(block2);
+
     // Animate table rows one by one
     const rows = block2.querySelectorAll('.agent-table tbody tr');
     rows.forEach((row, i) => {
       setTimeout(() => {
         row.classList.add('row-visible');
         row.style.animationDelay = '0ms';
-        scrollBottom();
       }, 120 + i * 110);
     });
-
-    scrollBottom();
   }, TOTAL_MS);
 
   let thinkingExpanded = true;
@@ -1590,6 +1589,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function scrollBottom() {
     setTimeout(() => { chatArea.scrollTop = chatArea.scrollHeight; }, 60);
+  }
+  // Scroll chatArea so the top of el is visible (with small offset)
+  function scrollToStart(el) {
+    setTimeout(() => {
+      const elTop = el.getBoundingClientRect().top;
+      const areaTop = chatArea.getBoundingClientRect().top;
+      chatArea.scrollBy({ top: elTop - areaTop - 16, behavior: 'smooth' });
+    }, 80);
   }
 
   const textarea = document.getElementById('prompt-input');
@@ -1619,7 +1626,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     `;
     document.getElementById('chat-area').appendChild(proc);
-    scrollBottom();
+    scrollToStart(proc);
 
     const HARDEN_STEPS = [
       { icon: '../uploads/deployment-overview/icon-shield.svg',       text: 'Applying MFA enforcement to Emma, Noah, and Ella…', startMs: 450,  runMs: 1350 },
@@ -1643,7 +1650,7 @@ document.addEventListener('DOMContentLoaded', function() {
       el.className = 'thinking-step';
       el.innerHTML = `<img src="${s.icon}" width="16" height="16"><span class="thinking-step-text">${s.text}</span>`;
       procBody.appendChild(el);
-      setTimeout(() => { el.classList.add('visible', 'step-active'); scrollBottom(); }, s.startMs + 50);
+      setTimeout(() => { el.classList.add('visible', 'step-active'); }, s.startMs + 50);
       setTimeout(() => { el.classList.remove('step-active'); el.classList.add('step-done'); }, s.startMs + s.runMs);
     });
 
@@ -1656,7 +1663,6 @@ document.addEventListener('DOMContentLoaded', function() {
       loader.classList.remove('loader-spin');
       loader.src = '../uploads/deployment-overview/icon-mark-done.svg';
       procBody.style.display = 'none';
-      scrollBottom();
     }, HARDEN_TOTAL);
 
     // Stream in ai-block-3 content piece by piece
@@ -1665,11 +1671,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
       const block3 = document.getElementById('ai-block-3');
       block3.classList.remove('hidden');
-      // Container fades in quickly; children stream in individually below
       block3.style.opacity = '0';
       block3.style.transition = 'opacity 180ms ease';
       requestAnimationFrame(() => requestAnimationFrame(() => { block3.style.opacity = '1'; }));
-      scrollBottom();
+      scrollToStart(block3);
 
       // Helper: fade-in + slide-up an element after `delay` ms
       function streamEl(el, delay) {
@@ -1680,7 +1685,6 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
           el.style.opacity = '1';
           el.style.transform = 'translateY(0)';
-          scrollBottom();
         }, delay);
       }
 
@@ -1707,7 +1711,7 @@ document.addEventListener('DOMContentLoaded', function() {
       for (let i = 0; i < 3; i++) {
         const item = items[i];
         if (!item) continue;
-        setTimeout((el => () => { el.classList.add('visible'); scrollBottom(); })(item), t);
+        setTimeout((el => () => { el.classList.add('visible'); })(item), t);
         t += 340;
       }
       t += 240;
@@ -1716,7 +1720,7 @@ document.addEventListener('DOMContentLoaded', function() {
       for (let i = 3; i < 6; i++) {
         const item = items[i];
         if (!item) continue;
-        setTimeout((el => () => { el.classList.add('visible'); scrollBottom(); })(item), t);
+        setTimeout((el => () => { el.classList.add('visible'); })(item), t);
         t += 340;
       }
       t += 280;
@@ -1747,7 +1751,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     `;
     document.getElementById('chat-area').appendChild(proc);
-    scrollBottom();
+    scrollToStart(proc);
 
     const APPLY_STEPS = [
       { icon: '../uploads/deployment-overview/icon-shield.svg',       text: 'Verifying eligibility for Emma, Noah, and Ella…',    startMs: 400,  runMs: 1000 },
@@ -1771,7 +1775,7 @@ document.addEventListener('DOMContentLoaded', function() {
       el.className = 'thinking-step';
       el.innerHTML = `<img src="${s.icon}" width="16" height="16"><span class="thinking-step-text">${s.text}</span>`;
       applyBody.appendChild(el);
-      setTimeout(() => { el.classList.add('visible', 'step-active'); scrollBottom(); }, s.startMs + 50);
+      setTimeout(() => { el.classList.add('visible', 'step-active'); }, s.startMs + 50);
       setTimeout(() => { el.classList.remove('step-active'); el.classList.add('step-done'); }, s.startMs + s.runMs);
     });
 
@@ -1784,7 +1788,6 @@ document.addEventListener('DOMContentLoaded', function() {
       loader.classList.remove('loader-spin');
       loader.src = '../uploads/deployment-overview/icon-mark-done.svg';
       applyBody.style.display = 'none';
-      scrollBottom();
     }, APPLY_TOTAL);
 
     // Stream in ai-block-4
@@ -1796,7 +1799,7 @@ document.addEventListener('DOMContentLoaded', function() {
       block4.style.opacity = '0';
       block4.style.transition = 'opacity 180ms ease';
       requestAnimationFrame(() => requestAnimationFrame(() => { block4.style.opacity = '1'; }));
-      scrollBottom();
+      scrollToStart(block4);
 
       function streamEl4(el, delay) {
         if (!el) return;
@@ -1806,7 +1809,6 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
           el.style.opacity = '1';
           el.style.transform = 'translateY(0)';
-          scrollBottom();
         }, delay);
       }
 
