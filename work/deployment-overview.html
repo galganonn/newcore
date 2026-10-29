@@ -388,12 +388,12 @@
   .plan-detail-after { color: #037F4C; font-weight: 500; }
   .plan-action-btn {
     display: inline-flex; align-items: center;
-    padding: 4px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;
+    padding: 4px 8px; border-radius: 5px; font-size: 12px; font-weight: 500;
     white-space: nowrap; flex-shrink: 0; cursor: pointer; text-decoration: none;
-    background: white; border: 1px solid #e0e3ee; color: #323338;
-    transition: background 120ms ease, border-color 120ms ease;
+    background: transparent; border: none; color: #0073EA;
+    transition: background 120ms ease;
   }
-  .plan-action-btn:hover { background: #F5F6F8; border-color: #c5c7d0; }
+  .plan-action-btn:hover { background: #F0F7FF; }
 
   /* ── SOURCES ── */
   .sources-row {
@@ -953,7 +953,7 @@
         </div>
 
         <div class="ai-response fade-in">
-          <p class="ai-description">Here's the hardening plan. I can apply policies immediately to <strong>3 eligible agents</strong>. The other 3 need manual review before changes can be made.</p>
+          <p class="ai-description" style="display:flex;align-items:flex-start;gap:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="12" fill="#EEF2FF"/><rect x="11" y="1.5" width="2" height="3.5" rx="1" fill="#818CF8"/><circle cx="12" cy="1.5" r="1.5" fill="#6366F1"/><rect x="4" y="6.5" width="16" height="12" rx="3" fill="white" stroke="#C7D2FE" stroke-width="1"/><circle cx="9" cy="11.5" r="2" fill="#6366F1"/><circle cx="15" cy="11.5" r="2" fill="#6366F1"/><circle cx="9.7" cy="10.9" r="0.7" fill="white"/><circle cx="15.7" cy="10.9" r="0.7" fill="white"/><path d="M9 14.5 Q12 16.5 15 14.5" stroke="#6366F1" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg><span>Here's the hardening plan. I can apply policies immediately to <strong>3 eligible agents</strong>. The other 3 need manual review before changes can be made.</span></p>
 
           <div class="plan-section">
             <div class="plan-section-title">3 Eligible — ready to apply</div>
@@ -1071,32 +1071,20 @@
         </div>
 
         <div class="ai-response fade-in">
-          <p class="ai-description">Done. Hardening applied to <strong>3 agents</strong>. The 3 blocked agents have been flagged for your security team.</p>
+          <p class="ai-description" style="display:flex;align-items:flex-start;gap:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="12" fill="#EEF2FF"/><rect x="11" y="1.5" width="2" height="3.5" rx="1" fill="#818CF8"/><circle cx="12" cy="1.5" r="1.5" fill="#6366F1"/><rect x="4" y="6.5" width="16" height="12" rx="3" fill="white" stroke="#C7D2FE" stroke-width="1"/><circle cx="9" cy="11.5" r="2" fill="#6366F1"/><circle cx="15" cy="11.5" r="2" fill="#6366F1"/><circle cx="9.7" cy="10.9" r="0.7" fill="white"/><circle cx="15.7" cy="10.9" r="0.7" fill="white"/><path d="M9 14.5 Q12 16.5 15 14.5" stroke="#6366F1" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg><span>Done. Hardening applied to <strong>Emma, Noah, and Ella</strong>.</span></p>
 
           <div class="result-list">
             <div class="result-item">
               <div class="result-icon success"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <span class="result-item-name">Emma</span><span class="result-item-status ok">Hardened</span>
+              <span class="result-item-name">Emma</span><span class="result-item-status ok">Google Ads API: write+admin → read-only · approved-lists &nbsp;·&nbsp; MFA enforced</span>
             </div>
             <div class="result-item">
               <div class="result-icon success"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <span class="result-item-name">Noah</span><span class="result-item-status ok">Hardened</span>
+              <span class="result-item-name">Noah</span><span class="result-item-status ok">HubSpot API: full-access → read-only (non-deal) &nbsp;·&nbsp; MFA enforced</span>
             </div>
             <div class="result-item">
               <div class="result-icon success"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <span class="result-item-name">Ella</span><span class="result-item-status ok">Policy refreshed</span>
-            </div>
-            <div class="result-item">
-              <div class="result-icon pending"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 3.5V6.5" stroke="#B26A00" stroke-width="1.2" stroke-linecap="round"/><circle cx="6" cy="8.5" r=".6" fill="#B26A00"/></svg></div>
-              <span class="result-item-name">Lucas</span><span class="result-item-status flagged">Flagged — owner offboarded</span>
-            </div>
-            <div class="result-item">
-              <div class="result-icon pending"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 3.5V6.5" stroke="#B26A00" stroke-width="1.2" stroke-linecap="round"/><circle cx="6" cy="8.5" r=".6" fill="#B26A00"/></svg></div>
-              <span class="result-item-name">Aria</span><span class="result-item-status flagged">Flagged — discovered app</span>
-            </div>
-            <div class="result-item">
-              <div class="result-icon pending"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 3.5V6.5" stroke="#B26A00" stroke-width="1.2" stroke-linecap="round"/><circle cx="6" cy="8.5" r=".6" fill="#B26A00"/></svg></div>
-              <span class="result-item-name">Mia</span><span class="result-item-status flagged">Flagged — no HR record</span>
+              <span class="result-item-name">Ella</span><span class="result-item-status ok">Token rotation: 90d → 30d</span>
             </div>
           </div>
 
@@ -1112,7 +1100,7 @@
                   Schedule review for 3 blocked
                 </button>
                 <button class="chat-action-btn chat-action-btn-primary">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0"><path d="M13 4L6 11.5L3 8.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <img src="../uploads/deployment-overview/icon-enter-arrow.svg" class="enter-arrow" alt="" width="16" height="16" style="filter:brightness(0) invert(1)">
                   View updated policy report
                 </button>
               </div>
@@ -1640,10 +1628,111 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.stepApply = function() {
     document.getElementById('cta-block-2').querySelectorAll('button').forEach(b => b.disabled = true);
-    const block4 = document.getElementById('ai-block-4');
-    block4.classList.remove('hidden');
-    block4.classList.add('fade-in');
+
+    // Build processing card — same pattern as stepHardenAll
+    const proc = document.createElement('div');
+    proc.id = 'proc-apply';
+    proc.className = 'ai-response fade-in';
+    proc.innerHTML = `
+      <div class="thinking-card" id="proc-apply-card">
+        <div class="thinking-header">
+          <div class="thinking-header-left">
+            <div class="loader-icon">
+              <img class="loader-spin" id="proc-apply-loader" src="../uploads/deployment-overview/icon-loader.svg" alt="" width="16" height="16">
+            </div>
+            <span class="thinking-title" id="proc-apply-title">Applying hardening changes...</span>
+          </div>
+        </div>
+        <div class="thinking-body" id="proc-apply-body"></div>
+      </div>
+    `;
+    document.getElementById('chat-area').appendChild(proc);
     scrollBottom();
+
+    const APPLY_STEPS = [
+      { icon: '../uploads/deployment-overview/icon-shield.svg',       text: 'Verifying eligibility for Emma, Noah, and Ella…',    startMs: 400,  runMs: 1000 },
+      { icon: '../uploads/deployment-overview/icon-lock-keyhole.svg', text: 'Enforcing MFA on all 3 agents…',                      startMs: 1500, runMs: 1200 },
+      { icon: '../uploads/deployment-overview/icon-versioning.svg',   text: 'Restricting scopes to approved lists…',               startMs: 2800, runMs: 1000 },
+      { icon: '../uploads/deployment-overview/icon-mark-done.svg',    text: 'Writing policy changes to IAM engine…',               startMs: 3900, runMs: 1100 },
+    ];
+    const APPLY_TOTAL = 5200;
+
+    const applyBody = document.getElementById('proc-apply-body');
+
+    APPLY_STEPS.forEach((s, i) => {
+      if (i > 0) {
+        const conn = document.createElement('div');
+        conn.className = 'step-connector';
+        conn.innerHTML = `<img src="../uploads/deployment-overview/icon-connector.svg" width="16" height="19.5">`;
+        applyBody.appendChild(conn);
+        setTimeout(() => conn.classList.add('visible'), s.startMs + 50);
+      }
+      const el = document.createElement('div');
+      el.className = 'thinking-step';
+      el.innerHTML = `<img src="${s.icon}" width="16" height="16"><span class="thinking-step-text">${s.text}</span>`;
+      applyBody.appendChild(el);
+      setTimeout(() => { el.classList.add('visible', 'step-active'); scrollBottom(); }, s.startMs + 50);
+      setTimeout(() => { el.classList.remove('step-active'); el.classList.add('step-done'); }, s.startMs + s.runMs);
+    });
+
+    // Mark done — collapse like the first card
+    setTimeout(() => {
+      const card = document.getElementById('proc-apply-card');
+      card.classList.add('done');
+      document.getElementById('proc-apply-title').textContent = 'Hardening applied to 3 agents';
+      const loader = document.getElementById('proc-apply-loader');
+      loader.classList.remove('loader-spin');
+      loader.src = '../uploads/deployment-overview/icon-mark-done.svg';
+      applyBody.style.display = 'none';
+      scrollBottom();
+    }, APPLY_TOTAL);
+
+    // Stream in ai-block-4
+    setTimeout(() => {
+      document.getElementById('proc-apply').remove();
+
+      const block4 = document.getElementById('ai-block-4');
+      block4.classList.remove('hidden');
+      block4.style.opacity = '0';
+      block4.style.transition = 'opacity 180ms ease';
+      requestAnimationFrame(() => requestAnimationFrame(() => { block4.style.opacity = '1'; }));
+      scrollBottom();
+
+      function streamEl4(el, delay) {
+        if (!el) return;
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(7px)';
+        el.style.transition = 'opacity 300ms ease, transform 300ms cubic-bezier(0.22,1,0.36,1)';
+        setTimeout(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+          scrollBottom();
+        }, delay);
+      }
+
+      const desc    = block4.querySelector('.ai-description');
+      const items   = block4.querySelectorAll('.result-item');
+      const cta     = block4.querySelector('.chat-action-block');
+
+      [desc, cta].forEach(el => {
+        if (!el) return;
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(7px)';
+        el.style.transition = 'opacity 300ms ease, transform 300ms cubic-bezier(0.22,1,0.36,1)';
+      });
+      items.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(7px)';
+        el.style.transition = 'opacity 300ms ease, transform 300ms cubic-bezier(0.22,1,0.36,1)';
+      });
+
+      let t = 120;
+      streamEl4(desc, t);  t += 400;
+      items.forEach(el => { streamEl4(el, t); t += 280; });
+      t += 200;
+      streamEl4(cta, t);
+
+    }, APPLY_TOTAL + 600);
   };
 
   // ── SIDE PANEL ──────────────────────────────────────────
