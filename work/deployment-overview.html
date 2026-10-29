@@ -70,7 +70,7 @@
   .nav-icon-area img { width: 18px; height: 18px; display: block; }
   .nav-item--active .nav-icon-area { background: #cce4ff; }
   .nav-label {
-    font-size: 10.5px; font-weight: 400; color: #676879; text-align: center;
+    font-size: 11px; font-weight: 400; color: #676879; text-align: center;
     line-height: 12px; letter-spacing: -0.315px; white-space: nowrap;
     overflow: hidden; text-overflow: ellipsis; min-width: 100%;
   }
@@ -270,7 +270,7 @@
   .owner-initials .oi-ring { position: absolute; width: 31px; height: 31px; top: -0.5px; left: -0.5px; display: block; }
   .owner-initials .oi-text {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    font-family: 'Poppins', sans-serif; font-size: 9px; font-weight: 500;
+    font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 500;
     color: white; letter-spacing: -0.04em;
   }
   .owner-empty { width: 30px; height: 30px; display: block; flex-shrink: 0; }
@@ -353,20 +353,47 @@
     text-transform: uppercase; letter-spacing: 0.04em;
   }
   .plan-item {
-    display: flex; align-items: flex-start; gap: 10px;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
     padding: 10px 12px; border-radius: 8px; border: 1px solid #e7e9ef; background: white;
     opacity: 0; transform: translateY(6px); transition: opacity 280ms ease, transform 280ms cubic-bezier(0.22,1,0.36,1);
+    cursor: pointer;
   }
+  .plan-item:hover { background: #fafbff; }
   .plan-item.visible { opacity: 1; transform: translateY(0); }
   .plan-icon {
     width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
   }
   .plan-icon.eligible { background: #D5F5E6; }
   .plan-icon.blocked { background: #FFE0E5; }
-  .plan-item-body { display: flex; flex-direction: column; gap: 2px; }
-  .plan-item-name { font-size: 14px; font-weight: 500; color: #323338; user-select: text; cursor: text; }
-  .plan-item-reason { font-size: 13px; color: #676879; line-height: 18px; user-select: text; cursor: text; }
+  .plan-item-body { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+  .plan-item-name { font-size: 14px; font-weight: 500; color: #323338; user-select: none; }
+  .plan-item-role { font-size: 12px; font-weight: 400; color: #9699A6; margin-left: 5px; }
+  .plan-item-reason { font-size: 13px; color: #676879; line-height: 18px; user-select: none; }
+  .plan-chevron {
+    width: 14px; height: 14px; flex-shrink: 0; color: #c5c7d0;
+    transition: transform 200ms ease, color 150ms ease;
+  }
+  .plan-item:hover .plan-chevron { color: #9699A6; }
+  .plan-item.expanded .plan-chevron { transform: rotate(180deg); color: #676879; }
+  .plan-item-detail {
+    display: none; flex: 0 0 100%; padding: 10px 0 2px 30px;
+    border-top: 1px solid #f0f1f7; margin-top: 2px;
+  }
+  .plan-item.expanded .plan-item-detail { display: flex; flex-direction: column; gap: 5px; }
+  .plan-detail-row { display: flex; align-items: baseline; gap: 6px; font-size: 12px; line-height: 1.5; }
+  .plan-detail-lbl { color: #9699A6; flex-shrink: 0; min-width: 72px; }
+  .plan-detail-val { color: #323338; }
+  .plan-detail-arrow { color: #c5c7d0; margin: 0 2px; }
+  .plan-detail-after { color: #037F4C; font-weight: 500; }
+  .plan-action-btn {
+    display: inline-flex; align-items: center;
+    padding: 4px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;
+    white-space: nowrap; flex-shrink: 0; cursor: pointer; text-decoration: none;
+    background: white; border: 1px solid #e0e3ee; color: #323338;
+    transition: background 120ms ease, border-color 120ms ease;
+  }
+  .plan-action-btn:hover { background: #F5F6F8; border-color: #c5c7d0; }
 
   /* ── SOURCES ── */
   .sources-row {
@@ -894,7 +921,7 @@
               </button>
               <button class="chat-action-btn chat-action-btn-primary" id="btn-harden-all" onclick="stepHardenAll()">
                 <img src="../uploads/deployment-overview/icon-enter-arrow.svg" class="enter-arrow" alt="" width="16" height="16" style="filter:brightness(0) invert(1)">
-                Harden all 6 agents
+                Review hardening plan
               </button>
             </div>
           </div>
@@ -932,15 +959,33 @@
             <div class="plan-section-title">3 Eligible — ready to apply</div>
             <div class="plan-item">
               <div class="plan-icon eligible"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="plan-item-body"><span class="plan-item-name">Emma</span><span class="plan-item-reason">Apply MFA enforcement + restrict Google Ads write scope to approved lists</span></div>
+              <div class="plan-item-body"><span class="plan-item-name">Emma<span class="plan-item-role">Campaign tracker</span></span><span class="plan-item-reason">Apply MFA enforcement + restrict Google Ads write scope to approved lists</span></div>
+              <svg class="plan-chevron" viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="plan-item-detail">
+                <div class="plan-detail-row"><span class="plan-detail-lbl">Google Ads API</span><span class="plan-detail-val">write + admin <span class="plan-detail-arrow">→</span> <span class="plan-detail-after">read-only · approved-lists</span></span></div>
+                <div class="plan-detail-row"><span class="plan-detail-lbl">MFA</span><span class="plan-detail-val">not enforced <span class="plan-detail-arrow">→</span> <span class="plan-detail-after">required</span></span></div>
+                <div class="plan-detail-row"><span class="plan-detail-lbl">Source</span><span class="plan-detail-val" style="color:#9699A6">Okta Scopes API · Agent Registry</span></div>
+              </div>
             </div>
             <div class="plan-item">
               <div class="plan-icon eligible"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="plan-item-body"><span class="plan-item-name">Noah</span><span class="plan-item-reason">Apply MFA enforcement + limit HubSpot access to read-only for non-deal records</span></div>
+              <div class="plan-item-body"><span class="plan-item-name">Noah<span class="plan-item-role">Content scheduler</span></span><span class="plan-item-reason">Apply MFA enforcement + limit HubSpot access to read-only for non-deal records</span></div>
+              <svg class="plan-chevron" viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="plan-item-detail">
+                <div class="plan-detail-row"><span class="plan-detail-lbl">HubSpot API</span><span class="plan-detail-val">full-access <span class="plan-detail-arrow">→</span> <span class="plan-detail-after">read-only (non-deal records)</span></span></div>
+                <div class="plan-detail-row"><span class="plan-detail-lbl">MFA</span><span class="plan-detail-val">not enforced <span class="plan-detail-arrow">→</span> <span class="plan-detail-after">required</span></span></div>
+                <div class="plan-detail-row"><span class="plan-detail-lbl">Source</span><span class="plan-detail-val" style="color:#9699A6">Okta Scopes API · Agent Registry</span></div>
+              </div>
             </div>
             <div class="plan-item">
               <div class="plan-icon eligible"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="plan-item-body"><span class="plan-item-name">Ella</span><span class="plan-item-reason">Already has active policy — refresh token rotation schedule to 30 days</span></div>
+              <div class="plan-item-body"><span class="plan-item-name">Ella<span class="plan-item-role">Analytics reader</span></span><span class="plan-item-reason">Already has active policy — refresh token rotation schedule to 30 days</span></div>
+              <svg class="plan-chevron" viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="plan-item-detail">
+                <div class="plan-detail-row"><span class="plan-detail-lbl">Token rotation</span><span class="plan-detail-val">90 days <span class="plan-detail-arrow">→</span> <span class="plan-detail-after">30 days</span></span></div>
+                <div class="plan-detail-row"><span class="plan-detail-lbl">Policy</span><span class="plan-detail-val">active since Aug 2026</span></div>
+                <div class="plan-detail-row"><span class="plan-detail-lbl">Source</span><span class="plan-detail-val" style="color:#9699A6">IAM Policy Engine</span></div>
+              </div>
             </div>
           </div>
 
@@ -948,15 +993,36 @@
             <div class="plan-section-title">3 Blocked — requires manual review</div>
             <div class="plan-item">
               <div class="plan-icon blocked"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 9L3 3" stroke="#DF2F4A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-              <div class="plan-item-body"><span class="plan-item-name">Lucas</span><span class="plan-item-reason">Owner was offboarded — no active owner to approve policy changes</span></div>
+              <div class="plan-item-body"><span class="plan-item-name">Lucas<span class="plan-item-role">Social monitor</span></span><span class="plan-item-reason">Owner was offboarded — no active owner to approve policy changes</span></div>
+              <svg class="plan-chevron" viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="plan-action-btn plan-action-assign" onclick="event.stopPropagation()">Assign new owner →</span>
+              <div class="plan-item-detail">
+                <div class="plan-detail-row"><span class="plan-detail-lbl">Owner</span><span class="plan-detail-val">Daniel S. · offboarded Oct 12, 2026</span></div>
+                <div class="plan-detail-row"><span class="plan-detail-lbl">Blocker</span><span class="plan-detail-val">active owner required to authorize policy changes</span></div>
+                <div class="plan-detail-row"><span class="plan-detail-lbl">Source</span><span class="plan-detail-val" style="color:#9699A6">HR Directory</span></div>
+              </div>
             </div>
             <div class="plan-item">
               <div class="plan-icon blocked"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 9L3 3" stroke="#DF2F4A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-              <div class="plan-item-body"><span class="plan-item-name">Aria</span><span class="plan-item-reason">App was discovered (not provisioned) — Mailchimp access must be reviewed first</span></div>
+              <div class="plan-item-body"><span class="plan-item-name">Aria<span class="plan-item-role">Email automator</span></span><span class="plan-item-reason">App was discovered (not provisioned) — Mailchimp access must be reviewed first</span></div>
+              <svg class="plan-chevron" viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="plan-action-btn plan-action-catalog" onclick="event.stopPropagation()">Review in App Catalog →</span>
+              <div class="plan-item-detail">
+                <div class="plan-detail-row"><span class="plan-detail-lbl">App</span><span class="plan-detail-val">Mailchimp · status: Discovered (Shadow IT)</span></div>
+                <div class="plan-detail-row"><span class="plan-detail-lbl">Detected</span><span class="plan-detail-val">Oct 5, 2026 via catalog scan</span></div>
+                <div class="plan-detail-row"><span class="plan-detail-lbl">Source</span><span class="plan-detail-val" style="color:#9699A6">App Catalog</span></div>
+              </div>
             </div>
             <div class="plan-item">
               <div class="plan-icon blocked"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 9L3 3" stroke="#DF2F4A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-              <div class="plan-item-body"><span class="plan-item-name">Mia</span><span class="plan-item-reason">No HR record found — identity cannot be verified before hardening Salesforce access</span></div>
+              <div class="plan-item-body"><span class="plan-item-name">Mia<span class="plan-item-role">Lead qualifier</span></span><span class="plan-item-reason">No HR record found — identity cannot be verified before hardening Salesforce access</span></div>
+              <svg class="plan-chevron" viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="plan-action-btn plan-action-resolve" onclick="event.stopPropagation()">Resolve identity gap →</span>
+              <div class="plan-item-detail">
+                <div class="plan-detail-row"><span class="plan-detail-lbl">Identity</span><span class="plan-detail-val">no Workday HR record found</span></div>
+                <div class="plan-detail-row"><span class="plan-detail-lbl">Last checked</span><span class="plan-detail-val">Oct 29, 2026</span></div>
+                <div class="plan-detail-row"><span class="plan-detail-lbl">Source</span><span class="plan-detail-val" style="color:#9699A6">HR Directory · Workday</span></div>
+              </div>
             </div>
           </div>
 
@@ -972,7 +1038,7 @@
                   Export report
                 </button>
                 <button class="chat-action-btn chat-action-btn-primary" id="btn-apply" onclick="stepApply()">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0"><path d="M13 4L6 11.5L3 8.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <img src="../uploads/deployment-overview/icon-enter-arrow.svg" class="enter-arrow" alt="" width="16" height="16" style="filter:brightness(0) invert(1)">
                   Apply to 3 eligible now
                 </button>
               </div>
@@ -1331,6 +1397,14 @@ const SOURCE_DATA = {
 
 // ─────────────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
+
+  // Plan item expand/collapse
+  document.addEventListener('click', function(e) {
+    const item = e.target.closest('.plan-item');
+    if (!item) return;
+    if (e.target.closest('.plan-action-btn')) return;
+    item.classList.toggle('expanded');
+  });
 
   const PROC_STEPS = [
     { icon: '../uploads/deployment-overview/icon-search.svg',      text: 'Scanning agents owned by Marketing',         startMs: 0,    runMs: 1400 },

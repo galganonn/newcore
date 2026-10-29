@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "work/deployment-overview.html"
+        ],
+        "createdAt": "2026-10-29T11:21:03.638Z",
+        "reason": "Intentional design system choice — #9699a6 is the project designated secondary text color per CLAUDE.md"
+      }
+    ]
+  }
+}
