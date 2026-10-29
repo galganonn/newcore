@@ -486,32 +486,22 @@
   .sp-last-sync { font-size: 11px; color: #9699A6; }
 
   /* ── RESULT ITEMS ── */
-  .result-list { display: flex; flex-direction: column; gap: 8px; }
+  .result-list { display: flex; flex-direction: column; gap: 6px; }
+  .result-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; border-radius: 8px; border: 1px solid #e7e9ef; background: white;
+  }
   .result-icon {
     width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
   }
   .result-icon.success { background: #D5F5E6; }
   .result-icon.pending { background: #FFEFD6; }
-  /* Agent group card */
-  .result-agent-group {
-    border: 1px solid #e7e9ef; border-radius: 10px; background: white; overflow: hidden;
-  }
-  .result-agent-header {
-    display: flex; align-items: center; gap: 8px;
-    padding: 10px 14px 8px; border-bottom: 1px solid #f0f1f7;
-  }
-  .result-agent-name { font-size: 14px; font-weight: 600; color: #323338; }
-  .result-agent-role { font-size: 12px; color: #9699A6; margin-left: 2px; }
-  /* Change rows */
-  .result-change-row {
-    display: flex; align-items: center; gap: 12px;
-    padding: 10px 14px; border-bottom: 1px solid #f0f1f7;
-  }
-  .result-change-row:last-child { border-bottom: none; }
-  .result-change-meta { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
-  .result-change-field { font-size: 13px; font-weight: 500; color: #323338; }
-  .result-change-rationale { font-size: 11px; color: #9699A6; line-height: 1.4; }
+  .result-item-name { font-size: 14px; font-weight: 500; color: #323338; flex-shrink: 0; }
+  .result-item-status { font-size: 12px; font-weight: 500; }
+  .result-item-status.ok { color: #037F4C; }
+  .result-item-status.flagged { color: #B26A00; }
+  /* Shared pills — used in section 2 plan change preview */
   .result-change-values { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
   .result-val-before {
     font-size: 12px; color: #676879; background: #F5F6F8;
@@ -1175,84 +1165,17 @@
           <p class="ai-description" style="display:flex;align-items:flex-start;gap:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="12" fill="#EEF2FF"/><rect x="11" y="1.5" width="2" height="3.5" rx="1" fill="#818CF8"/><circle cx="12" cy="1.5" r="1.5" fill="#6366F1"/><rect x="4" y="6.5" width="16" height="12" rx="3" fill="white" stroke="#C7D2FE" stroke-width="1"/><circle cx="9" cy="11.5" r="2" fill="#6366F1"/><circle cx="15" cy="11.5" r="2" fill="#6366F1"/><circle cx="9.7" cy="10.9" r="0.7" fill="white"/><circle cx="15.7" cy="10.9" r="0.7" fill="white"/><path d="M9 14.5 Q12 16.5 15 14.5" stroke="#6366F1" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg><span>Done. Hardening applied to <strong>Emma, Noah, and Ella</strong>.</span></p>
 
           <div class="result-list">
-            <!-- Emma -->
-            <div class="result-agent-group">
-              <div class="result-agent-header">
-                <div class="result-icon success"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                <span class="result-agent-name">Emma</span>
-                <span class="result-agent-role">Content scheduler</span>
-              </div>
-              <div class="result-change-row">
-                <div class="result-change-meta">
-                  <span class="result-change-field">Write access</span>
-                  <span class="result-change-rationale">Agent had admin-level write access to Google Ads</span>
-                </div>
-                <div class="result-change-values">
-                  <span class="result-val-before">write+admin</span>
-                  <span class="result-val-arrow">→</span>
-                  <span class="result-val-after">read-only · approved-lists</span>
-                </div>
-              </div>
-              <div class="result-change-row">
-                <div class="result-change-meta">
-                  <span class="result-change-field">Authentication</span>
-                  <span class="result-change-rationale">No MFA enforced on API credentials</span>
-                </div>
-                <div class="result-change-values">
-                  <span class="result-val-before">None</span>
-                  <span class="result-val-arrow">→</span>
-                  <span class="result-val-after">MFA enforced</span>
-                </div>
-              </div>
+            <div class="result-item">
+              <div class="result-icon success"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="result-item-name">Emma</span><span class="result-item-status ok" style="margin-left:6px">Write access restricted · MFA enforced</span>
             </div>
-            <!-- Noah -->
-            <div class="result-agent-group">
-              <div class="result-agent-header">
-                <div class="result-icon success"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                <span class="result-agent-name">Noah</span>
-                <span class="result-agent-role">Campaign scheduler</span>
-              </div>
-              <div class="result-change-row">
-                <div class="result-change-meta">
-                  <span class="result-change-field">CRM access</span>
-                  <span class="result-change-rationale">Agent had full access including sensitive deal records</span>
-                </div>
-                <div class="result-change-values">
-                  <span class="result-val-before">full-access</span>
-                  <span class="result-val-arrow">→</span>
-                  <span class="result-val-after">read-only (non-deal)</span>
-                </div>
-              </div>
-              <div class="result-change-row">
-                <div class="result-change-meta">
-                  <span class="result-change-field">Authentication</span>
-                  <span class="result-change-rationale">No MFA enforced on API credentials</span>
-                </div>
-                <div class="result-change-values">
-                  <span class="result-val-before">None</span>
-                  <span class="result-val-arrow">→</span>
-                  <span class="result-val-after">MFA enforced</span>
-                </div>
-              </div>
+            <div class="result-item">
+              <div class="result-icon success"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="result-item-name">Noah</span><span class="result-item-status ok" style="margin-left:6px">CRM access restricted · MFA enforced</span>
             </div>
-            <!-- Ella -->
-            <div class="result-agent-group">
-              <div class="result-agent-header">
-                <div class="result-icon success"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                <span class="result-agent-name">Ella</span>
-                <span class="result-agent-role">Analytics reporter</span>
-              </div>
-              <div class="result-change-row">
-                <div class="result-change-meta">
-                  <span class="result-change-field">Session length</span>
-                  <span class="result-change-rationale">Credentials set to expire every 90 days — above policy limit</span>
-                </div>
-                <div class="result-change-values">
-                  <span class="result-val-before">90 days</span>
-                  <span class="result-val-arrow">→</span>
-                  <span class="result-val-after">30 days</span>
-                </div>
-              </div>
+            <div class="result-item">
+              <div class="result-icon success"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="result-item-name">Ella</span><span class="result-item-status ok" style="margin-left:6px">Token rotation updated to 30 days</span>
             </div>
           </div>
 
@@ -1878,11 +1801,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }, delay);
       }
 
-      const desc   = block4.querySelector('.ai-description');
-      const groups = block4.querySelectorAll('.result-agent-group');
-      const cta    = block4.querySelector('.chat-action-block');
+      const desc  = block4.querySelector('.ai-description');
+      const items = block4.querySelectorAll('.result-item');
+      const cta   = block4.querySelector('.chat-action-block');
 
-      [desc, cta, ...groups].forEach(el => {
+      [desc, cta, ...items].forEach(el => {
         if (!el) return;
         el.style.opacity = '0';
         el.style.transform = 'translateY(7px)';
@@ -1891,7 +1814,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       let t = 120;
       streamEl4(desc, t);  t += 400;
-      groups.forEach(el => { streamEl4(el, t); t += 320; });
+      items.forEach(el => { streamEl4(el, t); t += 240; });
       t += 200;
       streamEl4(cta, t);
 
