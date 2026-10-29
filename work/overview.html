@@ -174,6 +174,12 @@
     text-decoration: none;
   }
   .piper-chip:hover { background: #eef2ff; border-color: #c7d2fe; color: #4338ca; }
+  .piper-send {
+    width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+    background: #0073EA; color: white; border: none; border-radius: 8px; cursor: pointer;
+    flex-shrink: 0; transition: background 140ms ease, opacity 140ms ease;
+  }
+  .piper-send:hover { background: #0060c7; }
 
   /* ── WIDGETS CONTAINER ── */
   .widgets-frame {
@@ -455,7 +461,10 @@
                 <img src="../uploads/deployment-overview/ai-spark.svg" alt="" width="18" height="18">
               </div>
               <input class="piper-input" type="text" placeholder="Ask about any identity, policy or access path across your estate" id="piper-input" autocomplete="off">
-              <span class="piper-kbd">⌘K</span>
+              <span class="piper-kbd" id="piper-kbd">⌘K</span>
+              <button class="piper-send" id="piper-send" style="display:none;" aria-label="Send">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 13V3M3 8l5-5 5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
             </div>
             <div class="piper-suggestions">
               <a class="piper-chip" href="deployment-overview.html">Why did posture drop to C+ this week?</a>
@@ -615,11 +624,60 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const input = document.getElementById('piper-input');
-  input.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && input.value.trim()) {
-      window.location.href = 'deployment-overview.html';
+  const kbd = document.getElementById('piper-kbd');
+  const sendBtn = document.getElementById('piper-send');
+  const TARGET = 'I want to harden the access of my marketing agents';
+  let typing = false;
+
+  function showSend(show) {
+    sendBtn.style.display = show ? 'flex' : 'none';
+    kbd.style.display = show ? 'none' : '';
+  }
+
+  function navigate() {
+    window.location.href = 'deployment-overview.html';
+  }
+
+  let resetTimer = null;
+
+  function typeWriter() {
+    if (typing) return;
+    typing = true;
+    clearTimeout(resetTimer);
+    input.value = '';
+    showSend(false);
+    let i = 0;
+    const interval = setInterval(() => {
+      input.value += TARGET[i];
+      i++;
+      if (i >= TARGET.length) {
+        clearInterval(interval);
+        typing = false;
+        showSend(true);
+      }
+    }, 28);
+  }
+
+  input.addEventListener('focus', () => {
+    if (!input.value) typeWriter();
+  });
+
+  input.addEventListener('input', () => {
+    if (typing) return;
+    const has = input.value.trim().length > 0;
+    showSend(has);
+    if (!has) {
+      resetTimer = setTimeout(typeWriter, 600);
+    } else {
+      clearTimeout(resetTimer);
     }
   });
+
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && input.value.trim()) navigate();
+  });
+
+  sendBtn.addEventListener('click', navigate);
 
   document.addEventListener('keydown', e => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
