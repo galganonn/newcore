@@ -155,25 +155,25 @@
   .thinking-card {
     border: 1px solid #d0d4e4; border-radius: 12px; background: white; overflow: hidden;
   }
-  /* Done state — subtle inline row, no card border */
-  .thinking-card.done {
-    border: none; border-radius: 0; background: transparent;
-  }
   .thinking-header {
     display: flex; align-items: center; justify-content: space-between;
     padding: 14px 16px; cursor: pointer; user-select: none;
-  }
-  .thinking-card.done .thinking-header {
-    padding: 0; gap: 4px;
   }
   .thinking-card:not(.done) .thinking-header { border-bottom: 1px solid #d0d4e4; }
   .thinking-header-left { display: flex; align-items: center; gap: 8px; }
   .loader-icon { width: 16px; height: 16px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
   .loader-icon img { width: 16px; height: 16px; display: block; }
   .thinking-title { font-size: 16px; font-weight: 400; color: #121212; white-space: nowrap; }
-  .thinking-card.done .thinking-title { font-size: 13px; color: #676879; }
   .chevron-icon img { width: 20px; height: 20px; display: block; transition: transform 200ms ease; }
-  .thinking-card.done .chevron-icon img { width: 14px; height: 14px; opacity: 0.5; }
+  /* Done + collapsed: subtle inline row */
+  .thinking-card.done.is-collapsed {
+    border: none; border-radius: 0; background: transparent;
+  }
+  .thinking-card.done.is-collapsed .thinking-header {
+    padding: 0; justify-content: flex-start; gap: 6px;
+  }
+  .thinking-card.done.is-collapsed .thinking-title { font-size: 13px; color: #676879; }
+  .thinking-card.done.is-collapsed .chevron-icon img { width: 14px; height: 14px; opacity: 0.5; }
 
   .thinking-body { display: flex; flex-direction: column; gap: 2px; padding: 24px; }
   .thinking-step {
@@ -1556,7 +1556,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loaderImg.classList.remove('loader-spin');
     loaderImg.src = '../uploads/deployment-overview/icon-mark-done.svg';
     thinkingTitle.textContent = 'Analyzed your marketing agents';
-    thinkingCard.classList.add('done');
+    thinkingCard.classList.add('done', 'is-collapsed');
 
     chevronImg.style.transform = 'rotate(-90deg)';
     thinkingBody.style.display = 'none';
@@ -1585,6 +1585,7 @@ document.addEventListener('DOMContentLoaded', function() {
     thinkingBody.style.display = thinkingExpanded ? '' : 'none';
     chevronImg.style.transform = thinkingExpanded ? '' : 'rotate(-90deg)';
     thinkingToggle.setAttribute('aria-expanded', String(thinkingExpanded));
+    thinkingCard.classList.toggle('is-collapsed', !thinkingExpanded);
   });
 
   function scrollBottom() {
