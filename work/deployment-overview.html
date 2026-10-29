@@ -1628,18 +1628,29 @@ document.addEventListener('DOMContentLoaded', function() {
     proc.className = 'ai-response fade-in';
     proc.innerHTML = `
       <div class="thinking-card" id="proc-card">
-        <div class="thinking-header">
+        <div class="thinking-header" id="proc-toggle" role="button" aria-expanded="true" aria-controls="proc-body" style="cursor:pointer">
           <div class="thinking-header-left">
             <div class="loader-icon">
               <img class="loader-spin" id="proc-loader" src="../uploads/deployment-overview/icon-loader.svg" alt="" width="16" height="16">
             </div>
             <span class="thinking-title" id="proc-title">Hardening agents...</span>
           </div>
+          <div class="chevron-icon">
+            <img src="../uploads/deployment-overview/icon-chevron-down.svg" alt="" width="20" height="20" id="proc-chevron-img">
+          </div>
         </div>
         <div class="thinking-body" id="proc-body"></div>
       </div>
     `;
     document.getElementById('ai-block-3').before(proc);
+
+    let procExpanded = true;
+    document.getElementById('proc-toggle').addEventListener('click', function() {
+      procExpanded = !procExpanded;
+      document.getElementById('proc-body').style.display = procExpanded ? '' : 'none';
+      document.getElementById('proc-chevron-img').style.transform = procExpanded ? '' : 'rotate(-90deg)';
+      document.getElementById('proc-card').classList.toggle('is-collapsed', !procExpanded);
+    });
 
     const HARDEN_STEPS = [
       { icon: '../uploads/deployment-overview/icon-shield.svg',       text: 'Applying MFA enforcement to Emma, Noah, and Ella…', startMs: 450,  runMs: 1350 },
@@ -1676,11 +1687,14 @@ document.addEventListener('DOMContentLoaded', function() {
       loader.classList.remove('loader-spin');
       loader.src = '../uploads/deployment-overview/icon-mark-done.svg';
       procBody.style.display = 'none';
+      procExpanded = false;
     }, HARDEN_TOTAL);
 
     // Stream in ai-block-3 content piece by piece
     setTimeout(() => {
       const block3 = document.getElementById('ai-block-3');
+      // Move proc inside block3, between description and plan items
+      block3.querySelector('.ai-description').after(proc);
       block3.classList.remove('hidden');
       block3.style.opacity = '0';
       block3.style.transition = 'opacity 180ms ease';
@@ -1755,18 +1769,29 @@ document.addEventListener('DOMContentLoaded', function() {
     proc.className = 'ai-response fade-in';
     proc.innerHTML = `
       <div class="thinking-card" id="proc-apply-card">
-        <div class="thinking-header">
+        <div class="thinking-header" id="proc-apply-toggle" role="button" aria-expanded="true" aria-controls="proc-apply-body" style="cursor:pointer">
           <div class="thinking-header-left">
             <div class="loader-icon">
               <img class="loader-spin" id="proc-apply-loader" src="../uploads/deployment-overview/icon-loader.svg" alt="" width="16" height="16">
             </div>
             <span class="thinking-title" id="proc-apply-title">Applying hardening changes...</span>
           </div>
+          <div class="chevron-icon">
+            <img src="../uploads/deployment-overview/icon-chevron-down.svg" alt="" width="20" height="20" id="proc-apply-chevron-img">
+          </div>
         </div>
         <div class="thinking-body" id="proc-apply-body"></div>
       </div>
     `;
     document.getElementById('ai-block-4').before(proc);
+
+    let applyExpanded = true;
+    document.getElementById('proc-apply-toggle').addEventListener('click', function() {
+      applyExpanded = !applyExpanded;
+      document.getElementById('proc-apply-body').style.display = applyExpanded ? '' : 'none';
+      document.getElementById('proc-apply-chevron-img').style.transform = applyExpanded ? '' : 'rotate(-90deg)';
+      document.getElementById('proc-apply-card').classList.toggle('is-collapsed', !applyExpanded);
+    });
 
     const APPLY_STEPS = [
       { icon: '../uploads/deployment-overview/icon-shield.svg',       text: 'Verifying eligibility for Emma, Noah, and Ella…',    startMs: 400,  runMs: 1000 },
@@ -1803,11 +1828,14 @@ document.addEventListener('DOMContentLoaded', function() {
       loader.classList.remove('loader-spin');
       loader.src = '../uploads/deployment-overview/icon-mark-done.svg';
       applyBody.style.display = 'none';
+      applyExpanded = false;
     }, APPLY_TOTAL);
 
     // Stream in ai-block-4
     setTimeout(() => {
       const block4 = document.getElementById('ai-block-4');
+      // Move proc inside block4, between description and result list
+      block4.querySelector('.ai-description').after(proc);
       block4.classList.remove('hidden');
       block4.style.opacity = '0';
       block4.style.transition = 'opacity 180ms ease';
