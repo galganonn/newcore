@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NewCore IAM — Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: #f6f7fb;
+    font-family: 'Figtree', system-ui, sans-serif;
+    color: #323338;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ── TOP BAR ── */
+  .top-bar {
+    display: flex; align-items: center; gap: 16px;
+    height: 48px; padding: 8px 12px 8px 20px;
+    flex-shrink: 0; z-index: 2; position: relative;
+  }
+  .top-bar-left { flex: 1; display: flex; align-items: center; padding-top: 4px; }
+  .brand-mark { width: 24px; height: 24px; display: block; }
+  .top-bar-right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+  .top-bar-icons { display: flex; gap: 4px; align-items: center; }
+  .icon-btn {
+    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+    border-radius: 4px; cursor: pointer; border: none; background: transparent;
+    transition: background 140ms ease;
+  }
+  .icon-btn:hover { background: rgba(0,0,0,0.06); }
+  .icon-btn img { width: 20px; height: 20px; }
+  .top-bar-divider { width: 1px; height: 28px; background: #d0d4e4; flex-shrink: 0; }
+  .avatar-wrap { width: 32px; height: 32px; border-radius: 100px; overflow: hidden; flex-shrink: 0; }
+  .avatar-wrap img { width: 32px; height: 32px; display: block; }
+
+  /* ── MAIN AREA ── */
+  .main-area { display: flex; flex: 1; min-height: 0; position: relative; z-index: 1; }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 12px; padding: 8px 8px 2px; flex-shrink: 0; z-index: 2; position: relative;
+  }
+  .sidebar-inner {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: space-between; flex: 1; width: 56px;
+  }
+  .sidebar-top { display: flex; flex-direction: column; gap: 4px; width: 100%; }
+  .sidebar-group { display: flex; flex-direction: column; gap: 4px; width: 100%; }
+  .sidebar-divider { display: flex; flex-direction: column; align-items: flex-start; padding: 12px 8px 8px; width: 100%; }
+  .sidebar-divider-line { width: 100%; height: 1px; background: #d0d4e4; }
+  .nav-item {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    padding: 4px 0 8px; border-radius: 8px; width: 100%;
+    cursor: pointer; position: relative; transition: background 140ms ease;
+  }
+  .nav-item:hover { background: rgba(0,0,0,0.04); }
+  .nav-icon-area {
+    width: 32px; height: 32px; display: flex; align-items: center;
+    justify-content: center; border-radius: 8px; padding: 6px; flex-shrink: 0;
+  }
+  .nav-icon-area img { width: 18px; height: 18px; display: block; }
+  .nav-item--active .nav-icon-area { background: #cce4ff; }
+  .nav-label {
+    font-size: 10.5px; font-weight: 400; color: #676879; text-align: center;
+    line-height: 12px; letter-spacing: -0.315px; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; min-width: 100%;
+  }
+  .nav-item--active .nav-label { font-weight: 500; color: #323338; }
+
+  /* ── CONTENT PANEL ── */
+  .content-panel {
+    flex: 1; min-width: 0;
+    background: linear-gradient(175.9deg, rgba(255, 255, 255, 0.85) 0%, rgba(236, 239, 248, 0.85) 78.641%);
+    border-top-left-radius: 16px; border-left: 1px solid #e7e9ef; border-top: 1px solid #e7e9ef;
+    display: flex; flex-direction: column; overflow: hidden; position: relative; z-index: 1;
+  }
+  .content-glow {
+    position: absolute; width: 923px; height: 897px;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    pointer-events: none; z-index: 0;
+  }
+  .content-glow img {
+    width: 1524px; height: 1498px; position: absolute;
+    left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: none;
+  }
+
+  /* ── OVERVIEW SCROLL AREA ── */
+  .overview-scroll {
+    flex: 1; min-height: 0; overflow-y: auto; padding: 32px 40px 40px;
+    display: flex; flex-direction: column; gap: 28px;
+    position: relative; z-index: 1;
+  }
+  .overview-scroll::-webkit-scrollbar { width: 5px; }
+  .overview-scroll::-webkit-scrollbar-track { background: transparent; }
+  .overview-scroll::-webkit-scrollbar-thumb { background: #d0d4e4; border-radius: 10px; }
+
+  /* ── PAGE HEADER ── */
+  .page-header { display: flex; flex-direction: column; gap: 2px; }
+  .page-greeting {
+    font-family: 'Crimson Pro', serif; font-size: 28px; font-weight: 400;
+    font-style: italic; color: #323338; line-height: 24px;
+    white-space: nowrap;
+  }
+
+  /* ── PIPER BAR ── */
+  .piper-frame {
+    background: linear-gradient(180deg, rgba(236,239,248,0.5) 4.19%, rgba(255,255,255,0.5) 32.44%);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid white;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(1,116,235,0.1);
+    padding: 12px;
+    flex-shrink: 0;
+  }
+  .piper-inner {
+    background: white;
+    border-radius: 16px;
+  }
+  .piper-content {
+    padding: 24px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .piper-input-row {
+    display: flex; align-items: center; gap: 10px;
+    background: white; border: 1px solid #e2e6ed; border-radius: 12px;
+    padding: 0 12px 0 10px; height: 50px;
+    box-shadow: 0 3px 10px rgba(121,89,182,0.04);
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+  .piper-input-row:focus-within {
+    border-color: #c7d2fe;
+    box-shadow: 0 3px 10px rgba(121,89,182,0.04), 0 0 0 3px rgba(99,102,241,0.08);
+  }
+  .piper-mark {
+    width: 28px; height: 28px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: #eee7fa; border-radius: 9px;
+  }
+  .piper-mark img { width: 18px; height: 18px; display: block; }
+  .piper-input {
+    flex: 1; border: none; outline: none; background: transparent;
+    font-family: 'Figtree', sans-serif; font-size: 16px; font-weight: 400;
+    color: #323338; line-height: 22px;
+  }
+  .piper-input::placeholder { color: #676879; }
+  .piper-kbd {
+    display: inline-flex; align-items: center;
+    font-family: 'Figtree', sans-serif; font-size: 11px; color: #676879; font-weight: 400;
+    background: #f6f4f7; border: 1px solid #eae5ed;
+    border-radius: 5px; padding: 2px 5px; flex-shrink: 0;
+    white-space: nowrap; line-height: 16px;
+  }
+  .piper-suggestions {
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  }
+  .piper-chip {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 32px; padding: 0 12px; border-radius: 100px;
+    font-family: 'Figtree', sans-serif; font-size: 14px; font-weight: 400;
+    color: #676879; line-height: 20px;
+    background: white; border: 1px solid #eae5ed;
+    cursor: pointer; white-space: nowrap;
+    transition: background 140ms ease, border-color 140ms ease, color 140ms ease;
+    text-decoration: none;
+  }
+  .piper-chip:hover { background: #eef2ff; border-color: #c7d2fe; color: #4338ca; }
+
+  /* ── WIDGETS CONTAINER ── */
+  .widgets-frame {
+    background: rgba(255,255,255,0.6);
+    border-radius: 24px;
+    padding: 24px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+
+  /* ── TOP ROW (3 cards) ── */
+  .widgets-top-row {
+    display: flex; gap: 24px;
+  }
+  .widget-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    flex: 1 0 0; min-width: 0;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .widget-title {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic; font-weight: 400;
+    font-size: 21px; color: #111827;
+    line-height: normal;
+  }
+  .widget-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500; font-size: 38px;
+    color: #111827; line-height: normal;
+  }
+  .widget-number-secondary {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500; font-size: 18px;
+    color: #6b7180; line-height: normal;
+  }
+  .widget-delta {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 500; font-size: 12px;
+    color: #16a347; line-height: normal;
+  }
+  .widget-link {
+    font-family: 'Figtree', sans-serif;
+    font-weight: 400; font-size: 16px;
+    color: #2561eb; line-height: 22px;
+    text-decoration: none;
+  }
+  .widget-link-underline {
+    font-family: 'Figtree', sans-serif;
+    font-weight: 400; font-size: 16px;
+    color: #2561eb; line-height: 22px;
+    text-decoration: underline;
+  }
+  .widget-meta {
+    font-family: 'Figtree', sans-serif;
+    font-weight: 400; font-size: 14px;
+    color: #676879; line-height: 20px;
+  }
+  .widget-body-text {
+    font-family: 'Figtree', sans-serif;
+    font-weight: 400; font-size: 16px;
+    color: #323338; line-height: 22px;
+  }
+
+  /* ── SECURITY POSTURE ── */
+  .posture-body { display: flex; gap: 12px; align-items: center; }
+  .posture-left { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .posture-score { display: flex; gap: 6px; align-items: center; }
+  .posture-sparkline { width: 146px; height: 50px; flex-shrink: 0; }
+  .posture-sparkline img { width: 100%; height: 100%; display: block; }
+
+  /* ── BOTTOM ROW (2 cards) ── */
+  .widgets-bottom-row {
+    display: flex; gap: 24px;
+  }
+
+  /* ── FINDINGS ── */
+  .findings-divider {
+    width: 100%; height: 1px; background: #e2e6ed;
+  }
+  .findings-list {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .finding-item {
+    display: flex; gap: 9px; align-items: center;
+    padding: 4px 0;
+  }
+  .finding-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #dc2626; flex-shrink: 0;
+  }
+
+  /* ── COVERAGE ── */
+  .coverage-row { display: flex; flex-direction: column; }
+  .coverage-header {
+    display: flex; align-items: center;
+  }
+  .coverage-label {
+    flex: 1; min-width: 0;
+    font-family: 'Figtree', sans-serif;
+    font-weight: 400; font-size: 16px;
+    color: #323338; line-height: 22px;
+  }
+  .coverage-count {
+    font-family: 'Figtree', sans-serif;
+    font-weight: 400; font-size: 14px;
+    color: #676879; line-height: 20px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .coverage-track {
+    height: 6px; background: #e2e6ed;
+    border-radius: 3px; overflow: hidden;
+    position: relative;
+  }
+  .coverage-fill {
+    position: absolute; left: 0; top: 0;
+    height: 6px;
+  }
+  .coverage-pct {
+    font-family: 'Figtree', sans-serif;
+    font-weight: 400; font-size: 14px;
+    color: #676879; line-height: 20px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  .fade-up { animation: fadeUp 340ms cubic-bezier(0.22,1,0.36,1) both; }
+  .fade-up-1 { animation-delay: 60ms; }
+  .fade-up-2 { animation-delay: 120ms; }
+  .fade-up-3 { animation-delay: 180ms; }
+  .fade-up-4 { animation-delay: 240ms; }
+  .fade-up-5 { animation-delay: 300ms; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="top-bar">
+  <div class="top-bar-left">
+    <img class="brand-mark" src="../uploads/deployment-overview/brand-mark.svg" alt="NewCore" width="24" height="24">
+  </div>
+  <div class="top-bar-right">
+    <div class="top-bar-icons">
+      <button class="icon-btn" aria-label="Notifications">
+        <img src="../uploads/deployment-overview/icon-notifications.svg" alt="" width="20" height="20">
+      </button>
+      <button class="icon-btn" aria-label="Support">
+        <img src="../uploads/deployment-overview/icon-support.svg" alt="" width="20" height="20">
+      </button>
+    </div>
+    <div class="top-bar-divider"></div>
+    <div class="avatar-wrap">
+      <img src="../uploads/deployment-overview/avatar-1.png" alt="Profile" width="32" height="32">
+    </div>
+  </div>
+</header>
+
+<!-- MAIN AREA -->
+<div class="main-area">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" aria-label="NewCore IAM navigation">
+    <div class="sidebar-inner">
+      <div class="sidebar-top">
+
+        <div class="sidebar-group">
+          <div class="nav-item nav-item--active" title="Overview">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-overview.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Overview</span>
+          </div>
+          <div class="nav-item" title="Identity Explorer">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-square-chart-gantt.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Identity</span>
+          </div>
+          <div class="nav-item" title="Security Posture">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-shield-check.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Posture</span>
+          </div>
+        </div>
+
+        <div class="sidebar-divider"><div class="sidebar-divider-line"></div></div>
+
+        <div class="sidebar-group">
+          <div class="nav-item" title="Human">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-user-round.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Human</span>
+          </div>
+          <div class="nav-item" title="Agents">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-link.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Agents</span>
+          </div>
+        </div>
+
+        <div class="sidebar-divider"><div class="sidebar-divider-line"></div></div>
+
+        <div class="sidebar-group">
+          <div class="nav-item" title="Applications">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-briefcase-business.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Apps</span>
+          </div>
+          <div class="nav-item" title="Groups">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-users-round.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Groups</span>
+          </div>
+          <div class="nav-item" title="Devices">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-monitor.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Devices</span>
+          </div>
+        </div>
+
+        <div class="sidebar-divider"><div class="sidebar-divider-line"></div></div>
+
+        <div class="sidebar-group">
+          <div class="nav-item" title="Policies">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-shield.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Policies</span>
+          </div>
+          <div class="nav-item" title="Authentication">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-lock-keyhole.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Auth</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="nav-item" title="Settings" style="margin-bottom: 4px;">
+        <div class="nav-icon-area">
+          <img src="../uploads/deployment-overview/icon-settings.svg" alt="" width="18" height="18">
+        </div>
+        <span class="nav-label">Settings</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENT PANEL -->
+  <main class="content-panel">
+
+    <div class="content-glow" aria-hidden="true">
+      <img src="../uploads/deployment-overview/ellipse-bg.png" alt="" width="1524" height="1498">
+    </div>
+
+    <div class="overview-scroll">
+
+      <!-- PAGE HEADER -->
+      <div class="page-header fade-up">
+        <h1 class="page-greeting">Good morning, Gabriel</h1>
+      </div>
+
+      <!-- PIPER BAR -->
+      <div class="piper-frame fade-up fade-up-1">
+        <div class="piper-inner">
+          <div class="piper-content">
+            <div class="piper-input-row">
+              <div class="piper-mark">
+                <img src="../uploads/deployment-overview/ai-spark.svg" alt="" width="18" height="18">
+              </div>
+              <input class="piper-input" type="text" placeholder="Ask about any identity, policy or access path across your estate" id="piper-input" autocomplete="off">
+              <span class="piper-kbd">⌘K</span>
+            </div>
+            <div class="piper-suggestions">
+              <a class="piper-chip" href="deployment-overview.html">Why did posture drop to C+ this week?</a>
+              <a class="piper-chip" href="#">Simulate removing password fallback</a>
+              <a class="piper-chip" href="deployment-overview.html">Marketing agent review, 41 days late</a>
+              <a class="piper-chip" href="#">Identities that lost their owner</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- WIDGETS -->
+      <div class="widgets-frame fade-up fade-up-2">
+
+        <!-- TOP ROW: 3 cards -->
+        <div class="widgets-top-row">
+
+          <!-- Security Posture -->
+          <div class="widget-card">
+            <span class="widget-title">Security Posture</span>
+            <div style="height:12px;"></div>
+            <div class="posture-body">
+              <div class="posture-left">
+                <div class="posture-score">
+                  <span class="widget-number">78</span>
+                  <span class="widget-number-secondary">/100</span>
+                </div>
+                <div style="height:4px;"></div>
+                <span class="widget-delta">↑ 4 pts this week</span>
+                <div style="height:10px;"></div>
+                <a href="#" class="widget-link">View breakdown →</a>
+              </div>
+              <div class="posture-sparkline">
+                <img src="../uploads/deployment-overview/sparkline.svg" alt="Score trend" width="146" height="50">
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="widget-card" style="justify-content:space-between;">
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <span class="widget-title">Recent Activity</span>
+                <span class="widget-number">8</span>
+              </div>
+              <span class="widget-meta">2 permission changes · 2 new agents</span>
+            </div>
+            <a href="#" class="widget-link">View activity log →</a>
+          </div>
+
+          <!-- Pending Approvals -->
+          <div class="widget-card" style="justify-content:space-between;">
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <span class="widget-title">Pending Approvals</span>
+                <span class="widget-number">3</span>
+              </div>
+            </div>
+            <a href="#" class="widget-link">Review all 3 →</a>
+          </div>
+
+        </div>
+
+        <!-- BOTTOM ROW: 2 cards -->
+        <div class="widgets-bottom-row">
+
+          <!-- Open Findings -->
+          <div class="widget-card" style="justify-content:space-between;">
+            <span class="widget-title">Open Findings</span>
+            <div style="height:12px;"></div>
+            <span class="widget-number">12</span>
+            <div style="height:12px;"></div>
+            <div class="findings-divider"></div>
+            <div style="height:10px;"></div>
+            <div class="findings-list">
+              <div class="finding-item">
+                <div class="finding-dot"></div>
+                <span class="widget-body-text">HubSpot automation agent authenticates via MFA-exempt legacy API key</span>
+              </div>
+              <div class="finding-item">
+                <div class="finding-dot"></div>
+                <span class="widget-body-text">3 marketing agents hold admin-level Salesforce scope beyond their task</span>
+              </div>
+              <div class="finding-item">
+                <div class="finding-dot"></div>
+                <span class="widget-body-text">Unmanaged app with broad API access</span>
+              </div>
+            </div>
+            <div style="height:12px;"></div>
+            <a href="#" class="widget-link-underline">View all 12 findings →</a>
+          </div>
+
+          <!-- Coverage -->
+          <div class="widget-card">
+            <span class="widget-title">Coverage</span>
+            <div style="height:16px;"></div>
+
+            <div class="coverage-row">
+              <div class="coverage-header">
+                <span class="coverage-label">Humans</span>
+                <span class="coverage-count">3400 / 4000</span>
+              </div>
+              <div style="height:6px;"></div>
+              <div class="coverage-track">
+                <div class="coverage-fill" style="width:85%;background:#16a347;"></div>
+              </div>
+              <div style="height:4px;"></div>
+              <span class="coverage-pct">85% managed</span>
+            </div>
+
+            <div style="height:16px;"></div>
+
+            <div class="coverage-row">
+              <div class="coverage-header">
+                <span class="coverage-label">Agents</span>
+                <span class="coverage-count">180 / 600</span>
+              </div>
+              <div style="height:6px;"></div>
+              <div class="coverage-track">
+                <div class="coverage-fill" style="width:30%;background:#c07b12;"></div>
+              </div>
+              <div style="height:4px;"></div>
+              <span class="coverage-pct">30% managed</span>
+            </div>
+
+            <div style="height:16px;"></div>
+
+            <div class="coverage-row">
+              <div class="coverage-header">
+                <span class="coverage-label">Apps</span>
+                <span class="coverage-count">45 / 180</span>
+              </div>
+              <div style="height:6px;"></div>
+              <div class="coverage-track">
+                <div class="coverage-fill" style="width:25%;background:#dc2626;"></div>
+              </div>
+              <div style="height:4px;"></div>
+              <span class="coverage-pct">25% managed</span>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /overview-scroll -->
+  </main>
+
+</div><!-- /main-area -->
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('piper-input');
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && input.value.trim()) {
+      window.location.href = 'deployment-overview.html';
+    }
+  });
+
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      input.focus();
+    }
+  });
+});
+</script>
+
+</body>
+</html>
