@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NewCore IAM — Agent Hardening</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: #f6f7fb;
+    font-family: 'Figtree', system-ui, sans-serif;
+    color: #323338;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ── TOP BAR ── */
+  .top-bar {
+    display: flex; align-items: center; gap: 16px;
+    height: 48px; padding: 8px 12px 8px 20px;
+    flex-shrink: 0; z-index: 2; position: relative;
+  }
+  .top-bar-left { flex: 1; display: flex; align-items: center; padding-top: 4px; }
+  .brand-mark { width: 24px; height: 24px; display: block; }
+  .top-bar-right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+  .top-bar-icons { display: flex; gap: 4px; align-items: center; }
+  .icon-btn {
+    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+    border-radius: 4px; cursor: pointer; border: none; background: transparent;
+    transition: background 140ms ease;
+  }
+  .icon-btn:hover { background: rgba(0,0,0,0.06); }
+  .icon-btn img { width: 20px; height: 20px; }
+  .top-bar-divider { width: 1px; height: 28px; background: #d0d4e4; flex-shrink: 0; }
+  .avatar-wrap { width: 32px; height: 32px; border-radius: 100px; overflow: hidden; flex-shrink: 0; }
+  .avatar-wrap img { width: 32px; height: 32px; display: block; }
+
+  /* ── MAIN AREA ── */
+  .main-area { display: flex; flex: 1; min-height: 0; position: relative; z-index: 1; }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 12px; padding: 8px 8px 2px; flex-shrink: 0; z-index: 2; position: relative;
+  }
+  .sidebar-inner {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: space-between; flex: 1; width: 56px;
+  }
+  .sidebar-top { display: flex; flex-direction: column; gap: 4px; width: 100%; }
+  .sidebar-group { display: flex; flex-direction: column; gap: 4px; width: 100%; }
+  .sidebar-divider { display: flex; flex-direction: column; align-items: flex-start; padding: 12px 8px 8px; width: 100%; }
+  .sidebar-divider-line { width: 100%; height: 1px; background: #d0d4e4; }
+  .nav-item {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    padding: 4px 0 8px; border-radius: 8px; width: 100%;
+    cursor: pointer; position: relative; transition: background 140ms ease;
+  }
+  .nav-item:hover { background: rgba(0,0,0,0.04); }
+  .nav-icon-area {
+    width: 32px; height: 32px; display: flex; align-items: center;
+    justify-content: center; border-radius: 8px; padding: 6px; flex-shrink: 0;
+  }
+  .nav-icon-area img { width: 18px; height: 18px; display: block; }
+  .nav-item--active .nav-icon-area { background: #cce4ff; }
+  .nav-label {
+    font-size: 10.5px; font-weight: 400; color: #676879; text-align: center;
+    line-height: 12px; letter-spacing: -0.315px; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; min-width: 100%;
+  }
+  .nav-item--active .nav-label { font-weight: 500; color: #323338; }
+
+  /* ── CONTENT PANEL ── */
+  .content-panel {
+    flex: 1; min-width: 0; background: white;
+    border-top-left-radius: 16px; border-left: 1px solid #e7e9ef; border-top: 1px solid #e7e9ef;
+    display: flex; flex-direction: column; overflow: hidden; position: relative; z-index: 1;
+  }
+  .content-glow {
+    position: absolute; width: 923px; height: 897px;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    pointer-events: none; z-index: 0;
+  }
+  .content-glow img {
+    width: 1524px; height: 1498px; position: absolute;
+    left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: none;
+  }
+
+  /* ── BACK BAR ── */
+  .back-bar {
+    display: flex; align-items: center; padding: 20px 24px;
+    flex-shrink: 0; position: relative; z-index: 1;
+  }
+  .back-btn-group { display: flex; align-items: center; gap: 8px; }
+  .back-circle-btn {
+    width: 40px; height: 40px; border: 1px solid #d3d3d3; border-radius: 12px;
+    background: transparent; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0; transition: background 140ms ease;
+  }
+  .back-circle-btn:hover { background: rgba(0,0,0,0.04); }
+  .back-circle-btn img { width: 20px; height: 20px; }
+  .back-label {
+    font-size: 14px; font-weight: 400; color: #323338; line-height: 20px;
+    padding: 4px 8px; border-radius: 4px; cursor: pointer;
+    transition: background 140ms ease; white-space: nowrap;
+  }
+  .back-label:hover { background: rgba(0,0,0,0.04); }
+
+  /* ── CONTENT BODY (chat + side panel row) ── */
+  .content-body { display: flex; flex: 1; min-height: 0; overflow: clip; position: relative; }
+  .chat-wrap { display: flex; flex-direction: column; flex: 1; min-width: 0; min-height: 0; overflow: hidden; }
+
+  /* ── CHAT AREA ── */
+  .chat-area {
+    display: flex; flex-direction: column; gap: 16px;
+    flex: 1; min-height: 0; padding: 24px 40px 16px;
+    overflow-y: auto; position: relative; z-index: 1;
+    scroll-behavior: smooth;
+  }
+  .chat-area::-webkit-scrollbar { width: 5px; }
+  .chat-area::-webkit-scrollbar-track { background: transparent; }
+  .chat-area::-webkit-scrollbar-thumb { background: #d0d4e4; border-radius: 10px; }
+  .chat-area::-webkit-scrollbar-thumb:hover { background: #b0b5c8; }
+
+  /* user message */
+  .user-message-row {
+    display: flex; flex-direction: column; align-items: flex-end;
+    gap: 4px; padding-left: 24px; flex-shrink: 0;
+  }
+  .user-bubble {
+    background: rgba(194, 213, 255, 0.4); padding: 12px 16px;
+    border-radius: 12px 4px 12px 12px; font-size: 16px;
+    line-height: 24px; color: #323338; white-space: nowrap;
+    user-select: text; cursor: text;
+  }
+
+  /* ai response */
+  .ai-response { display: flex; flex-direction: column; gap: 16px; flex-shrink: 0; width: 100%; }
+  .ai-intro { display: flex; flex-direction: column; gap: 16px; }
+  .ai-greeting {
+    font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 500;
+    line-height: 24px; letter-spacing: -0.09px; color: #323338;
+    display: flex; align-items: center; gap: 8px;
+    user-select: text; cursor: text;
+  }
+  .ai-description { font-size: 16px; font-weight: 400; line-height: 24px; color: #323338; user-select: text; cursor: text; }
+
+  /* ── THINKING CARD ── */
+  .thinking-card {
+    border: 1px solid #d0d4e4; border-radius: 12px; background: white; overflow: hidden;
+  }
+  .thinking-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; cursor: pointer; user-select: none;
+  }
+  .thinking-card.done .thinking-header { border-bottom: none; }
+  .thinking-card:not(.done) .thinking-header { border-bottom: 1px solid #d0d4e4; }
+  .thinking-header-left { display: flex; align-items: center; gap: 8px; }
+  .loader-icon { width: 16px; height: 16px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .loader-icon img { width: 16px; height: 16px; display: block; }
+  .thinking-title { font-size: 16px; font-weight: 400; color: #121212; white-space: nowrap; }
+  .chevron-icon img { width: 20px; height: 20px; display: block; transition: transform 200ms ease; }
+
+  .thinking-body { display: flex; flex-direction: column; gap: 2px; padding: 24px; }
+  .thinking-step {
+    display: flex; align-items: center; gap: 12px;
+    opacity: 0; transition: opacity 350ms ease;
+  }
+  .thinking-step.visible { opacity: 1; }
+  .thinking-step.step-active .thinking-step-text { color: #0073EA; }
+  .thinking-step.step-done .thinking-step-text { color: #323338; }
+  .thinking-step img { width: 16px; height: 16px; display: block; flex-shrink: 0; }
+  .thinking-step-text { font-size: 16px; font-weight: 400; line-height: 22px; color: #676879; white-space: nowrap; }
+  .step-connector { width: 16px; height: 19.5px; flex-shrink: 0; opacity: 0; transition: opacity 350ms ease; }
+  .step-connector.visible { opacity: 1; }
+  .step-connector img { width: 16px; height: 19.5px; display: block; }
+
+  /* ── AGENT TABLE (Figma style) ── */
+  .table-container {
+    border: 1px solid #e7e9ef; border-radius: 12px; overflow-x: auto; overflow-y: hidden;
+    background: white;
+  }
+  .table-section-title {
+    font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 500;
+    color: #323338; line-height: 26px; padding: 16px 16px 12px;
+  }
+  .agent-table { width: 100%; border-collapse: collapse; }
+  .agent-table th {
+    font-size: 13px; font-weight: 400; color: #676879; text-align: left;
+    padding: 8px 16px; border-bottom: 1px solid #e7e9ef;
+    white-space: nowrap; background: transparent;
+  }
+  .agent-table td {
+    font-size: 14px; color: #323338; padding: 12px 16px;
+    border-bottom: 1px solid #f3f4f6; vertical-align: middle; white-space: nowrap;
+  }
+  .agent-table tr:last-child td { border-bottom: none; }
+
+  /* Row entrance animation */
+  @keyframes rowSlideIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .agent-table tbody tr {
+    opacity: 0;
+  }
+  .agent-table tbody tr.row-visible {
+    animation: rowSlideIn 280ms cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  /* Agent name cell */
+  .agent-info { display: flex; flex-direction: column; gap: 1px; }
+  .agent-name { font-weight: 600; color: #323338; font-size: 14px; }
+  .agent-role-text { font-size: 12px; color: #98a2b3; font-weight: 400; }
+
+  /* Risk — left accent bar + white body with matching border */
+  .risk-chip {
+    display: inline-flex; align-items: stretch;
+    height: 24px; font-size: 12px; font-weight: 400; flex-shrink: 0;
+  }
+  .risk-bar { width: 4px; flex-shrink: 0; border-radius: 4px 0 0 4px; }
+  .risk-label {
+    display: flex; align-items: center; padding: 0 8px 0 6px;
+    background: white; border-radius: 0 4px 4px 0;
+    border-top: 1px solid; border-right: 1px solid; border-bottom: 1px solid;
+    white-space: nowrap;
+  }
+  .risk-critical .risk-bar { background: #DF2F4A; }
+  .risk-critical .risk-label { border-color: #DF2F4A; color: #DF2F4A; }
+  .risk-high .risk-bar { background: #FEA03F; }
+  .risk-high .risk-label { border-color: #FEA03F; color: #FEA340; }
+  .risk-low .risk-bar { background: #00C875; }
+  .risk-low .risk-label { border-color: #00C875; color: #037F4C; }
+
+  /* App cell — logo + plain text */
+  .app-cell { display: flex; align-items: center; gap: 8px; }
+  .app-logo-img { width: 24px; height: 24px; display: block; object-fit: contain; flex-shrink: 0; }
+  .app-plain-text { font-size: 13px; color: #323338; font-weight: 400; }
+
+  /* Tools cell */
+  .tools-text { font-size: 13px; color: #676879; white-space: nowrap; }
+  .tools-write { color: #DF2F4A; font-weight: 500; }
+
+  /* Groups chip */
+  .group-chip {
+    display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 20px;
+    font-size: 12px; font-weight: 400; background: #f6f7fb; color: #323338;
+    border: 1px solid #e7e9ef; white-space: nowrap;
+  }
+
+  /* Profile badge */
+  .profile-badge {
+    display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px;
+    font-size: 12px; font-weight: 500; line-height: 16px; border: 1px solid transparent;
+  }
+  .profile-default { background: #E8F0FE; color: #3D6ECB; }
+  .profile-named { background: #F0EBFF; color: #6B46C1; }
+  .profile-analytics { background: #E8F5FF; color: #0073EA; }
+
+  /* Owner column — Figma avatars */
+  .owner-photo { width: 30px; height: 30px; border-radius: 50%; display: block; object-fit: cover; flex-shrink: 0; }
+  .owner-initials { position: relative; width: 30px; height: 30px; flex-shrink: 0; display: inline-block; }
+  .owner-initials .oi-bg { position: absolute; width: 30px; height: 30px; top: 0; left: 0; display: block; }
+  .owner-initials .oi-ring { position: absolute; width: 31px; height: 31px; top: -0.5px; left: -0.5px; display: block; }
+  .owner-initials .oi-text {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-family: 'Poppins', sans-serif; font-size: 9px; font-weight: 500;
+    color: white; letter-spacing: -0.04em;
+  }
+  .owner-empty { width: 30px; height: 30px; display: block; flex-shrink: 0; }
+  .owner-offboarded {
+    display: inline-flex; align-items: center; height: 30px; padding: 0 8px;
+    border-radius: 136px; background: #f6f7fb; border: 1px dashed #c5c7d0;
+    font-size: 12px; font-weight: 400; color: #676879; white-space: nowrap;
+  }
+
+  /* Policy — dot + text, no background */
+  .policy-dot {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 400; line-height: 16px; white-space: nowrap;
+  }
+  .policy-dot::before {
+    content: ''; display: inline-block; width: 8px; height: 8px;
+    border-radius: 50%; flex-shrink: 0;
+  }
+  .policy-dot-none { color: #DF2F4A; }
+  .policy-dot-none::before { background: #DF2F4A; }
+  .policy-dot-draft { color: #676879; }
+  .policy-dot-draft::before { background: #C5C7D0; }
+  .policy-dot-active { color: #037F4C; }
+  .policy-dot-active::before { background: #00C875; }
+
+  /* ── CTA ACTIONS (no container box) ── */
+  .chat-action-block {
+    display: flex; flex-direction: column; gap: 24px; margin-top: 4px;
+  }
+  .chat-action-block .chat-action-rows,
+  .chat-action-block .chat-action-feedback,
+  .chat-action-block .sources-row { margin-top: 0; }
+  .chat-action-block .sources-row { gap: 4px; padding: 4px 0 0; }
+  .chat-recommended {
+    font-size: 16px; line-height: 22px; color: #676879;
+  }
+  .chat-recommended strong { color: #323338; font-weight: 600; }
+  .chat-action-rows { display: flex; flex-direction: column; gap: 8px; }
+  .chat-action-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chat-action-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    height: 32px; border-radius: 8px;
+    font-size: 14px; line-height: 20px; font-family: 'Figtree', sans-serif;
+    font-weight: 400; cursor: pointer; border: none;
+    transition: all 150ms ease; white-space: nowrap;
+  }
+  .chat-action-btn:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+  .chat-action-btn img { width: 16px; height: 16px; flex-shrink: 0; }
+  .chat-action-btn-primary {
+    background: #0073EA; color: #fff; font-weight: 500;
+    padding: 0 14px; font-size: 14px; letter-spacing: -0.01em;
+  }
+  .chat-action-btn-primary:hover { background: #0060c7; }
+  .chat-action-btn-secondary {
+    background: #fff; color: #323338;
+    border: 1px solid #d0d4e4;
+    padding-left: 10px; padding-right: 12px;
+  }
+  .chat-action-btn-secondary:hover { background: #f6f7fb; }
+  .enter-arrow { transform: rotate(180deg) scaleY(-1); }
+  .chat-action-feedback { display: flex; gap: 2px; align-items: center; padding-top: 2px; }
+  .chat-feedback-btn {
+    width: 24px; height: 24px; border-radius: 4px; padding: 4px;
+    background: none; border: none; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #676879; transition: background 150ms ease;
+  }
+  .chat-feedback-btn img { width: 16px; height: 16px; display: block; opacity: 0.55; }
+  .chat-feedback-btn:hover { background: rgba(0,0,0,0.06); }
+  .chat-feedback-btn:hover img { opacity: 0.85; }
+  .chat-feedback-btn.active-up { background: #D5F5E6; }
+  .chat-feedback-btn.active-up img { opacity: 1; filter: invert(31%) sepia(72%) saturate(518%) hue-rotate(112deg) brightness(96%) contrast(97%); }
+  .chat-feedback-btn.active-down { background: #FFE0E5; }
+  .chat-feedback-btn.active-down img { opacity: 1; filter: invert(22%) sepia(90%) saturate(1600%) hue-rotate(336deg) brightness(90%) contrast(95%); }
+
+  /* ── HARDENING PLAN ── */
+  .plan-section { display: flex; flex-direction: column; gap: 8px; }
+  .plan-section-title {
+    font-size: 13px; font-weight: 600; color: #676879;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .plan-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 12px; border-radius: 8px; border: 1px solid #e7e9ef; background: white;
+    opacity: 0; transform: translateY(6px); transition: opacity 280ms ease, transform 280ms cubic-bezier(0.22,1,0.36,1);
+  }
+  .plan-item.visible { opacity: 1; transform: translateY(0); }
+  .plan-icon {
+    width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; margin-top: 1px;
+  }
+  .plan-icon.eligible { background: #D5F5E6; }
+  .plan-icon.blocked { background: #FFE0E5; }
+  .plan-item-body { display: flex; flex-direction: column; gap: 2px; }
+  .plan-item-name { font-size: 14px; font-weight: 500; color: #323338; user-select: text; cursor: text; }
+  .plan-item-reason { font-size: 13px; color: #676879; line-height: 18px; user-select: text; cursor: text; }
+
+  /* ── SOURCES ── */
+  .sources-row {
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+    padding: 4px 0 2px; justify-content: flex-end;
+  }
+  .sources-label {
+    font-size: 11px; color: #9699A6; font-weight: 400; margin-right: 2px; white-space: nowrap;
+  }
+  .source-chip {
+    display: inline-flex; align-items: center;
+    font-size: 11px; color: #676879; line-height: 16px;
+    background: #F0F1F7; border: 1px solid #D8DAE5;
+    border-radius: 9999px; padding: 1px 9px; cursor: pointer;
+    transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+    vertical-align: middle; margin: 0 1px;
+    white-space: nowrap;
+  }
+  .source-chip:hover { background: #E8EAFF; border-color: #B8BEFF; color: #4F46E5; }
+  .source-chip.active { background: #EEF2FF; border-color: #C7D2FE; color: #4F46E5; }
+
+  /* ── SOURCE PANEL ── */
+  .source-panel {
+    position: fixed; z-index: 50;
+    width: 300px;
+    background: white;
+    border: 1px solid #E0E3EE;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(20,24,48,0.12), 0 2px 8px rgba(20,24,48,0.06);
+    opacity: 0; transform: translateY(-6px) scale(0.97);
+    transition: opacity 180ms ease, transform 180ms cubic-bezier(0.22,1,0.36,1);
+    pointer-events: none;
+  }
+  .source-panel.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+  .sp-hd {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 16px 12px; border-bottom: 1px solid #F0F1F7;
+  }
+  .sp-hd-icon {
+    width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+    background: #F6F7FB; border: 1px solid #E0E3EE;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .sp-hd-icon img { width: 16px; height: 16px; opacity: 0.7; }
+  .sp-hd-text { flex: 1; min-width: 0; }
+  .sp-hd-name { font-size: 13px; font-weight: 600; color: #323338; }
+  .sp-hd-status {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 11px; color: #676879; margin-top: 1px;
+  }
+  .sp-status-dot {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+  }
+  .sp-status-dot.live { background: #00CA72; }
+  .sp-status-dot.warn { background: #FDAB3D; }
+  .sp-close {
+    width: 24px; height: 24px; border-radius: 4px; padding: 4px;
+    background: none; border: none; cursor: pointer; color: #9699A6;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 130ms ease; flex-shrink: 0;
+  }
+  .sp-close:hover { background: #F0F1F7; color: #323338; }
+  .sp-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .sp-desc { font-size: 12px; color: #676879; line-height: 18px; }
+  .sp-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .sp-stat { background: #F6F7FB; border-radius: 6px; padding: 8px 10px; }
+  .sp-stat-val { font-size: 15px; font-weight: 600; color: #323338; line-height: 20px; }
+  .sp-stat-lbl { font-size: 11px; color: #9699A6; margin-top: 1px; }
+  .sp-footer {
+    border-top: 1px solid #F0F1F7; padding: 10px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .sp-footer-link {
+    font-size: 12px; color: #0073EA; font-weight: 500; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 4px;
+    transition: color 130ms ease;
+  }
+  .sp-footer-link:hover { color: #0060C0; }
+  .sp-footer-link svg { flex-shrink: 0; }
+  .sp-last-sync { font-size: 11px; color: #9699A6; }
+
+  /* ── RESULT ITEMS ── */
+  .result-list { display: flex; flex-direction: column; gap: 6px; }
+  .result-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; border-radius: 8px; border: 1px solid #e7e9ef; background: white;
+  }
+  .result-icon {
+    width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .result-icon.success { background: #D5F5E6; }
+  .result-icon.pending { background: #FFEFD6; }
+  .result-item-name { font-size: 14px; font-weight: 500; color: #323338; flex: 1; user-select: text; cursor: text; }
+  .result-item-status { font-size: 12px; font-weight: 500; }
+  .result-item-status.ok { color: #037F4C; }
+  .result-item-status.flagged { color: #B26A00; }
+
+  /* ── SIDE PANEL ── */
+  .side-panel {
+    position: absolute; top: 0; right: 0; bottom: 0;
+    width: 340px;
+    background: white;
+    border-left: 1px solid #e0e3ee;
+    border-radius: 0;
+    box-shadow: -8px 0 32px 0 rgba(20,24,48,0.10), -2px 0 8px 0 rgba(20,24,48,0.06);
+    transform: translateX(100%);
+    transition: transform 260ms cubic-bezier(0.22,1,0.36,1), box-shadow 260ms ease;
+    display: flex; flex-direction: column;
+    z-index: 10;
+  }
+  .side-panel.open { transform: translateX(0); }
+  .side-panel-inner { display: flex; flex-direction: column; height: 100%; }
+
+  /* Header */
+  .sp-header {
+    padding: 20px 16px 16px; border-bottom: 1px solid #e7e9ef;
+    flex-shrink: 0; display: flex; flex-direction: column; gap: 12px;
+  }
+  .sp-header-top {
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .sp-agent-avatar-lg {
+    width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 600; color: white;
+  }
+  .sp-agent-avatar-lg img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; display: block; }
+  .sp-header-meta { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; padding-top: 4px; }
+  .sp-header-name-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .sp-header-name {
+    font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 500;
+    color: #323338; line-height: 1.2; white-space: nowrap;
+  }
+  .sp-header-role { font-size: 13px; color: #676879; }
+  .sp-close-btn {
+    width: 28px; height: 28px; border-radius: 6px; background: none; border: none;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: #676879; flex-shrink: 0; margin-top: 2px;
+    transition: background 140ms ease;
+  }
+  .sp-close-btn:hover { background: #f6f7fb; color: #323338; }
+
+  /* Sections */
+  .sp-sections { display: flex; flex-direction: column; overflow-y: auto; flex: 1; padding-bottom: 20px; }
+  .sp-section { display: flex; flex-direction: column; }
+  .sp-sec-header {
+    display: flex; align-items: center; gap: 6px;
+    padding: 14px 16px 8px; cursor: pointer; user-select: none;
+  }
+  .sp-sec-header:hover { background: #f9fafb; }
+  .sp-sec-chevron { color: #676879; flex-shrink: 0; transition: transform 200ms ease; }
+  .sp-section.closed .sp-sec-chevron { transform: rotate(-90deg); }
+  .sp-sec-title { font-size: 13px; font-weight: 600; color: #323338; flex: 1; }
+  .sp-sec-card {
+    margin: 0 16px 4px;
+    border: 1px solid #e7e9ef; border-radius: 8px; overflow: hidden; background: white;
+  }
+  .sp-section.closed .sp-sec-card { display: none; }
+  .sp-field {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 9px 12px; gap: 12px; border-bottom: 1px solid #f3f4f6;
+  }
+  .sp-field:last-child { border-bottom: none; }
+  .sp-field-label { font-size: 12px; color: #676879; flex-shrink: 0; }
+  .sp-field-value {
+    font-size: 13px; color: #323338;
+    display: flex; align-items: center; gap: 6px;
+    text-align: right; max-width: 200px;
+  }
+  .sp-field-logo { width: 16px; height: 16px; object-fit: contain; flex-shrink: 0; }
+  .sp-tool-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 12px; gap: 8px; border-bottom: 1px solid #f3f4f6;
+  }
+  .sp-tool-row:last-child { border-bottom: none; }
+  .sp-tool-name { font-size: 12px; color: #323338; font-family: 'Figtree', monospace; flex: 1; }
+  .sp-scope-badge {
+    font-size: 11px; font-weight: 500; padding: 1px 7px; border-radius: 20px; flex-shrink: 0;
+  }
+  .sp-scope-read { background: #E3F5E1; color: #037F4C; }
+  .sp-scope-write { background: #FFE0E5; color: #DF2F4A; }
+  .sp-activity-item {
+    display: flex; flex-direction: column; gap: 1px;
+    padding: 9px 12px; border-bottom: 1px solid #f3f4f6;
+  }
+  .sp-activity-item:last-child { border-bottom: none; }
+  .sp-activity-text { font-size: 12px; color: #323338; line-height: 16px; }
+  .sp-activity-time { font-size: 11px; color: #98a2b3; }
+
+  /* highlight selected row */
+  .agent-table tbody tr { cursor: pointer; }
+  .agent-table tbody tr:hover td { background: #f9fafb; }
+  .agent-table tbody tr.row-selected td { background: #EEF5FF; }
+
+  /* ── PROMPT BAR ── */
+  .prompt-wrap { padding: 0 40px 8px; flex-shrink: 0; position: relative; z-index: 1; }
+  .prompt-box {
+    background: white; border: 1px solid #d0d4e4; border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    display: flex; flex-direction: column; gap: 8px; padding: 12px 0 16px;
+  }
+  .prompt-text-area { padding: 0 16px; min-height: 40px; display: flex; align-items: flex-end; }
+  .prompt-textarea {
+    font-size: 16px; line-height: 1.5; color: #323338; font-weight: 400;
+    flex: 1; outline: none; border: none; background: transparent;
+    resize: none; min-height: 24px; font-family: 'Figtree', sans-serif;
+  }
+  .prompt-textarea::placeholder { color: #676879; }
+  .prompt-footer { display: flex; align-items: center; padding: 0 16px; }
+  .prompt-attach-btn {
+    width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+    border-radius: 4px; cursor: pointer; border: none; background: transparent;
+    transition: background 140ms ease;
+  }
+  .prompt-attach-btn:hover { background: rgba(0,0,0,0.06); }
+  .prompt-attach-btn img { width: 16px; height: 16px; }
+  .prompt-spacer { flex: 1; }
+  .prompt-send-btn {
+    width: 24px; height: 24px; background: #ecedf5; border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; border: none; transition: background 140ms ease;
+  }
+  .prompt-send-btn:hover { background: #d8daf0; }
+  .prompt-send-btn img { width: 16px; height: 16px; }
+
+  /* ── UTILS ── */
+  @keyframes loader-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .loader-spin { animation: loader-spin 1s linear infinite; }
+  .fade-in { animation: fadeIn 350ms ease both; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="top-bar">
+  <div class="top-bar-left">
+    <img class="brand-mark" src="../uploads/deployment-overview/brand-mark.svg" alt="NewCore" width="24" height="24">
+  </div>
+  <div class="top-bar-right">
+    <div class="top-bar-icons">
+      <button class="icon-btn" aria-label="Notifications">
+        <img src="../uploads/deployment-overview/icon-notifications.svg" alt="" width="20" height="20">
+      </button>
+      <button class="icon-btn" aria-label="Support">
+        <img src="../uploads/deployment-overview/icon-support.svg" alt="" width="20" height="20">
+      </button>
+    </div>
+    <div class="top-bar-divider"></div>
+    <div class="avatar-wrap">
+      <img src="../uploads/deployment-overview/avatar-1.png" alt="Profile" width="32" height="32">
+    </div>
+  </div>
+</header>
+
+<!-- MAIN AREA -->
+<div class="main-area">
+
+  <!-- SIDEBAR (original structure, NewCore IAM content) -->
+  <nav class="sidebar" aria-label="NewCore IAM navigation">
+    <div class="sidebar-inner">
+      <div class="sidebar-top">
+
+        <!-- Group 1: main views -->
+        <div class="sidebar-group">
+          <div class="nav-item nav-item--active" title="Overview">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-overview.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Overview</span>
+          </div>
+          <div class="nav-item" title="Identity Explorer">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-square-chart-gantt.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Identity</span>
+          </div>
+          <div class="nav-item" title="Security Posture">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-shield-check.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Posture</span>
+          </div>
+        </div>
+
+        <div class="sidebar-divider"><div class="sidebar-divider-line"></div></div>
+
+        <!-- Group 2: Identities -->
+        <div class="sidebar-group">
+          <div class="nav-item" title="Human">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-user-round.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Human</span>
+          </div>
+          <div class="nav-item" title="Agents">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-link.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Agents</span>
+          </div>
+        </div>
+
+        <div class="sidebar-divider"><div class="sidebar-divider-line"></div></div>
+
+        <!-- Group 3: Assets -->
+        <div class="sidebar-group">
+          <div class="nav-item" title="Applications">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-briefcase-business.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Apps</span>
+          </div>
+          <div class="nav-item" title="Groups">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-users-round.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Groups</span>
+          </div>
+          <div class="nav-item" title="Devices">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-monitor.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Devices</span>
+          </div>
+        </div>
+
+        <div class="sidebar-divider"><div class="sidebar-divider-line"></div></div>
+
+        <!-- Group 4: Governance -->
+        <div class="sidebar-group">
+          <div class="nav-item" title="Policies">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-shield.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Policies</span>
+          </div>
+          <div class="nav-item" title="Authentication">
+            <div class="nav-icon-area">
+              <img src="../uploads/deployment-overview/icon-lock-keyhole.svg" alt="" width="18" height="18">
+            </div>
+            <span class="nav-label">Auth</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom: Settings -->
+      <div class="nav-item" title="Settings" style="margin-bottom: 4px;">
+        <div class="nav-icon-area">
+          <img src="../uploads/deployment-overview/icon-settings.svg" alt="" width="18" height="18">
+        </div>
+        <span class="nav-label">Settings</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENT PANEL -->
+  <main class="content-panel">
+
+    <div class="content-glow" aria-hidden="true">
+      <img src="../uploads/deployment-overview/ellipse-bg.png" alt="" width="1524" height="1498">
+    </div>
+
+    <!-- BACK BAR -->
+    <div class="back-bar">
+      <div class="back-btn-group">
+        <button class="back-circle-btn" aria-label="Go back">
+          <img src="../uploads/deployment-overview/icon-arrow-left.svg" alt="" width="20" height="20">
+        </button>
+        <span class="back-label">Back to Overview</span>
+      </div>
+    </div>
+
+    <!-- CONTENT BODY: chat + side panel -->
+    <div class="content-body">
+    <div class="chat-wrap">
+
+    <!-- CHAT AREA -->
+    <div class="chat-area" id="chat-area">
+
+      <!-- User message -->
+      <div class="user-message-row">
+        <div class="avatar-wrap">
+          <img src="../uploads/deployment-overview/avatar-1.png" alt="User" width="32" height="32">
+        </div>
+        <div class="user-bubble">I want to harden the access of my marketing agents</div>
+      </div>
+
+      <!-- AI block 1: greeting + thinking card -->
+      <div class="ai-response" id="ai-block-1">
+        <div class="ai-intro">
+          <p class="ai-description" style="display:flex;align-items:flex-start;gap:8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px" xmlns="http://www.w3.org/2000/svg">
+              <rect width="24" height="24" rx="12" fill="#EEF2FF"/>
+              <rect x="11" y="1.5" width="2" height="3.5" rx="1" fill="#818CF8"/>
+              <circle cx="12" cy="1.5" r="1.5" fill="#6366F1"/>
+              <rect x="4" y="6.5" width="16" height="12" rx="3" fill="white" stroke="#C7D2FE" stroke-width="1"/>
+              <circle cx="9" cy="11.5" r="2" fill="#6366F1"/>
+              <circle cx="15" cy="11.5" r="2" fill="#6366F1"/>
+              <circle cx="9.7" cy="10.9" r="0.7" fill="white"/>
+              <circle cx="15.7" cy="10.9" r="0.7" fill="white"/>
+              <path d="M9 14.5 Q12 16.5 15 14.5" stroke="#6366F1" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span>I'll scan your marketing agents, check their access policies, app connections, and owner records — then give you a hardening plan you can act on right now.</span>
+          </p>
+        </div>
+
+        <div class="thinking-card" id="thinking-card">
+          <div class="thinking-header" id="thinking-toggle" role="button" aria-expanded="true" aria-controls="thinking-body">
+            <div class="thinking-header-left">
+              <div class="loader-icon" id="loader-icon-wrap">
+                <img class="loader-spin" id="loader-img" src="../uploads/deployment-overview/icon-loader.svg" alt="" width="16" height="16">
+              </div>
+              <span class="thinking-title" id="thinking-title">Analyzing your marketing agents...</span>
+            </div>
+            <div class="chevron-icon">
+              <img src="../uploads/deployment-overview/icon-chevron-down.svg" alt="" width="20" height="20" id="chevron-img">
+            </div>
+          </div>
+          <div class="thinking-body" id="thinking-body"></div>
+        </div>
+      </div>
+
+      <!-- AI block 2: table + CTA (revealed after processing) -->
+      <div class="ai-response hidden" id="ai-block-2">
+        <div class="table-container">
+          <p class="table-section-title">6 agents owned by Marketing</p>
+          <table class="agent-table" id="agent-table">
+            <thead>
+              <tr>
+                <th>Agent</th>
+                <th>Risk</th>
+                <th>App</th>
+                <th>Profile</th>
+                <th>Tools</th>
+                <th>Groups</th>
+                <th>Owner</th>
+                <th>Policy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Mia — Critical -->
+              <tr data-agent="mia">
+                <td><div class="agent-info"><span class="agent-name">Mia</span><span class="agent-role-text">Lead qualifier</span></div></td>
+                <td><div class="risk-chip risk-critical"><span class="risk-bar"></span><span class="risk-label">Critical</span></div></td>
+                <td><div class="app-cell"><img src="../uploads/deployment-overview/logo-google-cloud.png" class="app-logo-img" alt="Salesforce"><span class="app-plain-text">Discovered</span></div></td>
+                <td><span class="app-plain-text">Named</span></td>
+                <td><span class="tools-text">12 tools · <span class="tools-write">5 write</span></span></td>
+                <td><span class="group-chip">Sales</span></td>
+                <td><span class="owner-initials"><img src="../uploads/deployment-overview/avatar-bg-ds.svg" class="oi-bg" alt=""><img src="../uploads/deployment-overview/avatar-ring.svg" class="oi-ring" alt=""><span class="oi-text">DS</span></span></td>
+                <td><span class="policy-dot policy-dot-none">Not assigned</span></td>
+              </tr>
+              <!-- Lucas — Critical -->
+              <tr data-agent="lucas">
+                <td><div class="agent-info"><span class="agent-name">Lucas</span><span class="agent-role-text">Social monitor</span></div></td>
+                <td><div class="risk-chip risk-critical"><span class="risk-bar"></span><span class="risk-label">Critical</span></div></td>
+                <td><div class="app-cell"><img src="../uploads/deployment-overview/logo-aws.png" class="app-logo-img" alt="AWS"><span class="app-plain-text">Discovered</span></div></td>
+                <td><span class="app-plain-text">Default</span></td>
+                <td><span class="tools-text">9 tools · <span class="tools-write">4 write</span></span></td>
+                <td><span class="group-chip">Ops</span></td>
+                <td><span class="owner-offboarded">Offboarded</span></td>
+                <td><span class="policy-dot policy-dot-none">Not assigned</span></td>
+              </tr>
+              <!-- Emma — High -->
+              <tr data-agent="emma">
+                <td><div class="agent-info"><span class="agent-name">Emma</span><span class="agent-role-text">Campaign tracker</span></div></td>
+                <td><div class="risk-chip risk-high"><span class="risk-bar"></span><span class="risk-label">High</span></div></td>
+                <td><div class="app-cell"><img src="../uploads/deployment-overview/logo-google-cloud.png" class="app-logo-img" alt="Google Ads"><span class="app-plain-text">Managed</span></div></td>
+                <td><span class="app-plain-text">Default</span></td>
+                <td><span class="tools-text">6 tools · <span class="tools-write">2 write</span></span></td>
+                <td><span class="group-chip">Marketing</span></td>
+                <td><img src="../uploads/deployment-overview/avatar-emma.png" class="owner-photo" alt="Emma's owner"></td>
+                <td><span class="policy-dot policy-dot-draft">Draft</span></td>
+              </tr>
+              <!-- Noah — High -->
+              <tr data-agent="noah">
+                <td><div class="agent-info"><span class="agent-name">Noah</span><span class="agent-role-text">Content scheduler</span></div></td>
+                <td><div class="risk-chip risk-high"><span class="risk-bar"></span><span class="risk-label">High</span></div></td>
+                <td><div class="app-cell"><img src="../uploads/deployment-overview/logo-azure.png" class="app-logo-img" alt="HubSpot"><span class="app-plain-text">Managed</span></div></td>
+                <td><span class="app-plain-text">Default</span></td>
+                <td><span class="tools-text">4 tools · <span class="tools-write">1 write</span></span></td>
+                <td><span class="group-chip">Marketing</span></td>
+                <td><img src="../uploads/deployment-overview/avatar-noah.png" class="owner-photo" alt="Noah's owner"></td>
+                <td><span class="policy-dot policy-dot-draft">Draft</span></td>
+              </tr>
+              <!-- Aria — High -->
+              <tr data-agent="aria">
+                <td><div class="agent-info"><span class="agent-name">Aria</span><span class="agent-role-text">Email automator</span></div></td>
+                <td><div class="risk-chip risk-high"><span class="risk-bar"></span><span class="risk-label">High</span></div></td>
+                <td><div class="app-cell"><img src="../uploads/deployment-overview/logo-azure.png" class="app-logo-img" alt="Mailchimp"><span class="app-plain-text">Discovered</span></div></td>
+                <td><span class="app-plain-text">Default</span></td>
+                <td><span class="tools-text">7 tools · <span class="tools-write">2 write</span></span></td>
+                <td><span class="group-chip">Marketing</span></td>
+                <td><span class="owner-initials"><img src="../uploads/deployment-overview/avatar-bg-nb.svg" class="oi-bg" alt=""><img src="../uploads/deployment-overview/avatar-ring.svg" class="oi-ring" alt=""><span class="oi-text">NB</span></span></td>
+                <td><span class="policy-dot policy-dot-draft">Draft</span></td>
+              </tr>
+              <!-- Ella — Low -->
+              <tr data-agent="ella">
+                <td><div class="agent-info"><span class="agent-name">Ella</span><span class="agent-role-text">Analytics reader</span></div></td>
+                <td><div class="risk-chip risk-low"><span class="risk-bar"></span><span class="risk-label">Low</span></div></td>
+                <td><div class="app-cell"><img src="../uploads/deployment-overview/logo-google-cloud.png" class="app-logo-img" alt="Google Analytics"><span class="app-plain-text">Managed</span></div></td>
+                <td><span class="app-plain-text">Analytics RO</span></td>
+                <td><span class="tools-text">3 tools · <span style="color:#676879">0 write</span></span></td>
+                <td><span class="group-chip">Analytics</span></td>
+                <td><span class="owner-initials"><img src="../uploads/deployment-overview/avatar-bg-ta.svg" class="oi-bg" alt=""><img src="../uploads/deployment-overview/avatar-ring.svg" class="oi-ring" alt=""><span class="oi-text">TA</span></span></td>
+                <td><span class="policy-dot policy-dot-active">Active</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div><!-- /.table-container -->
+
+        <!-- CTA 1 -->
+        <div class="chat-action-block" id="cta-block-1">
+          <div class="chat-recommended">
+            <strong>Recommended next step:</strong> Harden all 6 agents — 3 can be applied immediately, 3 will be flagged for manual review.
+          </div>
+          <div class="chat-action-rows">
+            <div class="chat-action-row">
+              <button class="chat-action-btn chat-action-btn-secondary" onclick="stepHardenAll()">
+                <img src="../uploads/deployment-overview/icon-enter-arrow.svg" class="enter-arrow" alt="" width="16" height="16">
+                Show me Mia's risks first
+              </button>
+              <button class="chat-action-btn chat-action-btn-primary" id="btn-harden-all" onclick="stepHardenAll()">
+                <img src="../uploads/deployment-overview/icon-enter-arrow.svg" class="enter-arrow" alt="" width="16" height="16" style="filter:brightness(0) invert(1)">
+                Harden all 6 agents
+              </button>
+            </div>
+          </div>
+          <div class="sources-row">
+            <span class="sources-label">Sources</span>
+            <span class="source-chip" data-source="HR Directory">HR Directory</span>
+            <span class="source-chip" data-source="Okta SSO">Okta SSO</span>
+            <span class="source-chip" data-source="Agent Registry">Agent Registry</span>
+            <span class="source-chip" data-source="App Catalog">App Catalog</span>
+          </div>
+          <div class="chat-action-feedback">
+            <button class="chat-feedback-btn" title="Helpful" onclick="this.classList.toggle('active-up')">
+              <img src="../uploads/deployment-overview/icon-thumbs-up.svg" alt="Helpful">
+            </button>
+            <button class="chat-feedback-btn" title="Not helpful" onclick="this.classList.toggle('active-down')">
+              <img src="../uploads/deployment-overview/icon-thumbs-up.svg" alt="Not helpful" style="transform:rotate(180deg)">
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI block 3: hardening plan (after CTA 1) -->
+      <div class="hidden" id="ai-block-3">
+        <div class="user-message-row" style="margin-bottom:16px;">
+          <div class="avatar-wrap">
+            <img src="../uploads/deployment-overview/avatar-1.png" alt="User" width="32" height="32">
+          </div>
+          <div class="user-bubble">Harden all 6 agents</div>
+        </div>
+
+        <div class="ai-response fade-in">
+          <p class="ai-description">Here's the hardening plan. I can apply policies immediately to <strong>3 eligible agents</strong>. The other 3 need manual review before changes can be made.</p>
+
+          <div class="plan-section">
+            <div class="plan-section-title">3 Eligible — ready to apply</div>
+            <div class="plan-item">
+              <div class="plan-icon eligible"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="plan-item-body"><span class="plan-item-name">Emma</span><span class="plan-item-reason">Apply MFA enforcement + restrict Google Ads write scope to approved lists</span></div>
+            </div>
+            <div class="plan-item">
+              <div class="plan-icon eligible"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="plan-item-body"><span class="plan-item-name">Noah</span><span class="plan-item-reason">Apply MFA enforcement + limit HubSpot access to read-only for non-deal records</span></div>
+            </div>
+            <div class="plan-item">
+              <div class="plan-icon eligible"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="plan-item-body"><span class="plan-item-name">Ella</span><span class="plan-item-reason">Already has active policy — refresh token rotation schedule to 30 days</span></div>
+            </div>
+          </div>
+
+          <div class="plan-section">
+            <div class="plan-section-title">3 Blocked — requires manual review</div>
+            <div class="plan-item">
+              <div class="plan-icon blocked"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 9L3 3" stroke="#DF2F4A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+              <div class="plan-item-body"><span class="plan-item-name">Lucas</span><span class="plan-item-reason">Owner was offboarded — no active owner to approve policy changes</span></div>
+            </div>
+            <div class="plan-item">
+              <div class="plan-icon blocked"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 9L3 3" stroke="#DF2F4A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+              <div class="plan-item-body"><span class="plan-item-name">Aria</span><span class="plan-item-reason">App was discovered (not provisioned) — Mailchimp access must be reviewed first</span></div>
+            </div>
+            <div class="plan-item">
+              <div class="plan-icon blocked"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 9L3 3" stroke="#DF2F4A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+              <div class="plan-item-body"><span class="plan-item-name">Mia</span><span class="plan-item-reason">No HR record found — identity cannot be verified before hardening Salesforce access</span></div>
+            </div>
+          </div>
+
+          <!-- CTA 2 -->
+          <div class="chat-action-block" id="cta-block-2">
+            <div class="chat-recommended">
+              <strong>Recommended next step:</strong> Apply hardening to the 3 eligible agents now and flag the rest for your security team.
+            </div>
+            <div class="chat-action-rows">
+              <div class="chat-action-row">
+                <button class="chat-action-btn chat-action-btn-secondary">
+                  <img src="../uploads/deployment-overview/icon-enter-arrow.svg" class="enter-arrow" alt="" width="16" height="16">
+                  Export report
+                </button>
+                <button class="chat-action-btn chat-action-btn-primary" id="btn-apply" onclick="stepApply()">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0"><path d="M13 4L6 11.5L3 8.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Apply to 3 eligible now
+                </button>
+              </div>
+            </div>
+            <div class="sources-row" id="block3-sources">
+              <span class="sources-label">Sources</span>
+              <span class="source-chip" data-source="IAM Policy Engine">IAM Policy Engine</span>
+              <span class="source-chip" data-source="Okta Scopes API">Okta Scopes API</span>
+              <span class="source-chip" data-source="Agent Registry">Agent Registry</span>
+            </div>
+            <div class="chat-action-feedback">
+              <button class="chat-feedback-btn" title="Helpful" onclick="this.classList.toggle('active-up')">
+                <img src="../uploads/deployment-overview/icon-thumbs-up.svg" alt="">
+              </button>
+              <button class="chat-feedback-btn" title="Not helpful" onclick="this.classList.toggle('active-down')">
+                <img src="../uploads/deployment-overview/icon-thumbs-up.svg" alt="" style="transform:rotate(180deg)">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI block 4: results (after CTA 2) -->
+      <div class="hidden" id="ai-block-4">
+        <div class="user-message-row" style="margin-bottom:16px;">
+          <div class="avatar-wrap">
+            <img src="../uploads/deployment-overview/avatar-1.png" alt="User" width="32" height="32">
+          </div>
+          <div class="user-bubble">Apply to 3 eligible now</div>
+        </div>
+
+        <div class="ai-response fade-in">
+          <p class="ai-description">Done. Hardening applied to <strong>3 agents</strong>. The 3 blocked agents have been flagged for your security team.</p>
+
+          <div class="result-list">
+            <div class="result-item">
+              <div class="result-icon success"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="result-item-name">Emma</span><span class="result-item-status ok">Hardened</span>
+            </div>
+            <div class="result-item">
+              <div class="result-icon success"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="result-item-name">Noah</span><span class="result-item-status ok">Hardened</span>
+            </div>
+            <div class="result-item">
+              <div class="result-icon success"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 4" stroke="#037F4C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="result-item-name">Ella</span><span class="result-item-status ok">Policy refreshed</span>
+            </div>
+            <div class="result-item">
+              <div class="result-icon pending"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 3.5V6.5" stroke="#B26A00" stroke-width="1.2" stroke-linecap="round"/><circle cx="6" cy="8.5" r=".6" fill="#B26A00"/></svg></div>
+              <span class="result-item-name">Lucas</span><span class="result-item-status flagged">Flagged — owner offboarded</span>
+            </div>
+            <div class="result-item">
+              <div class="result-icon pending"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 3.5V6.5" stroke="#B26A00" stroke-width="1.2" stroke-linecap="round"/><circle cx="6" cy="8.5" r=".6" fill="#B26A00"/></svg></div>
+              <span class="result-item-name">Aria</span><span class="result-item-status flagged">Flagged — discovered app</span>
+            </div>
+            <div class="result-item">
+              <div class="result-icon pending"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 3.5V6.5" stroke="#B26A00" stroke-width="1.2" stroke-linecap="round"/><circle cx="6" cy="8.5" r=".6" fill="#B26A00"/></svg></div>
+              <span class="result-item-name">Mia</span><span class="result-item-status flagged">Flagged — no HR record</span>
+            </div>
+          </div>
+
+          <!-- CTA 3 -->
+          <div class="chat-action-block">
+            <div class="chat-recommended">
+              <strong>Next step:</strong> Review the updated policy report or schedule a review session for the 3 flagged agents.
+            </div>
+            <div class="chat-action-rows">
+              <div class="chat-action-row">
+                <button class="chat-action-btn chat-action-btn-secondary">
+                  <img src="../uploads/deployment-overview/icon-enter-arrow.svg" class="enter-arrow" alt="" width="16" height="16">
+                  Schedule review for 3 blocked
+                </button>
+                <button class="chat-action-btn chat-action-btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0"><path d="M13 4L6 11.5L3 8.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  View updated policy report
+                </button>
+              </div>
+            </div>
+            <div class="sources-row">
+              <span class="sources-label">Sources</span>
+              <span class="source-chip" data-source="IAM Policy Engine">IAM Policy Engine</span>
+              <span class="source-chip" data-source="Okta SSO">Okta SSO</span>
+              <span class="source-chip" data-source="Audit Log">Audit Log</span>
+            </div>
+            <div class="chat-action-feedback">
+              <button class="chat-feedback-btn" title="Helpful" onclick="this.classList.toggle('active-up')">
+                <img src="../uploads/deployment-overview/icon-thumbs-up.svg" alt="">
+              </button>
+              <button class="chat-feedback-btn" title="Not helpful" onclick="this.classList.toggle('active-down')">
+                <img src="../uploads/deployment-overview/icon-thumbs-up.svg" alt="" style="transform:rotate(180deg)">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /chat-area -->
+
+    <!-- PROMPT BAR -->
+    <div class="prompt-wrap">
+      <div class="prompt-box">
+        <div class="prompt-text-area">
+          <textarea class="prompt-textarea" id="prompt-input" rows="1" placeholder="Message..." aria-label="Message input"></textarea>
+        </div>
+        <div class="prompt-footer">
+          <button class="prompt-attach-btn" aria-label="Attach file">
+            <img src="../uploads/deployment-overview/icon-attach.svg" alt="" width="16" height="16">
+          </button>
+          <div class="prompt-spacer"></div>
+          <button class="prompt-send-btn" aria-label="Send message">
+            <img src="../uploads/deployment-overview/icon-arrow-up.svg" alt="" width="16" height="16">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    </div><!-- /chat-wrap -->
+
+    </div><!-- /content-body -->
+
+    <!-- SIDE PANEL (positioned relative to .content-panel to reach top nav) -->
+    <div class="side-panel" id="side-panel">
+      <div class="side-panel-inner">
+        <div class="sp-header" id="sp-header"></div>
+        <div class="sp-sections" id="sp-sections"></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- SOURCE DETAIL PANEL -->
+<div id="source-panel" class="source-panel" role="dialog" aria-modal="true">
+  <div class="sp-hd">
+    <div class="sp-hd-icon" id="sp-icon"></div>
+    <div class="sp-hd-text">
+      <div class="sp-hd-name" id="sp-name"></div>
+      <div class="sp-hd-status">
+        <span class="sp-status-dot live" id="sp-dot"></span>
+        <span id="sp-status-text"></span>
+      </div>
+    </div>
+    <button class="sp-close" id="sp-close" aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="sp-body">
+    <p class="sp-desc" id="sp-desc"></p>
+    <div class="sp-stats" id="sp-stats"></div>
+  </div>
+  <div class="sp-footer">
+    <a href="#" class="sp-footer-link" onclick="return false;">
+      View connector settings
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <span class="sp-last-sync" id="sp-sync"></span>
+  </div>
+</div>
+
+<script>
+// ── SOURCE PANEL ─────────────────────────────────────────────────────────────
+const SOURCE_DATA = {
+  'HR Directory': {
+    icon: '../uploads/deployment-overview/icon-user-round.svg',
+    status: 'Connected', statusDot: 'live',
+    desc: 'Employee records from Workday, used to verify agent owners and flag identity gaps.',
+    stats: [
+      { val: '1,247', lbl: 'Employees' },
+      { val: '98.2%', lbl: 'Matched' },
+      { val: '14', lbl: 'Owner gaps' },
+      { val: '2 min', lbl: 'Last sync' },
+    ],
+    sync: 'Synced 2 min ago',
+  },
+  'Okta SSO': {
+    icon: '../uploads/deployment-overview/icon-lock-keyhole.svg',
+    status: 'Connected', statusDot: 'live',
+    desc: 'Okta tenant providing authentication policies, MFA status, and SSO scope data.',
+    stats: [
+      { val: '94%', lbl: 'MFA enabled' },
+      { val: '38', lbl: 'Active scopes' },
+      { val: '6', lbl: 'Flagged scopes' },
+      { val: '1 min', lbl: 'Last sync' },
+    ],
+    sync: 'Synced 1 min ago',
+  },
+  'Agent Registry': {
+    icon: '../uploads/deployment-overview/icon-users-round.svg',
+    status: 'Connected', statusDot: 'live',
+    desc: 'Central registry of all deployed agents, their tools, groups, and access profiles.',
+    stats: [
+      { val: '142', lbl: 'Total agents' },
+      { val: '6', lbl: 'In Marketing' },
+      { val: '2', lbl: 'Critical risk' },
+      { val: '4 min', lbl: 'Last updated' },
+    ],
+    sync: 'Updated 4 min ago',
+  },
+  'App Catalog': {
+    icon: '../uploads/deployment-overview/icon-square-chart-gantt.svg',
+    status: 'Connected', statusDot: 'live',
+    desc: 'Inventory of connected apps, including provisioning method and discovery status.',
+    stats: [
+      { val: '67', lbl: 'Total apps' },
+      { val: '54', lbl: 'Provisioned' },
+      { val: '13', lbl: 'Discovered' },
+      { val: '1h', lbl: 'Last sync' },
+    ],
+    sync: 'Synced 1 hour ago',
+  },
+  'IAM Policy Engine': {
+    icon: '../uploads/deployment-overview/icon-shield-check.svg',
+    status: 'Active', statusDot: 'live',
+    desc: 'NewCore\'s policy engine evaluating hardening rules, scope restrictions, and MFA enforcement.',
+    stats: [
+      { val: '23', lbl: 'Active policies' },
+      { val: '4', lbl: 'Pending review' },
+      { val: '3', lbl: 'Applied now' },
+      { val: 'v2.4.1', lbl: 'Engine version' },
+    ],
+    sync: 'Engine v2.4.1',
+  },
+  'Okta Scopes API': {
+    icon: '../uploads/deployment-overview/icon-lock-keyhole.svg',
+    status: 'Connected', statusDot: 'live',
+    desc: 'OAuth scope analysis via Okta API — identifies write permissions beyond what each agent actually uses.',
+    stats: [
+      { val: '156', lbl: 'Scopes analyzed' },
+      { val: '12', lbl: 'Write scopes' },
+      { val: '5', lbl: 'Over-permissioned' },
+      { val: '3 min', lbl: 'Last sync' },
+    ],
+    sync: 'Synced 3 min ago',
+  },
+  'Audit Log': {
+    icon: '../uploads/deployment-overview/icon-align-left.svg',
+    status: 'Live', statusDot: 'live',
+    desc: 'Immutable audit trail of all IAM actions, policy changes, and access events.',
+    stats: [
+      { val: '8,432', lbl: 'Events (30d)' },
+      { val: '90d', lbl: 'Retention' },
+      { val: '3', lbl: 'Applied now' },
+      { val: '30s', lbl: 'Last event' },
+    ],
+    sync: 'Live stream',
+  },
+};
+
+(function() {
+  const panel   = document.getElementById('source-panel');
+  const spName  = document.getElementById('sp-name');
+  const spIcon  = document.getElementById('sp-icon');
+  const spDot   = document.getElementById('sp-dot');
+  const spStat  = document.getElementById('sp-status-text');
+  const spDesc  = document.getElementById('sp-desc');
+  const spStats = document.getElementById('sp-stats');
+  const spSync  = document.getElementById('sp-sync');
+  const spClose = document.getElementById('sp-close');
+  let activeChip  = null;
+  let isPinned    = false;
+  let hoverTimer  = null;
+  let hideTimer   = null;
+
+  function positionPanel(chip) {
+    const rect   = chip.getBoundingClientRect();
+    const pW     = 300, pH = 260, margin = 8;
+    let left = rect.left;
+    if (left + pW > window.innerWidth - margin) left = window.innerWidth - pW - margin;
+    if (left < margin) left = margin;
+    let top = rect.bottom + 8;
+    if (top + pH > window.innerHeight - margin) top = rect.top - 8 - pH;
+    panel.style.left = left + 'px';
+    panel.style.top  = top  + 'px';
+  }
+
+  function populatePanel(key) {
+    const data = SOURCE_DATA[key];
+    if (!data) return;
+    spName.textContent = key;
+    spIcon.innerHTML   = `<img src="${data.icon}" alt="" width="16" height="16">`;
+    spDot.className    = `sp-status-dot ${data.statusDot}`;
+    spStat.textContent = data.status;
+    spDesc.textContent = data.desc;
+    spSync.textContent = data.sync;
+    spStats.innerHTML  = data.stats.map(s =>
+      `<div class="sp-stat"><div class="sp-stat-val">${s.val}</div><div class="sp-stat-lbl">${s.lbl}</div></div>`
+    ).join('');
+  }
+
+  function showPanel(chip) {
+    clearTimeout(hideTimer);
+    const key = chip.dataset.source;
+    if (!SOURCE_DATA[key]) return;
+    if (activeChip && activeChip !== chip) activeChip.classList.remove('active');
+    chip.classList.add('active');
+    activeChip = chip;
+    populatePanel(key);
+    positionPanel(chip);
+    panel.classList.add('open');
+  }
+
+  function scheduleHide() {
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => {
+      if (!isPinned) closePanel();
+    }, 120);
+  }
+
+  function closePanel() {
+    isPinned = false;
+    panel.classList.remove('open');
+    if (activeChip) { activeChip.classList.remove('active'); activeChip = null; }
+  }
+
+  // Hover on chips — show with short delay
+  document.addEventListener('mouseover', function(e) {
+    const chip = e.target.closest('.source-chip[data-source]');
+    if (!chip) return;
+    clearTimeout(hoverTimer);
+    clearTimeout(hideTimer);
+    hoverTimer = setTimeout(() => showPanel(chip), 180);
+  });
+
+  document.addEventListener('mouseout', function(e) {
+    const chip = e.target.closest('.source-chip[data-source]');
+    if (!chip) return;
+    clearTimeout(hoverTimer);
+    // Give time to move into the panel
+    scheduleHide();
+  });
+
+  // Keep panel open while hovering inside it
+  panel.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+  panel.addEventListener('mouseleave', () => { if (!isPinned) scheduleHide(); });
+
+  // Click pins / unpins
+  document.addEventListener('click', function(e) {
+    const chip = e.target.closest('.source-chip[data-source]');
+    if (chip) {
+      e.stopPropagation();
+      clearTimeout(hoverTimer);
+      if (isPinned && chip === activeChip) {
+        closePanel();
+      } else {
+        showPanel(chip);
+        isPinned = true;
+      }
+      return;
+    }
+    if (!panel.contains(e.target) && isPinned) closePanel();
+  });
+
+  spClose.addEventListener('click', function(e) { e.stopPropagation(); closePanel(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closePanel(); });
+})();
+
+// ─────────────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+
+  const PROC_STEPS = [
+    { icon: '../uploads/deployment-overview/icon-search.svg',      text: 'Scanning agents owned by Marketing',         startMs: 0,    runMs: 1400 },
+    { icon: '../uploads/deployment-overview/icon-versioning.svg',  text: 'Pulling app connections and SSO status',     startMs: 1600, runMs: 1200 },
+    { icon: '../uploads/deployment-overview/icon-checklist.svg',   text: 'Checking policy coverage per agent',         startMs: 3000, runMs: 1800 },
+    { icon: '../uploads/deployment-overview/icon-monday-doc.svg',  text: 'Verifying owner records against HR',         startMs: 5000, runMs: 2100 },
+    { icon: '../uploads/deployment-overview/icon-overview.svg',    text: 'Calculating risk scores and hardening plan', startMs: 7300, runMs: 1000 },
+  ];
+  const TOTAL_MS = 8300;
+
+  // Delays for the intro sequence
+  const REPLY_DELAY   = 600;   // when AI description fades in
+  const THINKING_DELAY = 1500; // when thinking card fades in
+
+  const thinkingBody   = document.getElementById('thinking-body');
+  const thinkingCard   = document.getElementById('thinking-card');
+  const thinkingTitle  = document.getElementById('thinking-title');
+  const loaderImg      = document.getElementById('loader-img');
+  const chevronImg     = document.getElementById('chevron-img');
+  const thinkingToggle = document.getElementById('thinking-toggle');
+  const chatArea       = document.getElementById('chat-area');
+
+  // Hide AI description and thinking card initially
+  const aiDesc = document.querySelector('#ai-block-1 .ai-description');
+  aiDesc.style.opacity = '0';
+  aiDesc.style.transform = 'translateY(8px)';
+  aiDesc.style.transition = 'opacity 380ms ease, transform 380ms cubic-bezier(0.22,1,0.36,1)';
+  thinkingCard.style.opacity = '0';
+  thinkingCard.style.transform = 'translateY(8px)';
+  thinkingCard.style.transition = 'opacity 300ms ease, transform 300ms cubic-bezier(0.22,1,0.36,1)';
+
+  // Step 1: fade in AI reply text
+  setTimeout(() => {
+    aiDesc.style.opacity = '1';
+    aiDesc.style.transform = 'translateY(0)';
+  }, REPLY_DELAY);
+
+  // Step 2: fade in thinking card + start PROC_STEPS
+  setTimeout(() => {
+    thinkingCard.style.opacity = '1';
+    thinkingCard.style.transform = 'translateY(0)';
+    scrollBottom();
+
+    PROC_STEPS.forEach((s, i) => {
+      if (i > 0) {
+        const conn = document.createElement('div');
+        conn.className = 'step-connector';
+        conn.innerHTML = `<img src="../uploads/deployment-overview/icon-connector.svg" width="16" height="19.5">`;
+        thinkingBody.appendChild(conn);
+        setTimeout(() => conn.classList.add('visible'), s.startMs + 50);
+      }
+      const el = document.createElement('div');
+      el.className = 'thinking-step step-active';
+      el.innerHTML = `<img src="${s.icon}" width="16" height="16"><span class="thinking-step-text">${s.text}</span>`;
+      thinkingBody.appendChild(el);
+      setTimeout(() => el.classList.add('visible'), s.startMs + 50);
+      setTimeout(() => { el.classList.remove('step-active'); el.classList.add('step-done'); }, s.startMs + s.runMs);
+    });
+  }, THINKING_DELAY);
+
+  setTimeout(() => {
+    loaderImg.classList.remove('loader-spin');
+    loaderImg.src = '../uploads/deployment-overview/icon-mark-done.svg';
+    thinkingTitle.textContent = 'Analyzed your marketing agents';
+    thinkingCard.classList.add('done');
+
+    chevronImg.style.transform = 'rotate(-90deg)';
+    thinkingBody.style.display = 'none';
+    thinkingToggle.setAttribute('aria-expanded', 'false');
+
+    const block2 = document.getElementById('ai-block-2');
+    block2.classList.remove('hidden');
+    block2.classList.add('fade-in');
+
+    // Animate table rows one by one
+    const rows = block2.querySelectorAll('.agent-table tbody tr');
+    rows.forEach((row, i) => {
+      setTimeout(() => {
+        row.classList.add('row-visible');
+        row.style.animationDelay = '0ms';
+        scrollBottom();
+      }, 120 + i * 110);
+    });
+
+    scrollBottom();
+  }, TOTAL_MS);
+
+  let thinkingExpanded = true;
+  thinkingToggle.addEventListener('click', function() {
+    thinkingExpanded = !thinkingExpanded;
+    thinkingBody.style.display = thinkingExpanded ? '' : 'none';
+    chevronImg.style.transform = thinkingExpanded ? '' : 'rotate(-90deg)';
+    thinkingToggle.setAttribute('aria-expanded', String(thinkingExpanded));
+  });
+
+  function scrollBottom() {
+    setTimeout(() => { chatArea.scrollTop = chatArea.scrollHeight; }, 60);
+  }
+
+  const textarea = document.getElementById('prompt-input');
+  textarea.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+  });
+
+  window.stepHardenAll = function() {
+    document.getElementById('cta-block-1').querySelectorAll('button').forEach(b => b.disabled = true);
+
+    // Build processing card — same visual pattern as the first thinking card
+    const proc = document.createElement('div');
+    proc.id = 'proc-harden';
+    proc.className = 'ai-response fade-in';
+    proc.innerHTML = `
+      <div class="thinking-card" id="proc-card">
+        <div class="thinking-header">
+          <div class="thinking-header-left">
+            <div class="loader-icon">
+              <img class="loader-spin" id="proc-loader" src="../uploads/deployment-overview/icon-loader.svg" alt="" width="16" height="16">
+            </div>
+            <span class="thinking-title" id="proc-title">Hardening agents...</span>
+          </div>
+        </div>
+        <div class="thinking-body" id="proc-body"></div>
+      </div>
+    `;
+    document.getElementById('chat-area').appendChild(proc);
+    scrollBottom();
+
+    const HARDEN_STEPS = [
+      { icon: '../uploads/deployment-overview/icon-shield.svg',       text: 'Applying MFA enforcement to Emma, Noah, and Ella…', startMs: 450,  runMs: 1350 },
+      { icon: '../uploads/deployment-overview/icon-lock-keyhole.svg', text: 'Restricting write permissions to approved scopes…',  startMs: 1900, runMs: 1200 },
+      { icon: '../uploads/deployment-overview/icon-versioning.svg',   text: 'Rotating token expiry schedules…',                   startMs: 3200, runMs: 1100 },
+      { icon: '../uploads/deployment-overview/icon-mark-done.svg',    text: 'Flagging Lucas, Aria, and Mia for manual review…',   startMs: 4400, runMs: 1300 },
+    ];
+    const HARDEN_TOTAL = 5900;
+
+    const procBody = document.getElementById('proc-body');
+
+    HARDEN_STEPS.forEach((s, i) => {
+      if (i > 0) {
+        const conn = document.createElement('div');
+        conn.className = 'step-connector';
+        conn.innerHTML = `<img src="../uploads/deployment-overview/icon-connector.svg" width="16" height="19.5">`;
+        procBody.appendChild(conn);
+        setTimeout(() => conn.classList.add('visible'), s.startMs + 50);
+      }
+      const el = document.createElement('div');
+      el.className = 'thinking-step';
+      el.innerHTML = `<img src="${s.icon}" width="16" height="16"><span class="thinking-step-text">${s.text}</span>`;
+      procBody.appendChild(el);
+      setTimeout(() => { el.classList.add('visible', 'step-active'); scrollBottom(); }, s.startMs + 50);
+      setTimeout(() => { el.classList.remove('step-active'); el.classList.add('step-done'); }, s.startMs + s.runMs);
+    });
+
+    // Mark done — collapse body like the first card
+    setTimeout(() => {
+      const card = document.getElementById('proc-card');
+      card.classList.add('done');
+      document.getElementById('proc-title').textContent = 'Hardening applied';
+      const loader = document.getElementById('proc-loader');
+      loader.classList.remove('loader-spin');
+      loader.src = '../uploads/deployment-overview/icon-mark-done.svg';
+      procBody.style.display = 'none';
+      scrollBottom();
+    }, HARDEN_TOTAL);
+
+    // Stream in ai-block-3 content piece by piece
+    setTimeout(() => {
+      document.getElementById('proc-harden').remove();
+
+      const block3 = document.getElementById('ai-block-3');
+      block3.classList.remove('hidden');
+      // Container fades in quickly; children stream in individually below
+      block3.style.opacity = '0';
+      block3.style.transition = 'opacity 180ms ease';
+      requestAnimationFrame(() => requestAnimationFrame(() => { block3.style.opacity = '1'; }));
+      scrollBottom();
+
+      // Helper: fade-in + slide-up an element after `delay` ms
+      function streamEl(el, delay) {
+        if (!el) return;
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(7px)';
+        el.style.transition = 'opacity 300ms ease, transform 300ms cubic-bezier(0.22,1,0.36,1)';
+        setTimeout(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+          scrollBottom();
+        }, delay);
+      }
+
+      const desc      = block3.querySelector('.ai-description');
+      const sources   = block3.querySelector('#block3-sources');
+      const sections  = block3.querySelectorAll('.plan-section');
+      const sec0title = sections[0]?.querySelector('.plan-section-title');
+      const sec1title = sections[1]?.querySelector('.plan-section-title');
+      const items     = block3.querySelectorAll('.plan-item');
+      const cta       = block3.querySelector('.chat-action-block');
+
+      // Pre-hide elements that need to stream in (plan-items already opacity:0 via CSS)
+      [desc, sec0title, sec1title, cta, sources].forEach(el => {
+        if (!el) return;
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(7px)';
+        el.style.transition = 'opacity 300ms ease, transform 300ms cubic-bezier(0.22,1,0.36,1)';
+      });
+
+      let t = 120;
+      streamEl(desc, t);       t += 480;
+      streamEl(sec0title, t);  t += 320;
+      // 3 eligible items
+      for (let i = 0; i < 3; i++) {
+        const item = items[i];
+        if (!item) continue;
+        setTimeout((el => () => { el.classList.add('visible'); scrollBottom(); })(item), t);
+        t += 340;
+      }
+      t += 240;
+      streamEl(sec1title, t);  t += 320;
+      // 3 blocked items
+      for (let i = 3; i < 6; i++) {
+        const item = items[i];
+        if (!item) continue;
+        setTimeout((el => () => { el.classList.add('visible'); scrollBottom(); })(item), t);
+        t += 340;
+      }
+      t += 280;
+      streamEl(cta, t);        t += 400;
+      streamEl(sources, t);
+
+    }, HARDEN_TOTAL + 600);
+  };
+
+  window.stepApply = function() {
+    document.getElementById('cta-block-2').querySelectorAll('button').forEach(b => b.disabled = true);
+    const block4 = document.getElementById('ai-block-4');
+    block4.classList.remove('hidden');
+    block4.classList.add('fade-in');
+    scrollBottom();
+  };
+
+  // ── SIDE PANEL ──────────────────────────────────────────
+  const CHEVRON_SVG = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+  const APP_LOGOS = {
+    'Salesforce':       '../uploads/deployment-overview/logo-google-cloud.png',
+    'Google Ads':       '../uploads/deployment-overview/logo-google-cloud.png',
+    'Google Analytics': '../uploads/deployment-overview/logo-google-cloud.png',
+    'HubSpot':          '../uploads/deployment-overview/logo-azure.png',
+    'Mailchimp':        '../uploads/deployment-overview/logo-azure.png',
+    'AWS S3':           '../uploads/deployment-overview/logo-aws.png',
+  };
+
+  const AGENTS = {
+    mia: {
+      name: 'Mia', role: 'Lead qualifier',
+      avatarColor: '#8B5CF6', avatarInitial: 'M',
+      riskClass: 'risk-critical', riskLabel: 'Critical',
+      app: 'Salesforce', appState: 'Discovered',
+      profile: 'Named', groups: 'Sales',
+      auth: 'Critical', policy: 'Not assigned', owner: 'DS',
+      ownerConfidence: 'Low',
+      tools: [
+        { name: 'crm.lead.create', scope: 'write' },
+        { name: 'crm.lead.update', scope: 'write' },
+        { name: 'crm.lead.read', scope: 'read' },
+        { name: 'crm.contact.read', scope: 'read' },
+        { name: 'crm.deal.update', scope: 'write' },
+        { name: 'crm.deal.read', scope: 'read' },
+        { name: 'crm.account.read', scope: 'read' },
+        { name: 'email.send', scope: 'write' },
+        { name: 'slack.message.post', scope: 'write' },
+        { name: 'file.export', scope: 'read' },
+        { name: 'webhook.trigger', scope: 'write' },
+        { name: 'report.generate', scope: 'read' },
+      ],
+      activity: [
+        { text: 'Lead batch processed (230 records)', time: '2h ago' },
+        { text: 'Salesforce OAuth token refreshed', time: '8h ago' },
+        { text: 'CRM deal updated — deal ID 4821', time: '1d ago' },
+      ]
+    },
+    lucas: {
+      name: 'Lucas', role: 'Social monitor',
+      avatarColor: '#DF2F4A', avatarInitial: 'L',
+      riskClass: 'risk-critical', riskLabel: 'Critical',
+      app: 'AWS S3', appState: 'Discovered',
+      profile: 'Default', groups: 'Ops',
+      auth: 'Critical', policy: 'Not assigned', owner: 'Offboarded',
+      ownerConfidence: 'None',
+      tools: [
+        { name: 's3.object.read', scope: 'read' },
+        { name: 's3.object.write', scope: 'write' },
+        { name: 's3.bucket.list', scope: 'read' },
+        { name: 's3.bucket.delete', scope: 'write' },
+        { name: 'twitter.stream.read', scope: 'read' },
+        { name: 'twitter.post.write', scope: 'write' },
+        { name: 'slack.message.post', scope: 'write' },
+        { name: 'webhook.trigger', scope: 'write' },
+        { name: 'report.generate', scope: 'read' },
+      ],
+      activity: [
+        { text: 'S3 bucket write — 14 objects', time: '4h ago' },
+        { text: 'Twitter stream connected', time: '12h ago' },
+        { text: 'Owner account deactivated', time: '3d ago' },
+      ]
+    },
+    emma: {
+      name: 'Emma', role: 'Campaign tracker',
+      avatarColor: '#0073EA', avatarInitial: 'E',
+      riskClass: 'risk-high', riskLabel: 'High',
+      app: 'Google Ads', appState: 'Managed',
+      profile: 'Default', groups: 'Marketing',
+      auth: 'High', policy: 'Draft', owner: 'Sarah K.',
+      ownerConfidence: 'High',
+      tools: [
+        { name: 'ads.campaign.read', scope: 'read' },
+        { name: 'ads.campaign.update', scope: 'write' },
+        { name: 'ads.report.export', scope: 'read' },
+        { name: 'analytics.read', scope: 'read' },
+        { name: 'sheet.write', scope: 'write' },
+        { name: 'slack.message.post', scope: 'read' },
+      ],
+      activity: [
+        { text: 'Campaign report exported', time: '1h ago' },
+        { text: 'Ads budget updated — +$2,000', time: '6h ago' },
+        { text: 'Draft policy reviewed', time: '2d ago' },
+      ]
+    },
+    noah: {
+      name: 'Noah', role: 'Content scheduler',
+      avatarColor: '#10B981', avatarInitial: 'N',
+      riskClass: 'risk-high', riskLabel: 'High',
+      app: 'HubSpot', appState: 'Managed',
+      profile: 'Default', groups: 'Marketing',
+      auth: 'High', policy: 'Draft', owner: 'Liam R.',
+      ownerConfidence: 'Medium',
+      tools: [
+        { name: 'cms.content.read', scope: 'read' },
+        { name: 'cms.schedule.write', scope: 'write' },
+        { name: 'email.campaign.read', scope: 'read' },
+        { name: 'slack.message.post', scope: 'read' },
+      ],
+      activity: [
+        { text: '12 posts scheduled for next week', time: '3h ago' },
+        { text: 'HubSpot OAuth renewed', time: '1d ago' },
+      ]
+    },
+    aria: {
+      name: 'Aria', role: 'Email automator',
+      avatarColor: '#F59E0B', avatarInitial: 'A',
+      riskClass: 'risk-high', riskLabel: 'High',
+      app: 'Mailchimp', appState: 'Discovered',
+      profile: 'Default', groups: 'Marketing',
+      auth: 'High', policy: 'Draft', owner: 'NB',
+      ownerConfidence: 'Medium',
+      tools: [
+        { name: 'email.list.read', scope: 'read' },
+        { name: 'email.campaign.send', scope: 'write' },
+        { name: 'email.template.read', scope: 'read' },
+        { name: 'contact.unsubscribe', scope: 'write' },
+        { name: 'analytics.open_rate.read', scope: 'read' },
+        { name: 'webhook.trigger', scope: 'write' },
+        { name: 'slack.message.post', scope: 'read' },
+      ],
+      activity: [
+        { text: 'Email campaign sent — 4,200 recipients', time: '30m ago' },
+        { text: 'Mailchimp app detected (not provisioned)', time: '5d ago' },
+      ]
+    },
+    ella: {
+      name: 'Ella', role: 'Analytics reader',
+      avatarColor: '#06B6D4', avatarInitial: 'E',
+      riskClass: 'risk-low', riskLabel: 'Low',
+      app: 'Google Analytics', appState: 'Managed',
+      profile: 'Analytics RO', groups: 'Analytics',
+      auth: 'Low', policy: 'Active', owner: 'TA',
+      ownerConfidence: 'High',
+      tools: [
+        { name: 'analytics.report.read', scope: 'read' },
+        { name: 'analytics.export', scope: 'read' },
+        { name: 'dashboard.read', scope: 'read' },
+      ],
+      activity: [
+        { text: 'Weekly analytics report generated', time: '2h ago' },
+        { text: 'Token rotation completed', time: '7d ago' },
+      ]
+    }
+  };
+
+  const sidePanel  = document.getElementById('side-panel');
+  const spHeader   = document.getElementById('sp-header');
+  const spSections = document.getElementById('sp-sections');
+  let openAgentKey = null;
+
+  function spAvatarHTML(a) {
+    return `<div class="sp-agent-avatar-lg" style="background:${a.avatarColor}">${a.avatarInitial}</div>`;
+  }
+
+  function spRiskChip(a) {
+    return `<div class="risk-chip ${a.riskClass}"><span class="risk-bar"></span><span class="risk-label">${a.riskLabel}</span></div>`;
+  }
+
+  function spPolicyDot(policy) {
+    const cls = policy === 'Active' ? 'policy-dot-active' : policy === 'Draft' ? 'policy-dot-draft' : 'policy-dot-none';
+    return `<span class="policy-dot ${cls}">${policy}</span>`;
+  }
+
+  function spField(label, valueHTML) {
+    return `<div class="sp-field"><span class="sp-field-label">${label}</span><div class="sp-field-value">${valueHTML}</div></div>`;
+  }
+
+  function spSection(title, bodyHTML, open) {
+    return `<div class="sp-section${open ? '' : ' closed'}">
+      <div class="sp-sec-header" onclick="toggleSec(this)">
+        <span class="sp-sec-chevron">${CHEVRON_SVG}</span>
+        <span class="sp-sec-title">${title}</span>
+      </div>
+      <div class="sp-sec-card">${bodyHTML}</div>
+    </div>`;
+  }
+
+  function renderSidePanel(key) {
+    const a = AGENTS[key];
+    const logo = APP_LOGOS[a.app] || '';
+
+    spHeader.innerHTML = `
+      <div class="sp-header-top">
+        ${spAvatarHTML(a)}
+        <div class="sp-header-meta">
+          <div class="sp-header-name-row">
+            <span class="sp-header-name">${a.name}</span>
+            ${spRiskChip(a)}
+          </div>
+          <span class="sp-header-role">${a.role}</span>
+        </div>
+        <button class="sp-close-btn" id="sp-close-btn" aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2L12 12M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>`;
+    document.getElementById('sp-close-btn').addEventListener('click', closeSidePanel);
+
+    const identityBody =
+      spField('App', `<img class="sp-field-logo" src="${logo}" alt=""> ${a.app}`) +
+      spField('App state', a.appState) +
+      spField('Profile', a.profile) +
+      spField('Groups', a.groups);
+
+    const securityBody =
+      spField('Risk', spRiskChip(a)) +
+      spField('Policy', spPolicyDot(a.policy)) +
+      spField('Owner', a.owner) +
+      spField('Owner confidence', a.ownerConfidence);
+
+    const toolsBody = a.tools.map(t =>
+      `<div class="sp-tool-row">
+        <span class="sp-tool-name">${t.name}</span>
+        <span class="sp-scope-badge sp-scope-${t.scope}">${t.scope}</span>
+      </div>`
+    ).join('');
+
+    const activityBody = a.activity.map(ac =>
+      `<div class="sp-activity-item">
+        <span class="sp-activity-text">${ac.text}</span>
+        <span class="sp-activity-time">${ac.time}</span>
+      </div>`
+    ).join('');
+
+    spSections.innerHTML =
+      spSection('Identity', identityBody, true) +
+      spSection('Security', securityBody, true) +
+      spSection('Tools &amp; access', toolsBody, true) +
+      spSection('Activity', activityBody, true);
+  }
+
+  window.toggleSec = function(header) {
+    const sec = header.closest('.sp-section');
+    const card = sec.querySelector('.sp-sec-card');
+    const isClosed = sec.classList.contains('closed');
+    sec.classList.toggle('closed', !isClosed);
+    card.style.display = isClosed ? '' : 'none';
+  };
+
+  document.getElementById('agent-table').addEventListener('click', function(e) {
+    const row = e.target.closest('tr[data-agent]');
+    if (!row) return;
+    const key = row.dataset.agent;
+    if (openAgentKey === key && sidePanel.classList.contains('open')) {
+      closeSidePanel(); return;
+    }
+    document.querySelectorAll('.agent-table tbody tr').forEach(r => r.classList.remove('row-selected'));
+    row.classList.add('row-selected');
+    openAgentKey = key;
+    renderSidePanel(key);
+    sidePanel.classList.add('open');
+  });
+
+  function closeSidePanel() {
+    sidePanel.classList.remove('open');
+    openAgentKey = null;
+    document.querySelectorAll('.agent-table tbody tr').forEach(r => r.classList.remove('row-selected'));
+  }
+
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gal Ganon Portfolio</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAABJmlDQ1BJQ0MgUHJvZmlsZQAAGJV9kLFKw1AUhr9ooVWqDlZwcOjQwUGliIhr26EIDiEqWJ3SNI1Cml6SiLrr5uDqJi6+gOhjKAgO4hM4iaCz56aWVEUP/Pwf/z3ce+4B49lWys+UoRPEoVWvFrca28XsCznGyTNF1nYiVTHNNaT6/r0+HjG0P8zru36f/1sjLTdyxF9FJUeFMRgFYfMgVppbwoVQhhI+1Oz1+FRzs8cXSc+GVRO+Fp5tDrA3wB1/3/l6V0+cd4PNdfGcaIYIizrVP3qWkp4aXRRHhOzhsUtMkYokCh9XeJUAhwXmhBcpi5b1Pn/uKc26l7DyDsNnadY8h9sTmH5Ks5L8ceIYbu6UHdpJlBENtdvwdgVjDZi8h9Gd/mI/AdqASsf1cxOEAAAAOGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAACoAIABAAAAAEAAABAoAMABAAAAAEAAABAAAAAAGWZYIoAAB87SURBVGgFVXpZjyRXdl7sS0buW2XtVV29kt0km8uQQwocUaRGI8/IAiTYYwxk2NaTYRl+Nvwr/OYXvxmGaGCEsQALljwjDcfDRRSb3WTv1V3dtWRmVWXlGhn77u/cyOqRI5eIuHHj3u/s554I/vp/+E8cx/HYBJ52gsAOBGwcDmmHPc/RnudFQcioER0znhqoN9vyQTKOywQO//94o44Zl2J4HKT0jy1bbDx6J2lCLVySpRm7kGZZmmYpDcS64YSjhjRJ0cguZuiJYTOJ4BISGnwBDVh5QQQwAk2XMqKDAQUtItGJDgvgjGyanpDQMPgJOOKAmHb4YCo+5SVqybvR3DRyhqGBhxNxB21iRvsE8wEw3U300F2YM2VgRAxC16iZSOZo2HxaYiXjPqEHp2lqXCKc7BJw8SK6LiihU4iF5IAbgIRBR2/goRPixwtB4HrOJsZQDEvsA7exYyc0KDGdA5PRlCUpAwFpER085JOjgfgxLHoBRgJacZARAYxppB5op2PoCSEg5NAcHOakkSbRNexIq3IVwkU6J7y00WDskKbGKeHOJ2esziAV4h7duyCDOE8bdSQRABR4C5DgPM/Iwg7nQq5QpMKckEBR6Q5QDRVi8Bj6F4gZeoFEi08OEcAhRNwP6Awi8DFiznHn6Nk/Xce94LJpxq6NmUS9wBlFTlGJ7SnQQFKkPsRPHOYS4aEdRBzpCY5BK4mDfTEgMwIRzAclGBodoB8ZnxNAIHL0hJeOc76KrJ21Ab0I+eSMZtfBXiYw4vo5etiOKIngjBCFyYM7zt7jyHPSOJE1TanW5M6qfOFKWq7BGHNwgExqD5jAAlAgDsBEQUwBA6oE1BiajII0n9QetgDyOS4htwLqyIgZkAWnCSMDDPLIGPBhIqLuDD1OqRVfOmfKT1TSJkhy6jqDL76c7T9vlwre4LjX7TquLYtSpVJpNpvlyTA5eCpdfQVfsmqQAYUibCQEsB/jwqToBGODEGa9xGowSeQS7NAOC4EYgAdnUCGGjAEFAlwnphO3iasL/GKKRqg9SYVmoC87pB6LjRNl2TnY3/vLn472diVJyNpt0zRnsyluSIXEcR3DMxRFMeQwvvc1Z82VN9+NRQluCFghAvA+90TUH3wnIRJcaC2AogMkRqpF9ovLEBC6wUY4yDuHROCJ5UBPwCkIkDGzg3OYdCIwtco7oj3XH0GSnOd7jz/+b+bgJMmSZr0xn1sAjauk12nsOM5Umiiqout6sViMus8jnpff+q2EBEnOlCN3kpAcSD+okURC6gSowA3GYzA0gzDqQPSQU2ISAFK6xhhMGgKc5G5wq5DBA5PLOScF5NJ1zEngc+4LohSb0/2/+pk/N8FOWZZUVZmbpphEiiyEcQJ4SRz5gT9HhyzTdU0rGObeI6lSlV6+GcfwKWA/EIigFlyFk4F2QzTQFcQuQsosAc3oRpFMJMWDjoE4ZgO4mTE5xwZcRANzOAwiDBMWhdBGYmHiyQnAP9GD9u6vf+mPR67nJFEoS5IYej9+75VLy42SYcxdDxP1B6Nffv3w1DRVRe12uxd2djDl9Nbft5fXs3o7S2LGb8wJ1pKtkhrBJIh5JAjGcgquEAX9Fhso4iVCzkRGmkNBiZiNP2Al5aIhcUQO9Rw93cEkQHSKkmwfPnOePgl8Pw4DXLi+Uvu3f/DBjWs7haIhK6ooK6KiYNyfdLv/+b9+/MneabnZ6HV7rVZr3O0b3/xD8cMfxfA60BzSCOY6KbwiHieQBxkvyCGL5rkEqNAEOkAY878LhSJIC9DYAxfpWY6emMJiBNsTcbSB6exHtHKzO7cCy7TmJjR2o1L404/evrDaJhbwUibImaRwqsEVKqsXr/zHf/cvX2mVXNcbnA0c1wUDR48ecKMBTGgxHmMO8QojQ+6YhBjJpmE8QztZNfDST6QrdIAdrtAuR8/aFi20o8sihSba5Z1wgtsl0T87cbr7pmWCeUKWvH9tq1QsxGAl6QKFDkFSBEUX9RKnFOpr6//qD39btC2o+NHhIWgcDwfB3kOoAabB6DQ+mzefnLViXnCQWEZelnUiXSAYDCeIhdoQldSWaw4O6Rh2TPSx0fMmnNAkaMGHeCRae7uhbblgZ5q2Svp6u47MDxfBJXLnsEZyGDgDBinlhJuvv/rOxU7geebc9Hw3jMLRo4eC52BQUtt8LjY2g0rz0WTEOEz4gtsYjRpAAnWj+Qg/9STAaMEhtRIR7JCGZlfyPXqhRcjCMDzt27aFfBifVrGg6YokyZgPwBeWBjJAHBki0VGo1j5451UxDtE8N+eSLJ8ePkuOu6KEmIAJz2lgxzQ1EUY8ZhCJvyQHhjMHz/At4JPTzDdGMfXGEDlkOlocEhvyC5xjC4EPnWYTZNWSUSgYpWJR0wuyogALxZ8UWT6sj5cUTdEN2PRrN65t1IwkjmEGcRL5vj968I2IPA9AgZNpOE2w4BnRsJjvnJAcV45CgqoyoAzDAhu7dYGXuhHcfEDqRafogZ83GYeWhQFwAm0rl8uRoD08PNWH5vpSc6XT1KBCScKHoTmdDk1EM1fjk/V289WLa/dP7sIzB36gaerBN3da739fbDQRyTAs5IX5mO8EOQkJA60wMpZDkGLiMmXoFNXEjd/5fVzG95zfC6UBIpEsNocKQRIV+CP4+NI13n26e/ztHdd1ojBUuGx9dSVJ0ulo9O2DJ/jKWdJpVNHTnc8/+dtPvvz0C/P0pKAqQRhnoffFg+cxyIPfxNQxQp5ce+kGhV5IgIRAiRodsQ17sie0ATk8xG+uADVTG3A2B3eOMMdJxC+CHMONVtwB38KJIhdF5sGzOCYYcRIrgIDw49uWZQuyUi4U7t19cHTU04xCEjgNMQWF8yg97fXV0Lm4sbxSNTBYGCF4RHGSdL/4v/aTR4gYBIDZJOFhTAWBLD7lF4ilOYkkmBwVdgSL3UqcxhG7GyTTTXSMbcEKHJG8RNEfno33n0EWYBsS5pKmbNV013ZF5Duacv3VG7pe6B8PVBVM11or60atTlqhGdCT1eXWxeU6rbx4PgjCMIo829r92cfcfIakMJ+NQDGXD/jn6sEmZ0iZKdOpREJ5ARdk5HQQbnbEiKTm/AJDT6SnWXJ6jAE83/H9AAJuVMqvXrnQadZglfVqtVCpPi2JztxKwrBQru280umsrkmyZNSroqZknn19e+Nv7h0gvEZp5nk+WDLpHu79xceXf/KvU2Sp0C0E3TyRpnUL0mdSN+IucOEkwYIAsRkrMpyzRlwk+ASbdgxxznw6JVvAhYUpiNFkFJoTuEw4oSgK0bnVbBiFcrvZKJTKvAg/GeqSyKs6nAjQwLXWVpfhW0VV45KIE+SVTovpNYFBduN7nm4Yg8f3hJ/++fYf/YsMNoYkkDQDlkp2TOrPNoosjJs5T3N9Iris8QU5OSW4faFB+WWSCmkeF45HsKTZeGjbTm5fkqImvOLO3SRMsFyKg8iazdEVOQ5yNcwvygXJqIiqAYuBD5XJZKhMkk8BW4LxeEHonfZnd2+fcw6TARemZbqxwEh04JAtGLCkJEg4ZTwmqZCcSFNoaZpfoauskbULQmLPNU2bTGf40AqQ9bJc380kc2ZqhYLo+QcH+44XLi0vS5ICOZi9I9f1qyurCAVp5KdxEAS+oYhjP9JUGSkJlDkMY3gAvaDD7drdI2NjKw0hW1Lw3PPkTAU2yu5IMiQLaNsL6TCgpCXowY6JNiLvHD07F/hobmJxFQwHoe/jEgbAHI41PzobevEcd7qOe39vvz91VKO4Oh7OTk41TZpMRv2j3sbFbUTfNI3gOterxeHxDBYscZko0CoiDPxBt7v22ptRFMHLkSEiJSW3SSgALIVwiZuYEKUXAiZuf/9HuUXn0Rf3sLSE9iRc2D/2/2ijrNY0k+lo97NPsGZEOgSNqBoqcFSRxjmWMx1PPZdT1b3T0UHvRI28cqNcX26X67XHD3cHJyeqKiFJ/fntx72JZcGHQohIROCRRBHrNWturW5uFneuIk0SdB2WS6ZwHgaIGBIH2+iYHGzObMBk7MZusYFMph2/kQBRDKepisLBV58PTo7BM1IA3CIKc8cdT4bFsr6+2TkcTPdPze1G6yqy/lJNS/VJf/7w7rP2UqvZaegV3YuTvaOTKAHtFJTAMiAiZ8Bziiw+u3sHY+KcQUGgZ4GL4QMWhnIBFdckEs9vNtaBZdw5dhqC3c7uYMaUJePH9/e/uRPGcataBz2uF1iWj34Hp6OtRvm7b1y74cS37vdbV65uba3XljtqtZpGUcUOlzfLceTGUfjl/f1be8fgkB/GyOIAV1QgyRT+tFGrzE6Oh/fvVG7cBKfBMuRT7I+tYHKAxHW2uqQd4zP1w8b+AIVRm58vmmiHZigMlr9ffDqbTrE4LBYMCUsyUYIzwfQHp+Onx6OHu0fLS/UbG/X2dLaSZqUkU+YO/+z5+mZV1lXkr2eDycd/d8v0o5kX5qODAglrGtQLk9SynWLJ6H3+iX90QBrMGHiOjHDlIGF5+b2stIherOOidYGZmI4t1386gMf2vfGXnx/v72NYhFt0IJMnFlA3L4i+3T+pFzRNFgoNYzIwj+7esfcrxVa5vF7nFCFwXXNi/o9ffHnr6RG7l/I2bMhmMIKuqbbr+V5g225VlGa3P9dX1vh6k4PFs42iG6NnIRTmn8TN7/8Qc+eWS2GDjoEGR3TywoKx+E0819t9+OQXfz2bjgAbySGKcHDntmWT06DBORd5AWJkll5cW17fXKqvN2rbnermkl4pIXHoHhxMR2dfD/xjG0veDLrE7JBDGQCWXK1WMSYyC8gTMdubz6qKIrY68MJ5kkflFaq5/2YDOS8IIFYyxIwIIiRfeBFr4R8iy0r63aPPfnm0+whN8BrYkL9hLUarWyqHsFUmL6gSD+tEhwsrnaVOp9JuaUY5C+Oj5897h/vL7ea3A38ciuVaXS2VPWsO6BJSQ9SZZbnVbGHAMAiJoXAMw0GjvcxVahxWc1S5A2ASA/NDOcfScwLAa1IFAs7oyA/IRwE9kv7k9GR6987e119inDDygZ7pZYZILMi6Vq7HcUTFWT4zVLmgSKOZNZ6aiFf2bD7o9g73ng4H/bW1TqVa/2LvdGh5QuQjd2htXZ2dnSRJBAfqeh7Kj7V6bT6fwykrxYo5OlNFsbS6zhUMwk8/IuP8gE7Frd/7EWUcC/4vCHhBCMSQBl7c75uP7vXu3gnDwHYsmBpkiggQRBGO1668pumGZ82SBCqRFlW5oqtoH8/nzw77R4dHvjUtF6SNjZV6owmxfvls0BtbYopkY7r+8k2tUDzrHkBnCrqOQL7UWarVap5jX3rjO1yxOti9v3b1Za5YxtIlZzwkxkQAUdABK0iSWuE8165cLUla+IGp7uPH48cP7MExSmuWNSc+IOggoUD8oaIaV213itUqEOSOQUNQ5TOEB4SLelG7url049rW2sZyqYpESIG1vrFRiQJypljxIJLUOyswnsCnjBBG9fjRLlZunU4nnJx950f/VG6tnt69jeQCPCWHji82ooBEgY3qQ1AsKoXR9//bwP7gaN887pUqZXN4Np2MKWhGEdAjrSRO4JcmrmMtX7hsVOtcnNR0paJLZVW80CxtNUqbzfL6cqtaqRhGERV2gEDgenO7/r2dqmPZ1fWdzoUrzANRvRaLYwCDVz466g7Ozkb9nn+4986f/Omg181moxwZIwHcJlMmloPmjQ+ZFyLdwVBkAeR5SPcFIY6mjx8vbW1jufT8ySNKHqOA4qaIZAY1XKrF4hTJ8dLG5vL2lSKfLKtRTeFbhnZhpd2pV+qlQrtdr1TKyPBk3YC44RPT2Nte6ji1rdbN72FO8+z08PE9HMDy8Y/KJDrBNYBT/mxy8eabrqT4/W7x0jXInOYlFcqVhfTnPA5QWoENO/AV5Qmq7kx3dytrG7MH3zx7cC+NYkgKd8I5wObgZBauDcJLkr3btysra+tvfaAnXsE+bYRmpaq0IIssMVQVrhZeGJVwP45HoXoUrp7odf1SMh4O4TdkrBAgfbYadh0PmbYmS/CsURCeHfcPf/WL7Xc//Oovf9pAYVg3CAHTIDIAqAySmM2Pfogdcz2gHxszZwwchU6vX9a12//rL+azCXCiSg7fmsSkjnBymBLFHFnVJUVHkoz68/Hh/syL4+qq39iyKptmcdksdKZaayA2u1xtLyg+8suPveLjWfr06NieTQxFxsQalp5CNhmdwbNJChLSkE8Sg4IRiRxFm3Zn2UeQ9l1taZnMlik/4acPypckVuZeKS/OrwMtH5qWVir1bv/9dDggzQJ8qlDFjaW1ravXsexNnKleMHonJ8OJs6RyNy82ngXqdGYdP3nQRTQwioqma3pRK+gouMP5wOqwaoF9GwV9uVpolEt2qs/Ns2pB++Gf/Vn36PDXn32m1NrWePzVp59YrlVUxSBJnbl59M1Xpc0dodoMz07FWg00kxZhOKKAFzc+IhvI+Z7LAXDxTT03nZzt/epvEf+h7uQv06yjyq+883575zI83Ws3rteqNaSjth8a7qxsn0y0wlK9cuXaNaQGk9EQjIx9J3CtxPe5KJCROXJps1babJUawvzo6cNDq7JUFa+tYyFdqjXqWDqjfrp58eJWOuoeD0w/RjEHTMPaB89Eii/fFEoVLD1RIILqEKsZ2yEBmA5cLEkGzRADaEv5RNW1weFz17ah9L4Xr5X0f36lfbMmfMrNR1h0oxMvVyrVDYHHI4zHd6ZZqMtJPDrrJ4KqqxrKNfCJ7A95GnSNqrZY+GINF4570ay7tnU5SsMraxubK0uYPQw9P4yKhlHggp9c4//N8uX/fm/2Px+e+n6IYrA1HjViP5JLKV+kpQOzYygOVAde6AcsphL3oUIspAmKwNt3b3dvf6VVq745ee+3f/ffv7757pJU0TnbnPeNdQVLLJGvVUqKJGqqGvNCb2bNZnYQRLJmwGqp3gh3hTRTEBWsl+HwYZoIfIGn6KobcktrO+++enmt0wC7oBWnZ8OTs2mt1VyzDy75z8sl7YPL7drOq/uhao9OEeYb25e4epuMHawmU2Abl4prqMxBY2jhDBcXJa6dObZ/3BufHMPefXO2s7H+4R//SXn4tOr0INCmGD0be1xzpV2rFHWQIWmavry0tLa8jOcxKngPt5SmKBiWS6ihwIUa5RJyuUJJR41LkQRua3Pj7Tffunpxp6BrzPnkrMss254PTt/z71WlCM/mYXKna29vvf5b3372CbKMysqGtnEBhk7ASfuZFXApVAhnpD54mIjKK0puCLBa46JkmYgp5uHeR9ffGQ1OIqG0ncYoB8ml6luvve00LygiUroMyoEYrOtqpVLa2doCzTBZpBhA8+zoVEW1V1UhXFhcu1pq16uGoeNZJZYo0FloIdwFqSzHVcul12+8FPiOdOzEg1tQ9GmmH/O1l4vZ7928+ue/vm2Oz8qYj3woJMCEQBqEFRk2sB90kAahYCPDMeORCQpSSD9uXNi+XhL/eu++WW3NBd3g06c73w/aO6gTYhyyfSY+RAfyBHkDXJCq1srlsenwMhI7jSKjKC61m2VDp6nx/APVlryoSfCBiqIqXJVUqhxf+B2weWVw66S47vNKa3T/x9+9/le3H3qWlcZ0JyM5vw23Im2BTKBZcOzAhI2VSSBZpVROHOeNi1u8eVo96T2WqyeFDbG5YlbW9DhCqQnoacGEPXNbMB4aHEUAppBsLBIu3BdWfQoCWR65aVKq6IB+hwBxyJrwQIGoABlpAtvvb74v+XZPXNHtQdV+Uli+9PqFzYf5uzhU5srZj3OyCHHlgx/gZoKRg8E/jgQejrNjGG8Lbtx/otpnT0It27oR1zq0gsV14mp+C92WnxJNJBPad4+eBc60UjRqBbmoiYEz14W4WmuC/aAUIbk/8Xuz5HgWz70YT2N1mZhB2oxSlyD1+eqRK1ya3F0LTiS16GTaN6HcfOkVlgEAH+M0qR54kcX40YdtNATV9JNyq/n2tatTywmtWUNKi9PewIvgMf0Q7o7SaHQHKfhiMQtvk38ZeoqI48mIlNA+u7qkvrJRUqUMD/bguEj5M653Nj8cw1KLtXLTj42nJ3jUQSIAevKSSThNBNdz16Iz1C3mk8Gldz/43T/4wyBGCSaHSXpHQkMuRA3ISOndEIoarBWpcny90fZsf55Khu9kumoqRno2WEJWhjo5eC4KXhj2XK0Im0R1T+QKCFS8uGQgplBOhrJcGrgIlHf7jiwHYGu5XMV6E84CS96T0TwUGxVDgybViupw5o2tQCkjkAAZ0i6UGa15mPSlZiMaz4Jortd/rCf/ZSaeeXhhAiqUgM30ygHlbUQTHZE1gRScJFlBlJqcdHe3KxeKGG8gFsPa6vhsODVty3EgBCQFz7snnz0x7x5aP787uH0U/N2DyWcHcSLITL7Z5csvZVp96HK7h8Nn/dkslBK5FIHNKYfCBJ7w5VKEFkIT8YAAjiumGhdkn4DO6RxPMtNdccmLuZAwR43uve/IMBpCD7BkQ4Q6k0jnQIwIhYINMQPgs7pcmA6m87nNKSHKxF2uIhlGNBwOBkOuWUFMCqXId51WOKkmNTkL60kwc+dF2eLibULEce1ms382qiiqDGFhQ7goUJkNk5ZLxSx0uWj+9OCoVa84fqCrsUSPChTYJwhAdQgPo+DTR0JpwheywEX5yHXmV0pjhS/lkYCwAy58F2keOQYaG+bFFjeZnmS97gDrx9QbomkqaHj+CCCng1NVEfEcT9Gyzc2NLSqkSYqs4G5xowbgaRRmCikTRoM6IrVHJgIuk1zJarDPRFl84+WdT289LNU6w+GcaruC2CgvUYKOQjb0B6/ouG6hwPGyavKFenBy3D9di+KmPaqKxTP4yXwkUhlMgXM8V8O7ReQBSQJgWegEB72+rgXS+AjrFRfxSuCr1fJRt1srF1flpDg/rsupjjogClKKxhXKqWakWgmFMqQVKJqRjNnSGXMgQIBFuXmSliZiu7PyTz6s7T175nnzRqm0udqQ+TilKimKt7yFRyahDzlHgmSlcicN7P7efqvSnp6W62sn+WqQ7J2WkIwA7OnZIFMgFPIzYT4zzelxxYgq8xO8K+DgaUjgVcqlxPcKhw8rfaddzNLVy3alo3KRIqS62EckKwUTeFe/fWG2817Aq8SnPOCQlEm5SUu51JgdGPNTObQupb4ohdksTIchZIcIBzZacvUwbkVBnKpxwMdWJssi1x7tPih+b8U5lWswc7wRRsynwJtRKoEx2WoYjEM78gPokpxpnF0+eJSK8HIGr2h4KF2F04hDPpwJNclJhZ8nl4b8KxrnGqWaGPuVevufOf97qf8PhcNxppXPNt9ZeOYUQY/eMCEbzXitd2/tyd/IVENiwZsUjHkTOBaq9SayfyBNyqFyKVJl6LTPoW7Jb2eT27v3Pvvu+yNe4ZIQ+HETmALwkADYSzSRpqIIQT4wC7zJxvj5TmbKojgOUwkGECbTyTQOIw9XU24aZNZkIAhPUZRCTdYOEyQTWYrn7+wFKs+GMyczwAfhGsf0phjlwdEU64Q4gw3Ba1Pkgs6Cb7BGCAdqRBptg/2ZF8QFQxQdTvGCpGbIH0XPnx5Ux5e+C5S4A9ZCXXMVwp20dKBp8FSGFgPLidcu8bzFF1QenshPsrJh9KYTpLUunh4lki5k35l/U8ueFDRFsOUIa3FPMVQ3RUSgJ0pU4yIljWM4F0wDgBSgEpQ5RZS1lShCXQksY+/vkSqA/+SAUFqKs4kbZSq9XoPUFQTQ+y4ct1WXNqrhozQacTLexCESSENhA3iSDiUCEeAUPWvBJzWcGYd6FusWKCqeeiHGoA6OcpyXZKBHUoWrhbSquMgSsGCkYAwXkEgxkivABmACAxXAOhp5Mc2E8BQmEbIvxFM+wpuXeBNPwCo7xQMmwk8aBhKDKHMSJJN4JRBvT4WeqMS8LCYB6Cln/g3B+wW8BEOfC47iQO40QAzZGsrOKBRbEy6ixZsbJjNFA3lY16UxVYmDjAcNbpTYEfJHKtCoqCxIJDu8KgbeIDuMgBCL/BjwyIGSaXF4pk2xCjqDPIQTYinh+srSbu0NR6vjnYVr1t119wAZioORQV0YxCHeMk09XnY5SfbsWCqV0vil+fNf6dciMgEMTOqSpxJMBBwYRy+WarEvTM5gK0iwMOJc1KCiKBZEfgg/EeKRaIxphDk0iSwwTy3BMwTDGM9UuTiNkgzsxON7ukzpIz3YCiI8NAopT4hiOJY9ofEz9a2i0mmIsa21duP3fuD5W9GBHXIzWJRrqQWduoqyyWmrknA0nBmaUKwrJeXiKJXpER9lQCmerzHzZUYMJiIs64GdWVMg0SQ+5kRL0CEKcBSAIGMPJbREtKO0IPIK6Q2+sUKvZsEhSAKF/RRuAgt63BFEqSJTPCCdYtBxAhvgI+H/ZBtBVX53+vWl6X0zlT/vvP+VfHEpPCT34AclShdBLKqA4kxAHk8mYrt+sWBXI3cgFEnryPbxHgzJeLGBazhWPTvzXZmemGDNLIUCFlCkxAABdHi7AUrtxJkfp36cOUGCtA01UnAdSQ78TIBHjSEqnyHZGUqrVC4PwCUfS3qUJyh/FeaZ3I3kFj/f6X2hmoNlu7c9ezQXi2bEmUGCW2jtgttjBIdklsnIYZHtumHMJUE5dsEfpuyE/P8BzAjRyqoebZAAAAAASUVORK5CYII=">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=array@400,700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: #FBF6E9; color: #141414; font-family: 'Poppins', system-ui, sans-serif; font-size: 17px; line-height: 1.5; overflow-x: hidden; }
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(20,20,20,0.16) 1px, transparent 1px); background-size: 90px 90px; z-index: 0; }
+  ::selection { background: #F2652A; color: #FBF6E9; }
+  a { color: inherit; }
+  button { font: inherit; cursor: pointer; }
+  .nav-link { text-decoration: none; }
+  .nav-pill-link { font-family: 'Figtree', sans-serif; font-size: 14px; text-decoration: none; padding: 8px 12px; border-radius: 100px; transition: background 180ms ease, color 180ms ease; }
+  .nav-pill-link--active { font-weight: 600; color: #111; }
+  .nav-pill-link--active:hover { background: rgba(0,0,0,0.05); }
+  .nav-pill-link--muted { font-weight: 400; color: #555; }
+  .nav-pill-link--muted:hover { background: rgba(0,0,0,0.04); color: #222; }
+  .nav-cta { font-family: 'Figtree', sans-serif; font-size: 14px; font-weight: 600; color: #fff; background: #0f0f0f; text-decoration: none; padding: 12px 20px; border-radius: 100px; transition: opacity 180ms ease; white-space: nowrap; }
+  .nav-cta:hover { opacity: 0.82; }
+  .toggle-btn::before { content: ""; position: absolute; inset: 0.1em; border-radius: 9999px; background: linear-gradient(100deg,#A5122A 0%,#BE1B2B 50%,#CF3620 100%); box-shadow: inset 0 0.07em 0.14em rgba(0,0,0,0.45), inset 0 -0.05em 0.08em rgba(255,255,255,0.14); }
+  .toggle-btn[aria-pressed="true"] .toggle-knob { transform: translateX(0.75em) !important; }
+  .case-vis-dots::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(20,20,20,0.12) 1.5px, transparent 1.5px); background-size: 22px 22px; pointer-events: none; }
+  .marquee-anim { display: inline-flex; animation: marquee 50s linear infinite; white-space: nowrap; }
+  .marquee-glass { position: absolute; top: 0; left: 0; right: 0; z-index: 10; overflow: hidden; white-space: nowrap; padding: 2px 0; font-size: 10px; letter-spacing: 0.12em; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.15); border-bottom: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.9); }
+  .marquee-glass--light { background: rgba(255,255,255,0.15); border-bottom-color: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9); }
+  .cover-carousel { position: relative; overflow: hidden; background: #141414; }
+  .cover-track { display: flex; width: 100%; height: 100%; will-change: transform; }
+  .cover-slide { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; }
+  .star-spin { display: block; width: 100%; height: 100%; animation: spin-cw 12s linear infinite; }
+  #top-nav { transition: box-shadow 250ms cubic-bezier(0.16,1,0.3,1); }
+  #top-nav.scrolled { box-shadow: 0px 4px 24px 0px rgba(0,0,0,0.09) !important; }
+  @keyframes spin-cw { to { transform: rotate(360deg); } }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  @keyframes cursor-bounce {
+    0%,100% { transform: translate(0,0) rotate(-10deg); }
+    40% { transform: translate(6px,8px) rotate(-10deg); }
+  }
+  #footer-cursor { animation: cursor-bounce 1.4s ease-in-out infinite; }
+  #resume > div > span { transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease; cursor: default; }
+  #copy-toast { display:none; position:absolute; left:50%; transform:translateX(-50%); top:calc(100% + 10px); white-space:nowrap; background:#141414; color:#FBF6E9; font-family:'Poppins',sans-serif; font-size:13px; font-weight:500; padding:8px 20px; border-radius:9999px; pointer-events:none; z-index:9999; opacity:0; transition: opacity 0.3s ease; box-shadow:0 4px 16px rgba(0,0,0,0.18); }
+  @media (max-width: 900px) {
+    .case-grid { grid-template-columns: 1fr !important; padding: 32px !important; }
+    .work-pair { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .nav-links-list { display: none !important; }
+    #hero { padding: 48px 24px !important; }
+    #about { padding: 48px 24px 64px !important; }
+    #work { padding: 48px 24px 48px !important; }
+    #work h2 { font-size: 56px !important; }
+    .timeline-section { padding: 32px 24px 80px !important; overflow-x: auto; }
+    .timeline-grid { min-width: 600px; }
+    #contact-inner { padding: 0 24px !important; }
+    #contact-bar { padding: 0 24px !important; }
+    footer h2 { font-size: clamp(36px,8vw,72px) !important; }
+    #footer-cursor { display: none !important; }
+  }
+  @media (max-width: 600px) {
+    #work h2 { font-size: 40px !important; letter-spacing: 0.04em !important; }
+    .case-vis-dots { height: 260px !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-anim, .star-spin { animation: none !important; }
+    .cover-track { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header id="top" style="position: fixed; top: 16px; left: 0; right: 0; z-index: 50; display: flex; justify-content: center; padding: 0 24px; pointer-events: none;">
+  <nav id="top-nav" style="display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; background: rgba(255,255,255,0.72); border-radius: 100px; box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.05); padding: 12px 12px 12px 24px; pointer-events: all; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);" aria-label="Main">
+    <a href="#top" class="nav-link" style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 16px; color: #1e1e1e; text-decoration: none; white-space: nowrap;">Gal Ganon</a>
+    <div class="nav-links-list" style="display: flex; align-items: center; gap: 4px;">
+      <a href="#work" class="nav-pill-link nav-pill-link--active">Work</a>
+      <a href="about.html" class="nav-pill-link nav-pill-link--muted">About</a>
+      <a href="uploads/gal-ganon-resume.pdf" download="Gal-Ganon-Resume.pdf" class="nav-pill-link nav-pill-link--muted">Resume</a>
+      <a href="https://www.linkedin.com/in/gal-ganon/" target="_blank" rel="noopener" class="nav-pill-link nav-pill-link--muted">LinkedIn</a>
+    </div>
+  </nav>
+</header>
+
+<div style="position: relative; z-index: 1; display: grid; gap: 0; padding-top: 90px; background-color: #FFFCF2">
+
+  <!-- HERO -->
+  <section id="hero" style="padding: 64px 32px 48px; position: relative; max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; overflow: hidden;">
+    <div id="dots-container" style="position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; width: 1203px; height: 748px" aria-hidden="true"></div>
+
+    <div style="position: relative; z-index: 1; font-family: 'Array','Poppins',sans-serif; font-weight: 400; font-size: clamp(60px,13vw,190px); line-height: 0.9; letter-spacing: 0.01em; text-align: left">Senior</div>
+    <div style="position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 0.04em; font-family: 'Poppins',system-ui,sans-serif; font-weight: 700; font-size: clamp(52px,12vw,170px); line-height: 1; color: #F2652A; letter-spacing: 0.02em">
+      PR<button class="toggle-btn" id="hero-toggle" aria-pressed="false" aria-label="Decorative toggle" style="display: inline-block; width: 1.62em; height: 0.9em; position: relative; vertical-align: middle; border: none; padding: 0; border-radius: 9999px; background: linear-gradient(100deg,#B01228 0%,#C31B2C 46%,#D8391F 82%,#E4571F 100%); box-shadow: inset 0 0.05em 0.02em rgba(255,255,255,0.35), inset 0 -0.06em 0.05em rgba(0,0,0,0.30), 0 0.16em 0.36em rgba(120,20,20,0.38); flex: none; cursor: pointer;"><span class="toggle-knob" style="position: absolute; top: 0.075em; left: 0.085em; width: 0.75em; height: 0.75em; z-index: 1; border-radius: 50%; background: radial-gradient(circle at 42% 36%,#fff 0%,#f4f4f4 46%,#dcdcdc 74%,#c4c4c4 92%,#d2d2d2 100%); box-shadow: inset 0 0.05em 0.04em rgba(255,255,255,0.95), 0 0.10em 0.20em rgba(0,0,0,0.42); transition: transform 320ms cubic-bezier(0.34,1.56,0.64,1);"></span></button>DUCT
+    </div>
+    <div style="position: relative; z-index: 1; display: inline-flex; align-items: center; font-family: 'Poppins',system-ui,sans-serif; font-weight: 700; font-size: clamp(52px,12vw,170px); line-height: 1; letter-spacing: 0.01em">
+      DES<img src="uploads/image-1780.png" alt="" style="display: inline-block; height: 0.73em; width: auto; border-radius: 999px; object-fit: cover; margin: 0 0.03em;">GNER<span style="display: inline-flex; position: relative; width: 0.4em; height: 0.4em; align-self: flex-end; margin-left: -0.02em; transform: translateY(-0.02em);" aria-hidden="true">
+        <svg style="width: 100%; height: 100%; display: block; filter: drop-shadow(0 0.03em 0.06em rgba(0,0,0,0.30)); transform: rotate(18deg);" viewBox="0 0 100 100">
+          <defs>
+            <clipPath id="fclip"><rect x="2" y="2" width="96" height="96" rx="24"></rect></clipPath>
+            <linearGradient id="fblue" x1="0" y1="0" x2="0.2" y2="1"><stop offset="0" stop-color="#63B4FF"></stop><stop offset="1" stop-color="#2E82EE"></stop></linearGradient>
+            <linearGradient id="fwhite" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset="1" stop-color="#D4E7FF"></stop></linearGradient>
+          </defs>
+          <g clip-path="url(#fclip)">
+            <rect width="100" height="100" fill="url(#fblue)"></rect>
+            <path d="M54 -2 C53 20 52 32 51 40 L37 51 L51 62 C52 72 53 84 53 102 L102 102 L102 -2 Z" fill="url(#fwhite)"></path>
+            <rect x="26" y="30" width="5.4" height="17" rx="2.7" fill="#12263C"></rect>
+            <rect x="66" y="30" width="5.4" height="17" rx="2.7" fill="#12263C"></rect>
+            <path d="M21 65 Q50 85 75 64" fill="none" stroke="#12263C" stroke-width="5.4" stroke-linecap="round"></path>
+          </g>
+        </svg>
+        <span style="display: block; position: absolute; top: -0.08em; right: -0.08em; width: 0.22em; height: 0.22em; color: #F2652A;">
+          <svg class="star-spin" viewBox="0 0 100 100" aria-hidden="true" fill="currentColor">
+            <g transform="translate(50 50)">
+              <g transform="rotate(0)"><rect x="-6" y="-44" width="12" height="88" rx="0"></rect></g>
+              <g transform="rotate(60)"><rect x="-6" y="-44" width="12" height="88" rx="0"></rect></g>
+              <g transform="rotate(120)"><rect x="-6" y="-44" width="12" height="88" rx="0"></rect></g>
+            </g>
+          </svg>
+        </span>
+      </span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" style="scroll-margin-top: 97px; max-width: 1400px; margin: 0 auto; position: relative; display: grid; padding: 32px 120px 40px;">
+    <p style="font-weight: 500; font-size: clamp(20.8px,3.2vw,41.6px); line-height: 1.35; max-width: 1100px;">
+      Hi, I'm <img src="uploads/פרופיל-a95fa174.png" alt="Gal" style="display: inline-block; width: 0.85em; height: 0.85em; border-radius: 50%; object-fit: cover; vertical-align: -0.18em; margin: 0 0.05em;"> Gal <svg style="display:inline-block;width:0.85em;height:0.85em;vertical-align:-0.15em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin:0 0.05em;" viewBox="0 0 24 24"><path d="M18 12.5V10a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1.4"/><path d="M14 11V9a2 2 0 1 0-4 0v2"/><path d="M10 10.5V5a2 2 0 1 0-4 0v9"/><path d="m7 15-1.76-1.76a2 2 0 0 0-2.83 2.82l3.6 3.6C7.5 21.14 9.2 22 12 22h2a8 8 0 0 0 8-8V7a2 2 0 1 0-4 0v5"/></svg>, Product Designer since
+      <span style="display: inline-block; border: 2px solid #141414; border-radius: 9999px; padding: 0 0.45em; font-size: 0.85em;">2021</span> focused on AI
+      <svg style="display:inline-block;width:0.85em;height:0.85em;vertical-align:-0.15em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin:0 0.05em;" viewBox="0 0 24 24"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path></svg>, data
+      <svg style="display:inline-block;width:0.85em;height:0.85em;vertical-align:-0.15em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin:0 0.05em;" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5V19A9 3 0 0 0 21 19V5"></path><path d="M3 12A9 3 0 0 0 21 12"></path></svg>, and experiences
+      <svg style="display:inline-block;width:0.85em;height:0.85em;vertical-align:-0.15em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin:0 0.05em;" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg>.
+    </p>
+    <div id="resume" style="margin-top: 56px; max-width: 1100px; overflow: visible; position: relative">
+      <p style="font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 500; color: #141414; margin-bottom: 24px">with my skills in:</p>
+      <div style="position: relative; height: 200px; overflow: visible;">
+        <span style="position: absolute; left: 624px; top: 9px; border: 2px solid #141414; border-radius: 9999px; padding: 12px 24px; font-family: 'Poppins',sans-serif; font-size: 24px; font-weight: 400; white-space: nowrap; color: rgba(20,20,20,0.7); border-style: dashed; height: 57px; line-height: 28.65px; background-color: #FFFCF2">Prototyping</span>
+        <span style="position: absolute; left: -20px; top: 18px; transform-origin: center center; border: 2.5px solid #141414; border-radius: 9999px; padding: 16px 28px; font-family: 'Poppins',sans-serif; font-size: 22px; font-weight: 500; white-space: nowrap; display: inline-block; z-index: 86; overflow: visible; transform: rotate(-36deg); width: 172px; height: 68px; text-align: center; border-width: 1px; background-color: #FFFCF2">Empathy</span>
+        <span style="position: absolute; left: 402px; top: 7px; border: 2.5px solid #141414; border-radius: 9999px; padding: 16px 32px; font-family: 'Poppins',sans-serif; font-size: 24px; font-weight: 400; white-space: nowrap; height: 57px; line-height: 21.85px; border-width: 1px; background-color: #FFFCF2">Wireframing</span>
+        <span style="position: absolute; left: 86px; border: 2px solid #141414; border-radius: 9999px; padding: 8px 18px; font-family: 'Poppins',sans-serif; font-size: 13px; font-weight: 400; white-space: nowrap; width: 73px; height: 69px; text-align: center; top: 74px; border-width: 1px; background-color: #FFFCF2">Visual<br>&amp;<br>UI</span>
+        <span style="position: absolute; left: 823px; top: 10px; border: 2.5px solid #141414; border-radius: 9999px; padding: 16px 32px; font-family: 'Poppins',sans-serif; font-size: 22px; font-weight: 400; white-space: nowrap; line-height: 22.1px; height: 57px; background-color: #FFFCF2; border-width: 1px">User Flow</span>
+        <span style="position: absolute; left: 699px; top: 79px; border: 2.5px solid #141414; border-radius: 9999px; padding: 16px 32px; font-family: 'Poppins',sans-serif; font-size: 22px; font-weight: 400; white-space: nowrap; line-height: 20.25px; height: 57px; border-width: 1px; background-color: #FFFCF2">Communication</span>
+        <span style="position: absolute; left: 151px; top: 7px; border: 2.5px solid #141414; border-radius: 9999px; padding: 16px 32px; font-family: 'Poppins',sans-serif; font-size: 24px; font-weight: 700; white-space: nowrap; background: #141414; color: #FBF6E9; text-align: center; border-style: dashed; height: 57px; line-height: 19.8px"><span style="font-weight: normal;">User Research</span></span>
+        <span style="position: absolute; transform: rotate(8deg); border: 2.5px solid #141414; border-radius: 9999px; width: 103px; height: 104px; display: flex; align-items: center; justify-content: center; font-family: Poppins; font-size: 52px; font-weight: 400; line-height: 1; left: 971px; top: 49px; border-width: 1px; background-color: #FFFCF2">&amp;</span>
+        <span style="position: absolute; left: 170px; border: 2.5px solid #141414; border-radius: 9999px; padding: 16px 32px; font-family: crimson pro; font-size: 22px; font-weight: 400; white-space: nowrap; top: 80px; height: 57px; text-align: center; display: grid; line-height: 22.05px; border-width: 1px; background-color: #FFFCF2"><i>Information Design</i></span>
+        <span style="position: absolute; top: -10px; transform: rotate(28deg); transform-origin: center center; border: 2.5px solid #141414; border-radius: 9999px; padding: 16px 28px; font-family: 'Poppins',sans-serif; font-size: 22px; font-weight: 500; white-space: nowrap; display: inline-block; left: 948px; height: 54px; line-height: 22.3px; background-color: #FFFCF2; border-width: 1px">Collaboration</span>
+        <span style="position: absolute; left: 425px; top: 79px; border: 2.5px solid #141414; border-radius: 9999px; padding: 16px 32px; font-family: 'Poppins',sans-serif; font-size: 24px; font-weight: 400; white-space: nowrap; background: #141414; color: #FBF6E9; text-align: center; border-style: dashed; height: 57px; line-height: 19.8px">Critical Thinking</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" style="scroll-margin-top: 97px; padding: 32px 120px 40px; max-width: 1400px; margin: 0 auto; position: relative;">
+    <h2 style="font-weight: 800; font-size: 110px; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 48px; text-align: center; font-family: 'Space Grotesk', sans-serif; width: 100%">Featured Work</h2>
+
+    <article style="border: 1px solid rgba(20,20,20,0.4); border-radius: 24px; margin-bottom: 48px; overflow: hidden; position: relative; background-color: #FFFCF2">
+      <div class="marquee-glass" aria-hidden="true">
+        <div class="marquee-anim"><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span><span style="padding: 0 24px;">✦ 5 min read</span></div>
+      </div>
+      <a href="work/monday-agentic-copilot.html" style="display: block; text-decoration: none;">
+        <div class="cover-carousel" id="cover-carousel-01" style="height: clamp(200px, 34vw, 480px); cursor: pointer;">
+          <div class="cover-track" style="height: 100%;">
+            <img class="cover-slide" src="uploads/cover-01-pipeline.jpg" alt="Agent OZ pipeline dashboard with next best actions and the agent side panel" decoding="async">
+            <img class="cover-slide" src="uploads/cover-02-opportunity.jpg" alt="Agent OZ opportunity draft — Salesforce fields prefilled from a Zoom call" decoding="async">
+            <img class="cover-slide" src="uploads/cover-03-agentic.jpg" alt="Agentic co-pilot title card with the monday logo" decoding="async">
+            <img class="cover-slide" src="uploads/cover-01-pipeline.jpg" alt="" aria-hidden="true" decoding="async">
+          </div>
+        </div>
+      </a>
+      <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <p style="font-family: 'Poppins',sans-serif; font-size: 24px; line-height: 38px; font-weight: 400;">Designed an <strong style="font-weight: 700;">AI Agentic Co-Pilot</strong> to <strong style="font-weight: 700;">Automate Admin</strong> and <strong style="font-weight: 700;">Drive Sales Revenue</strong></p>
+          <p style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; line-height: 13.2px; letter-spacing: 0.528px; color: #323338;">• Gen UI • Web • AI Sales Agent</p>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+          <span style="display: inline-flex; align-items: center; justify-content: center; background: #F9F4E9; border-radius: 8px; padding: 8px; height: 32px;">
+            <svg width="21" height="13" viewBox="0 0 21 13" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="monday.com"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.35 12.13C1.5 12.13.71 11.64.29 10.86c-.41-.79-.39-1.75.07-2.51L4.6 1.24C5.03.47 5.84 0 6.69.03c.86.02 1.63.53 2.03 1.33.39.8.34 1.76-.13 2.51L4.35 10.97c-.43.72-1.19 1.16-2 1.16z" fill="#FB275D"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M9.66 12.13c-.86 0-1.65-.49-2.06-1.28-.42-.79-.39-1.75.07-2.5L11.9 1.24c.43-.79 1.24-1.26 2.1-1.24.86.02 1.65.54 2.04 1.34.39.81.33 1.78-.15 2.53l-4.24 7.1c-.43.73-1.18 1.16-1.99 1.16z" fill="#FFCB00"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M17.51 12.13c1.6 0 2.9-1.33 2.9-2.98 0-1.65-1.3-2.98-2.9-2.98-1.61 0-2.91 1.33-2.91 2.98 0 1.65 1.3 2.98 2.91 2.98z" fill="#00C875"></path></svg>
+          </span>
+          <a href="work/monday-agentic-copilot.html" style="display: inline-flex; align-items: center; justify-content: center; background: #111; color: #FFFCF2; text-decoration: none; font-family: 'Poppins',sans-serif; font-weight: 500; font-size: 13px; padding: 8px 18px; border-radius: 9999px; white-space: nowrap; transition: background 250ms;">View Case Study →</a>
+        </div>
+      </div>
+    </article>
+
+    <div class="work-pair" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-bottom: 48px;">
+
+      <!-- Case study 02 — WalkMe -->
+      <article style="border: 1px solid rgba(20,20,20,0.3); border-radius: 24px; overflow: hidden; position: relative; background-color: #FFFCF2; display: flex; flex-direction: column;">
+        <div class="marquee-glass" aria-hidden="true">
+          <div class="marquee-anim"><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span><span style="padding: 0 24px;">✦ 4 min read</span></div>
+        </div>
+        <a href="work/walkme-system-settings.html" style="display: block; aspect-ratio: 433 / 368; overflow: hidden;">
+          <img src="uploads/work-02-walkme-cover.png" alt="The redesigned WalkMe settings menu with the design-tips modal and the welcome-screen preview" style="width: 100%; height: 100%; object-fit: cover; display: block; cursor: pointer;" decoding="async">
+        </a>
+        <div style="padding: 32px; display: flex; flex-direction: column; gap: 24px; flex: 1;">
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <p style="font-family: 'Poppins',sans-serif; font-size: 24px; line-height: 38px; font-weight: 400;">Streamlined <strong style="font-weight: 700;">WalkMe</strong>&rsquo;s <strong style="font-weight: 700;">Settings Architecture</strong> to <strong style="font-weight: 700;">Accelerate Navigation</strong> and <strong style="font-weight: 700;">Feature Discovery</strong></p>
+            <p style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; line-height: 13.2px; letter-spacing: 0.528px; color: rgba(20,20,20,0.6);">•Web app •Redesign •b2b platform</p>
+          </div>
+          <div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+            <span style="display: inline-flex; align-items: center; justify-content: center; background: #F9F4E9; border-radius: 8px; padding: 8px 12px; height: 32px;">
+              <img src="uploads/other-walkme-logo.png" alt="WalkMe" style="height: 16px; width: auto; display: block;">
+            </span>
+            <a href="work/walkme-system-settings.html" style="display: inline-flex; align-items: center; justify-content: center; background: #111; color: #FFFCF2; text-decoration: none; font-family: 'Poppins',sans-serif; font-weight: 500; font-size: 13px; padding: 8px 18px; border-radius: 9999px; white-space: nowrap; transition: background 250ms;">View Case Study →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Case study 03 — monday.com A/B testing -->
+      <article style="border: 1px solid rgba(20,20,20,0.3); border-radius: 24px; overflow: hidden; position: relative; background-color: #FFFCF2; display: flex; flex-direction: column;">
+        <div class="marquee-glass marquee-glass--light" aria-hidden="true">
+          <div class="marquee-anim" style="animation-duration:81.5s"><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span><span style="padding: 0 24px;">✦Soon</span></div>
+        </div>
+        <div style="aspect-ratio: 434 / 370; overflow: hidden;">
+          <img src="uploads/work-03-abtest-cover.png" alt="The monday.com experimentation platform dashboard showing a running A/B test and its metrics" style="width: 100%; height: 100%; object-fit: cover; display: block;" decoding="async">
+        </div>
+        <div style="padding: 32px; display: flex; flex-direction: column; gap: 24px; flex: 1;">
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <p style="font-family: 'Poppins',sans-serif; font-size: 24px; line-height: 38px; font-weight: 400;">Drove <strong style="font-weight: 700;">95% Growth</strong> and <strong style="font-weight: 700;">30% Faster Decisions</strong> on <strong style="font-weight: 700;">monday.com</strong>&rsquo;s A/B Testing Platform <strong style="font-weight: 700;">Using Behavioral UX</strong></p>
+            <p style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; line-height: 13.2px; letter-spacing: 0.528px; color: rgba(20,20,20,0.6);">•Nudging •Data-Driven Design •Statistical product</p>
+          </div>
+          <div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+            <span style="display: inline-flex; align-items: center; justify-content: center; background: #F9F4E9; border-radius: 8px; padding: 8px; height: 32px;">
+              <svg width="21" height="13" viewBox="0 0 21 13" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="monday.com"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.35 12.13C1.5 12.13.71 11.64.29 10.86c-.41-.79-.39-1.75.07-2.51L4.6 1.24C5.03.47 5.84 0 6.69.03c.86.02 1.63.53 2.03 1.33.39.8.34 1.76-.13 2.51L4.35 10.97c-.43.72-1.19 1.16-2 1.16z" fill="#FB275D"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M9.66 12.13c-.86 0-1.65-.49-2.06-1.28-.42-.79-.39-1.75.07-2.5L11.9 1.24c.43-.79 1.24-1.26 2.1-1.24.86.02 1.65.54 2.04 1.34.39.81.33 1.78-.15 2.53l-4.24 7.1c-.43.73-1.18 1.16-1.99 1.16z" fill="#FFCB00"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M17.51 12.13c1.6 0 2.9-1.33 2.9-2.98 0-1.65-1.3-2.98-2.9-2.98-1.61 0-2.91 1.33-2.91 2.98 0 1.65 1.3 2.98 2.91 2.98z" fill="#00C875"></path></svg>
+            </span>
+            <span style="display: inline-flex; align-items: center; justify-content: center; background: #F9F4E9; border-radius: 8px; padding: 8px 16px; height: 32px; font-family: 'Poppins',sans-serif; font-size: 14px; line-height: 20px; color: #9D6103; white-space: nowrap;">Soon</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section style="padding: 40px 120px 120px; max-width: 1400px; margin: 0 auto; position: relative; background-color: #FFFCF2;" aria-label="Project timeline" class="timeline-section">
+    <p style="text-align: center; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 22px; color: rgba(20,20,20,0.45); margin-bottom: 80px; line-height: 1.5;">Every experience in my life is<br>important and has taught me a lot</p>
+
+    <div style="position: relative;">
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin-bottom: 0;">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 8px;">
+          <div style="width: 108px; height: 108px; border-radius: 24px; overflow: hidden; background: #fff; box-shadow: 0 2px 16px rgba(20,20,20,0.12), 0 0 0 1px rgba(20,20,20,0.08); display: flex; align-items: center; justify-content: center;">
+            <img src="uploads/pasted-1785613635413-0.png" alt="xBiDa" style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px;">
+          </div>
+          <span style="font-family: 'Poppins',sans-serif; font-size: 13px; font-weight: 400; color: #141414; text-align: center;">xBiDa</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 8px;">
+          <div style="width: 108px; height: 108px; border-radius: 24px; overflow: hidden; background: #fff; box-shadow: 0 2px 16px rgba(20,20,20,0.12), 0 0 0 1px rgba(20,20,20,0.08); display: flex; align-items: center; justify-content: center;">
+            <img src="uploads/pasted-1785613629323-0.png" alt="Make an Impact" style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px;">
+          </div>
+          <span style="font-family: 'Poppins',sans-serif; font-size: 13px; font-weight: 400; color: #141414; text-align: center;">Tel Aviv-Yafo Academic College</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 8px;">
+          <div style="width: 108px; height: 108px; border-radius: 24px; overflow: hidden; background: #fff; box-shadow: 0 2px 16px rgba(20,20,20,0.12), 0 0 0 1px rgba(20,20,20,0.08); display: flex; align-items: center; justify-content: center;">
+            <img src="uploads/pasted-1785613622006-0.png" alt="Matrix" style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px;">
+          </div>
+          <span style="font-family: 'Poppins',sans-serif; font-size: 13px; font-weight: 400; color: #141414; text-align: center;">Matrix</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 8px;">
+          <div style="width: 108px; height: 108px; border-radius: 24px; overflow: hidden; background: #fff; box-shadow: 0 2px 16px rgba(20,20,20,0.12), 0 0 0 1px rgba(20,20,20,0.08); display: flex; align-items: center; justify-content: center;">
+            <img src="uploads/pasted-1785613617232-0.png" alt="WalkMe" style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px;">
+          </div>
+          <span style="font-family: 'Poppins',sans-serif; font-size: 13px; font-weight: 400; color: #141414; text-align: center;">WalkMe</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 8px;">
+          <div style="width: 108px; height: 108px; border-radius: 24px; overflow: hidden; background: #fff; box-shadow: 0 2px 16px rgba(20,20,20,0.12), 0 0 0 1px rgba(20,20,20,0.08); display: flex; align-items: center; justify-content: center;">
+            <img src="uploads/pasted-1785613611235-0.png" alt="Monday.com" style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px;">
+          </div>
+          <span style="font-family: 'Poppins',sans-serif; font-size: 13px; font-weight: 500; color: #141414; text-align: center;">Monday.com</span>
+        </div>
+      </div>
+
+      <div style="position: relative; display: grid; grid-template-columns: repeat(5, 1fr); align-items: center; height: 32px; margin-top: 16px;">
+        <div style="position: absolute; left: 0; right: -48px; height: 2.5px; background: #141414; top: 50%; transform: translateY(-50%); z-index: 0;"></div>
+        <div style="position: absolute; right: -58px; top: 50%; transform: translateY(-50%); width: 0; height: 0; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-left: 14px solid #141414; z-index: 1;"></div>
+        <div style="display:flex;justify-content:center;"><div style="width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid #141414; background: #FFFCF2; z-index: 1;"></div></div>
+        <div style="display:flex;justify-content:center;"><div style="width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid #141414; background: #FFFCF2; z-index: 1;"></div></div>
+        <div style="display:flex;justify-content:center;"><div style="width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid #141414; background: #FFFCF2; z-index: 1;"></div></div>
+        <div style="display:flex;justify-content:center;"><div style="width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid #141414; background: #FFFCF2; z-index: 1;"></div></div>
+        <div style="display:flex;justify-content:center;"><div style="width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid #F2652A; background: #F2652A; z-index: 1;"></div></div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px; padding-right: 0;">
+        <span style="font-family: 'Array','Poppins',sans-serif; font-size: 44px; font-weight: 700; color: #141414; letter-spacing: -0.02em; line-height: 1;">2020</span>
+        <span style="font-family: 'Array','Poppins',sans-serif; font-size: 44px; font-weight: 700; color: #F2652A; letter-spacing: -0.02em; line-height: 1; font-style: italic;">now</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- CONTACT -->
+<footer id="contact" style="color: #141414; padding: 120px 0 0; position: relative; z-index: 1; line-height: 31.35px; background-color: #FFFCF2">
+  <div id="contact-inner" style="max-width: 1400px; margin: 0 auto; padding: 0 120px; text-align: center;">
+    <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: clamp(48px,7vw,110px); line-height: 1.0; text-transform: uppercase; letter-spacing: -0.02em; color: #141414; margin: 0">
+      Interested in <br>Working Together? <img src="uploads/pasted-1785615352201-0.png" alt="✌" style="display:inline-block;height:0.85em;width:auto;vertical-align:-0.1em;margin:0 0.06em;"></h2>
+
+    <div style="position: relative; display: inline-block; margin-top: 48px;">
+      <p style="font-family: 'Poppins',sans-serif; font-size: 15px; font-weight: 400; color: rgba(20,20,20,0.5); margin-bottom: 8px; letter-spacing: 0.04em;">Contact me:</p>
+      <button id="email-copy-btn" style="background: none; border: none; padding: 0; cursor: pointer; font-family: 'Poppins',sans-serif; font-size: 18px; font-weight: 500; color: #141414; text-decoration-line: none; text-underline-offset: 4px; text-decoration-color: rgba(20,20,20,0.25); transition: text-decoration-color 200ms">galganonn@gmail.com</button>
+
+      <svg id="footer-cursor" style="position: absolute; right: -64px; bottom: -12px; width: 48px; height: 48px; pointer-events: none;" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 4L8 36L16 28L22 42L27 40L21 26L33 26Z" fill="#141414" stroke="#FBF6E9" stroke-width="2" stroke-linejoin="round"></path>
+      </svg>
+
+      <div id="copy-toast">Email copied! ✓</div>
+    </div>
+  </div>
+
+  <div id="contact-bar" style="max-width: 1400px; margin: 96px auto 0; padding: 0 120px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; font-size: 14px; color: rgba(20,20,20,0.45); border-top: 1px solid rgba(20,20,20,0.12); padding: 28px 0 40px;">
+      <span style="font-family:'Poppins',sans-serif;">© 2026 Gal Ganon — All Rights Reserved</span>
+      <button id="back-top-btn" style="background: none; border: 1px solid rgba(20,20,20,0.25); color: #141414; border-radius: 9999px; padding: 10px 22px; font-size: 13px; font-family:'Poppins',sans-serif; letter-spacing: 0.08em; cursor: pointer; transition: background 200ms, color 200ms;">Back to top ↑</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var topNav = document.getElementById('top-nav');
+  var onScroll = function() { if (topNav) topNav.classList.toggle('scrolled', window.scrollY > 10); };
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  var toggle = document.getElementById('hero-toggle');
+  if (toggle) {
+    toggle.addEventListener('click', function() {
+      toggle.setAttribute('aria-pressed', toggle.getAttribute('aria-pressed') !== 'true');
+    });
+  }
+
+  var backTop = document.getElementById('back-top-btn');
+  if (backTop) backTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+  var emailBtn = document.getElementById('email-copy-btn');
+  if (emailBtn) {
+    emailBtn.addEventListener('click', function() {
+      var email = 'galganonn@gmail.com';
+      var toast = document.getElementById('copy-toast');
+      function showToast() {
+        if (!toast) return;
+        toast.style.display = 'block';
+        setTimeout(function() { toast.style.opacity = '1'; }, 10);
+        setTimeout(function() { toast.style.opacity = '0'; }, 3000);
+        setTimeout(function() { toast.style.display = 'none'; }, 3400);
+      }
+      function copyViaExecCommand() {
+        var ta = document.createElement('textarea');
+        ta.value = email;
+        ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try { document.execCommand('copy'); } catch(e) {}
+        document.body.removeChild(ta);
+        showToast();
+      }
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(email).then(showToast).catch(copyViaExecCommand);
+      } else {
+        copyViaExecCommand();
+      }
+    });
+  }
+
+  requestAnimationFrame(function() {
+    var container = document.getElementById('dots-container');
+    if (!container) return;
+    container.innerHTML = '';
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var COUNT = 80, SPEED = 0.15;
+    var dots = [];
+    var hero = document.getElementById('hero');
+    var rect = hero ? hero.getBoundingClientRect() : { width: window.innerWidth, height: window.innerHeight };
+    var vw = rect.width, vh = rect.height;
+
+    function spawn() {
+      var el = document.createElement('div');
+      var ang = Math.random() * Math.PI * 2;
+      var d = { el: el, x: Math.random() * vw, y: Math.random() * vh, vx: Math.cos(ang) * SPEED, vy: Math.sin(ang) * SPEED };
+      el.style.cssText = 'position:absolute;width:2.5px;height:2.5px;border-radius:50%;background:rgba(8,8,8,0.65);will-change:transform;';
+      el.style.transform = 'translate(' + d.x + 'px,' + d.y + 'px)';
+      container.appendChild(el);
+      return d;
+    }
+
+    for (var i = 0; i < COUNT; i++) dots.push(spawn());
+    if (reduce) return;
+
+    var raf;
+    function frame() {
+      var r = hero ? hero.getBoundingClientRect() : { width: window.innerWidth, height: window.innerHeight };
+      var W = r.width, H = r.height;
+      for (var j = 0; j < dots.length; j++) {
+        var d = dots[j];
+        d.x += d.vx; d.y += d.vy;
+        if (d.x < 0) d.x = W; else if (d.x > W) d.x = 0;
+        if (d.y < 0) d.y = H; else if (d.y > H) d.y = 0;
+        d.el.style.transform = 'translate(' + d.x + 'px,' + d.y + 'px)';
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    raf = requestAnimationFrame(frame);
+  });
+
+  // Hover lift effect on skill chips
+  document.querySelectorAll('#resume > div > span').forEach(function(el) {
+    var orig = el.style.transform || '';
+    el.addEventListener('mouseenter', function() {
+      el.style.transform = (orig ? orig + ' ' : '') + 'translateY(-7px)';
+      el.style.boxShadow = '0 8px 24px rgba(20,20,20,0.13)';
+    });
+    el.addEventListener('mouseleave', function() {
+      el.style.transform = orig;
+      el.style.boxShadow = '';
+    });
+  });
+
+  // Make entire case study cards clickable
+  document.querySelectorAll('#work article').forEach(function(article) {
+    var link = article.querySelector('a[href]');
+    if (!link) return;
+    var href = link.getAttribute('href');
+    article.style.cursor = 'pointer';
+    article.addEventListener('click', function(e) {
+      if (e.target.closest('a, button')) return;
+      window.location.href = href;
+    });
+  });
+
+  // Auto-advancing cover carousel on the case study cards.
+  // The track is a filmstrip: the outgoing image exits left as the next one
+  // enters from the right. Each step fires 3s after the previous one started —
+  // a fast push that spends most of that time easing to a stop.
+  document.querySelectorAll('.cover-carousel').forEach(function(root) {
+    var track = root.querySelector('.cover-track');
+    var slides = root.querySelectorAll('.cover-slide');
+    if (!track || slides.length < 2) return;
+
+    var count = slides.length - 1;        // real slides; the track holds one extra clone
+    var MOVE = 1900;                      // travel time, nearly all of it deceleration
+    var CYCLE = 3000;                     // start of one move to the start of the next
+    var EASE = 'cubic-bezier(0.16,1,0.3,1)';
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var pos = 0, timer = null, settle = null;
+
+    function place(i, animate) {
+      track.style.transition = (animate && !reduced) ? 'transform ' + MOVE + 'ms ' + EASE : 'none';
+      track.style.transform = 'translateX(' + (-i * 100) + '%)';
+    }
+
+    function step() {
+      clearTimeout(settle);
+      pos += 1;
+      place(pos, true);
+      if (pos === count) {
+        // The last frame is a clone of the first, so jumping back to 0 once the
+        // move has landed is invisible.
+        settle = setTimeout(function() { pos = 0; place(0, false); }, MOVE + 40);
+      }
+    }
+
+    function play() { clearInterval(timer); timer = setInterval(step, CYCLE); }
+    function stop() { clearInterval(timer); }
+
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) stop(); else play();
+    });
+
+    place(0, false);
+
+    // Only run while the card is on screen
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { if (e.isIntersecting) play(); else stop(); });
+      }, { threshold: 0.25 }).observe(root);
+    } else {
+      play();
+    }
+  });
+});
+</script>
+</body>
+</html>
