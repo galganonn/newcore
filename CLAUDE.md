@@ -11,8 +11,7 @@ The task: design the **agentic experience** for an IAM Admin around the prompt:
 ```
 /
 ├── newcore-assignment.md       ← Full research, decisions, and spec
-├── work/
-│   └── deployment-overview.html  ← Interactive prototype (Piper AI agent)
+├── deployment-overview.html    ← Interactive prototype (Piper AI agent)
 ├── uploads/
 │   └── deployment-overview/      ← All assets for the prototype
 └── serve.py                    ← Local dev server (python3 serve.py)
@@ -21,7 +20,7 @@ The task: design the **agentic experience** for an IAM Admin around the prompt:
 ## Stack
 
 Vanilla HTML/CSS/JS — no frameworks, no build tools.
-Run locally: `python3 serve.py` → open `http://localhost:9955/work/deployment-overview.html`
+Run locally: `python3 serve.py` → open `http://localhost:9955/deployment-overview.html`
 
 ## Prototype: deployment-overview.html
 
