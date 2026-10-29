@@ -165,15 +165,20 @@
   .loader-icon img { width: 16px; height: 16px; display: block; }
   .thinking-title { font-size: 16px; font-weight: 400; color: #121212; white-space: nowrap; }
   .chevron-icon img { width: 20px; height: 20px; display: block; transition: transform 200ms ease; }
-  /* Done + collapsed: subtle inline row */
-  .thinking-card.done.is-collapsed {
+  /* Done: title always subtle, borderless — regardless of expanded/collapsed */
+  .thinking-card.done {
     border: none; border-radius: 0; background: transparent;
   }
-  .thinking-card.done.is-collapsed .thinking-header {
+  .thinking-card.done .thinking-header {
     padding: 0; justify-content: flex-start; gap: 6px;
   }
-  .thinking-card.done.is-collapsed .thinking-title { font-size: 13px; color: #676879; }
-  .thinking-card.done.is-collapsed .chevron-icon img { width: 14px; height: 14px; opacity: 0.5; }
+  .thinking-card.done .thinking-title { font-size: 13px; color: #676879; }
+  .thinking-card.done .chevron-icon img { width: 14px; height: 14px; opacity: 0.5; }
+  /* When body is visible in done state, wrap it in its own card */
+  .thinking-card.done .thinking-body {
+    border: 1px solid #d0d4e4; border-radius: 12px; background: white;
+    margin-top: 8px;
+  }
 
   .thinking-body { display: flex; flex-direction: column; gap: 2px; padding: 24px; }
   .thinking-step {
@@ -1654,10 +1659,10 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => { el.classList.remove('step-active'); el.classList.add('step-done'); }, s.startMs + s.runMs);
     });
 
-    // Mark done — collapse body like the first card
+    // Mark done — keep on screen as subtle row
     setTimeout(() => {
       const card = document.getElementById('proc-card');
-      card.classList.add('done');
+      card.classList.add('done', 'is-collapsed');
       document.getElementById('proc-title').textContent = 'Hardening applied';
       const loader = document.getElementById('proc-loader');
       loader.classList.remove('loader-spin');
@@ -1667,8 +1672,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Stream in ai-block-3 content piece by piece
     setTimeout(() => {
-      document.getElementById('proc-harden').remove();
-
       const block3 = document.getElementById('ai-block-3');
       block3.classList.remove('hidden');
       block3.style.opacity = '0';
@@ -1779,10 +1782,10 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => { el.classList.remove('step-active'); el.classList.add('step-done'); }, s.startMs + s.runMs);
     });
 
-    // Mark done — collapse like the first card
+    // Mark done — keep on screen as subtle row
     setTimeout(() => {
       const card = document.getElementById('proc-apply-card');
-      card.classList.add('done');
+      card.classList.add('done', 'is-collapsed');
       document.getElementById('proc-apply-title').textContent = 'Hardening applied to 3 agents';
       const loader = document.getElementById('proc-apply-loader');
       loader.classList.remove('loader-spin');
@@ -1792,8 +1795,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Stream in ai-block-4
     setTimeout(() => {
-      document.getElementById('proc-apply').remove();
-
       const block4 = document.getElementById('ai-block-4');
       block4.classList.remove('hidden');
       block4.style.opacity = '0';
