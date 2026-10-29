@@ -978,14 +978,16 @@
       </div>
 
       <!-- AI block 3: hardening plan (after CTA 1) -->
-      <div class="hidden" id="ai-block-3">
+      <div class="hidden" id="ai-block-3-user">
         <div class="user-message-row" style="margin-bottom:16px;">
           <div class="avatar-wrap">
             <img src="../uploads/deployment-overview/avatar-1.png" alt="User" width="32" height="32">
           </div>
           <div class="user-bubble">Harden all 6 agents</div>
         </div>
+      </div>
 
+      <div class="hidden" id="ai-block-3">
         <div class="ai-response fade-in">
           <p class="ai-description" style="display:flex;align-items:flex-start;gap:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="12" fill="#EEF2FF"/><rect x="11" y="1.5" width="2" height="3.5" rx="1" fill="#818CF8"/><circle cx="12" cy="1.5" r="1.5" fill="#6366F1"/><rect x="4" y="6.5" width="16" height="12" rx="3" fill="white" stroke="#C7D2FE" stroke-width="1"/><circle cx="9" cy="11.5" r="2" fill="#6366F1"/><circle cx="15" cy="11.5" r="2" fill="#6366F1"/><circle cx="9.7" cy="10.9" r="0.7" fill="white"/><circle cx="15.7" cy="10.9" r="0.7" fill="white"/><path d="M9 14.5 Q12 16.5 15 14.5" stroke="#6366F1" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg><span>Here's the hardening plan. I can apply policies immediately to <strong>3 eligible agents</strong>. The other 3 need manual review before changes can be made.</span></p>
 
@@ -1166,14 +1168,16 @@
       </div>
 
       <!-- AI block 4: results (after CTA 2) -->
-      <div class="hidden" id="ai-block-4">
+      <div class="hidden" id="ai-block-4-user">
         <div class="user-message-row" style="margin-bottom:16px;">
           <div class="avatar-wrap">
             <img src="../uploads/deployment-overview/avatar-1.png" alt="User" width="32" height="32">
           </div>
           <div class="user-bubble">Apply to 3 eligible now</div>
         </div>
+      </div>
 
+      <div class="hidden" id="ai-block-4">
         <div class="ai-response fade-in">
           <p class="ai-description" style="display:flex;align-items:flex-start;gap:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:2px" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="12" fill="#EEF2FF"/><rect x="11" y="1.5" width="2" height="3.5" rx="1" fill="#818CF8"/><circle cx="12" cy="1.5" r="1.5" fill="#6366F1"/><rect x="4" y="6.5" width="16" height="12" rx="3" fill="white" stroke="#C7D2FE" stroke-width="1"/><circle cx="9" cy="11.5" r="2" fill="#6366F1"/><circle cx="15" cy="11.5" r="2" fill="#6366F1"/><circle cx="9.7" cy="10.9" r="0.7" fill="white"/><circle cx="15.7" cy="10.9" r="0.7" fill="white"/><path d="M9 14.5 Q12 16.5 15 14.5" stroke="#6366F1" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg><span>Done. Hardening applied to <strong>Emma, Noah, and Ella</strong>.</span></p>
 
@@ -1613,6 +1617,11 @@ document.addEventListener('DOMContentLoaded', function() {
   window.stepHardenAll = function() {
     document.getElementById('cta-block-1').querySelectorAll('button').forEach(b => b.disabled = true);
 
+    // Show user bubble immediately
+    const userBlock3 = document.getElementById('ai-block-3-user');
+    userBlock3.classList.remove('hidden');
+    scrollToStart(userBlock3);
+
     // Build processing card — same visual pattern as the first thinking card
     const proc = document.createElement('div');
     proc.id = 'proc-harden';
@@ -1630,8 +1639,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="thinking-body" id="proc-body"></div>
       </div>
     `;
-    document.getElementById('chat-area').appendChild(proc);
-    scrollToStart(proc);
+    document.getElementById('ai-block-3').before(proc);
 
     const HARDEN_STEPS = [
       { icon: '../uploads/deployment-overview/icon-shield.svg',       text: 'Applying MFA enforcement to Emma, Noah, and Ella…', startMs: 450,  runMs: 1350 },
@@ -1736,6 +1744,11 @@ document.addEventListener('DOMContentLoaded', function() {
   window.stepApply = function() {
     document.getElementById('cta-block-2').querySelectorAll('button').forEach(b => b.disabled = true);
 
+    // Show user bubble immediately
+    const userBlock4 = document.getElementById('ai-block-4-user');
+    userBlock4.classList.remove('hidden');
+    scrollToStart(userBlock4);
+
     // Build processing card — same pattern as stepHardenAll
     const proc = document.createElement('div');
     proc.id = 'proc-apply';
@@ -1753,8 +1766,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="thinking-body" id="proc-apply-body"></div>
       </div>
     `;
-    document.getElementById('chat-area').appendChild(proc);
-    scrollToStart(proc);
+    document.getElementById('ai-block-4').before(proc);
 
     const APPLY_STEPS = [
       { icon: '../uploads/deployment-overview/icon-shield.svg',       text: 'Verifying eligibility for Emma, Noah, and Ella…',    startMs: 400,  runMs: 1000 },
