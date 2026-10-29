@@ -119,7 +119,7 @@
   /* ── CHAT AREA ── */
   .chat-area {
     display: flex; flex-direction: column; gap: 16px;
-    flex: 1; min-height: 0; padding: 24px 40px 16px;
+    flex: 1; min-height: 0; padding: 24px 20% 16px;
     overflow-y: auto; position: relative; z-index: 1;
     scroll-behavior: smooth;
   }
@@ -155,17 +155,25 @@
   .thinking-card {
     border: 1px solid #d0d4e4; border-radius: 12px; background: white; overflow: hidden;
   }
+  /* Done state — subtle inline row, no card border */
+  .thinking-card.done {
+    border: none; border-radius: 0; background: transparent;
+  }
   .thinking-header {
     display: flex; align-items: center; justify-content: space-between;
     padding: 14px 16px; cursor: pointer; user-select: none;
   }
-  .thinking-card.done .thinking-header { border-bottom: none; }
+  .thinking-card.done .thinking-header {
+    padding: 0; gap: 4px;
+  }
   .thinking-card:not(.done) .thinking-header { border-bottom: 1px solid #d0d4e4; }
   .thinking-header-left { display: flex; align-items: center; gap: 8px; }
   .loader-icon { width: 16px; height: 16px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
   .loader-icon img { width: 16px; height: 16px; display: block; }
   .thinking-title { font-size: 16px; font-weight: 400; color: #121212; white-space: nowrap; }
+  .thinking-card.done .thinking-title { font-size: 13px; color: #676879; }
   .chevron-icon img { width: 20px; height: 20px; display: block; transition: transform 200ms ease; }
+  .thinking-card.done .chevron-icon img { width: 14px; height: 14px; opacity: 0.5; }
 
   .thinking-body { display: flex; flex-direction: column; gap: 2px; padding: 24px; }
   .thinking-step {
@@ -394,8 +402,8 @@
   }
   .plan-change-preview-row:last-of-type { border-bottom: none; }
   .plan-change-preview-meta { display: flex; flex-direction: column; gap: 1px; flex: 1; min-width: 0; }
-  .plan-change-preview-field { font-size: 12px; font-weight: 500; color: #323338; }
-  .plan-change-preview-rationale { font-size: 11px; color: #9699A6; line-height: 1.4; }
+  .plan-change-preview-field { font-size: 14px; font-weight: 500; color: #323338; }
+  .plan-change-preview-rationale { font-size: 13px; color: #9699A6; line-height: 1.4; }
   .plan-action-btn {
     display: inline-flex; align-items: center;
     padding: 4px 8px; border-radius: 5px; font-size: 12px; font-weight: 500;
