@@ -1418,8 +1418,7 @@ document.addEventListener('DOMContentLoaded', function() {
     scrollBottom();
   }, TOTAL_MS);
 
-  // Card auto-collapses when done — reflect that in the toggle state
-  let thinkingExpanded = false;
+  let thinkingExpanded = true;
   thinkingToggle.addEventListener('click', function() {
     thinkingExpanded = !thinkingExpanded;
     thinkingBody.style.display = thinkingExpanded ? '' : 'none';
@@ -1567,116 +1566,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.stepApply = function() {
     document.getElementById('cta-block-2').querySelectorAll('button').forEach(b => b.disabled = true);
-
-    // Brief processing card
-    const proc = document.createElement('div');
-    proc.id = 'proc-apply';
-    proc.className = 'ai-response fade-in';
-    proc.innerHTML = `
-      <div class="thinking-card" id="apply-card">
-        <div class="thinking-header">
-          <div class="thinking-header-left">
-            <div class="loader-icon">
-              <img class="loader-spin" id="apply-loader" src="../uploads/deployment-overview/icon-loader.svg" alt="" width="16" height="16">
-            </div>
-            <span class="thinking-title" id="apply-title">Applying hardening policies...</span>
-          </div>
-        </div>
-        <div class="thinking-body" id="apply-body"></div>
-      </div>
-    `;
-    document.getElementById('chat-area').appendChild(proc);
+    const block4 = document.getElementById('ai-block-4');
+    block4.classList.remove('hidden');
+    block4.classList.add('fade-in');
     scrollBottom();
-
-    const APPLY_STEPS = [
-      { icon: '../uploads/deployment-overview/icon-shield-check.svg', text: 'Enforcing MFA on Emma, Noah, and Ella…',          startMs: 300,  runMs: 900  },
-      { icon: '../uploads/deployment-overview/icon-lock-keyhole.svg', text: 'Writing updated scopes to Okta policy engine…',   startMs: 1400, runMs: 900  },
-      { icon: '../uploads/deployment-overview/icon-versioning.svg',   text: 'Flagging blocked agents for security review…',    startMs: 2500, runMs: 700  },
-    ];
-    const APPLY_TOTAL = 3400;
-
-    const applyBody = document.getElementById('apply-body');
-
-    APPLY_STEPS.forEach((s, i) => {
-      if (i > 0) {
-        const conn = document.createElement('div');
-        conn.className = 'step-connector';
-        conn.innerHTML = `<img src="../uploads/deployment-overview/icon-connector.svg" width="16" height="19.5">`;
-        applyBody.appendChild(conn);
-        setTimeout(() => conn.classList.add('visible'), s.startMs + 50);
-      }
-      const el = document.createElement('div');
-      el.className = 'thinking-step';
-      el.innerHTML = `<img src="${s.icon}" width="16" height="16"><span class="thinking-step-text">${s.text}</span>`;
-      applyBody.appendChild(el);
-      setTimeout(() => { el.classList.add('visible', 'step-active'); scrollBottom(); }, s.startMs + 50);
-      setTimeout(() => { el.classList.remove('step-active'); el.classList.add('step-done'); }, s.startMs + s.runMs);
-    });
-
-    setTimeout(() => {
-      const card = document.getElementById('apply-card');
-      card.classList.add('done');
-      document.getElementById('apply-title').textContent = 'Policies applied';
-      const loader = document.getElementById('apply-loader');
-      loader.classList.remove('loader-spin');
-      loader.src = '../uploads/deployment-overview/icon-mark-done.svg';
-      applyBody.style.display = 'none';
-    }, APPLY_TOTAL);
-
-    // Stream in ai-block-4 after processing finishes
-    setTimeout(() => {
-      document.getElementById('proc-apply').remove();
-
-      const block4 = document.getElementById('ai-block-4');
-      block4.classList.remove('hidden');
-      block4.style.opacity = '0';
-      block4.style.transition = 'opacity 180ms ease';
-      requestAnimationFrame(() => requestAnimationFrame(() => { block4.style.opacity = '1'; }));
-      scrollBottom();
-
-      function streamEl(el, delay) {
-        if (!el) return;
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(7px)';
-        el.style.transition = 'opacity 300ms ease, transform 300ms cubic-bezier(0.22,1,0.36,1)';
-        setTimeout(() => {
-          el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
-          scrollBottom();
-        }, delay);
-      }
-
-      const desc  = block4.querySelector('.ai-description');
-      const items = block4.querySelectorAll('.result-item');
-      const cta   = block4.querySelector('.chat-action-block');
-
-      // Pre-hide
-      [desc, cta].forEach(el => {
-        if (!el) return;
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(7px)';
-        el.style.transition = 'opacity 300ms ease, transform 300ms cubic-bezier(0.22,1,0.36,1)';
-      });
-      items.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(6px)';
-        el.style.transition = 'opacity 260ms ease, transform 260ms cubic-bezier(0.22,1,0.36,1)';
-      });
-
-      let t = 100;
-      streamEl(desc, t); t += 440;
-      items.forEach(el => {
-        setTimeout(() => {
-          el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
-          scrollBottom();
-        }, t);
-        t += 140;
-      });
-      t += 200;
-      streamEl(cta, t);
-
-    }, APPLY_TOTAL + 500);
   };
 
   // ── SIDE PANEL ──────────────────────────────────────────
