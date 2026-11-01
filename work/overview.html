@@ -71,7 +71,7 @@
   .nav-icon-area img { width: 18px; height: 18px; display: block; }
   .nav-item--active .nav-icon-area { background: #cce4ff; }
   .nav-label {
-    font-size: 10.5px; font-weight: 400; color: #676879; text-align: center;
+    font-size: 12px; font-weight: 400; color: #676879; text-align: center;
     line-height: 12px; letter-spacing: -0.315px; white-space: nowrap;
     overflow: hidden; text-overflow: ellipsis; min-width: 100%;
   }
@@ -155,7 +155,7 @@
   .piper-input::placeholder { color: #676879; }
   .piper-kbd {
     display: inline-flex; align-items: center;
-    font-family: 'Figtree', sans-serif; font-size: 11px; color: #676879; font-weight: 400;
+    font-family: 'Figtree', sans-serif; font-size: 12px; color: #676879; font-weight: 400;
     background: #f6f4f7; border: 1px solid #eae5ed;
     border-radius: 5px; padding: 2px 5px; flex-shrink: 0;
     white-space: nowrap; line-height: 16px;
@@ -220,7 +220,7 @@
   .widget-delta {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 500; font-size: 12px;
-    color: #16a347; line-height: normal;
+    color: #0d7a32; line-height: normal;
   }
   .widget-link {
     font-family: 'Figtree', sans-serif;
@@ -304,6 +304,118 @@
     font-weight: 400; font-size: 14px;
     color: #676879; line-height: 20px;
   }
+
+  /* ── SEVERITY BAR ── */
+  .sev-bar-track {
+    height: 12px; border-radius: 6px; overflow: hidden;
+    display: flex; gap: 2px;
+  }
+  .sev-bar-seg { height: 100%; border-radius: 3px; }
+  .sev-legend { display: flex; flex-wrap: wrap; gap: 10px 20px; }
+  .sev-legend-item {
+    display: flex; align-items: center; gap: 6px;
+    font-family: 'Figtree', sans-serif; font-size: 13px; color: #676879;
+  }
+  .sev-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .sev-count { font-weight: 600; color: #323338; }
+
+  /* ── INTEGRATION PROVIDERS ── */
+  .integration-list { display: flex; flex-direction: column; gap: 10px; }
+  .integration-item { display: flex; align-items: center; gap: 10px; }
+  .integration-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: white; flex-shrink: 0;
+    font-family: 'Figtree', sans-serif;
+  }
+  .integration-name {
+    flex: 1; font-family: 'Figtree', sans-serif;
+    font-size: 14px; color: #323338; font-weight: 500;
+  }
+  .integration-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; font-weight: 500; color: #323338;
+  }
+  .integration-more {
+    font-family: 'Figtree', sans-serif;
+    font-size: 13px; color: #676879;
+    padding-left: 42px;
+  }
+
+  /* ── DONUT CHART ── */
+  .donut-wrap {
+    display: flex; align-items: center; gap: 20px;
+  }
+  .donut-svg { flex-shrink: 0; }
+  .donut-legend { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .donut-legend-item {
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .donut-color-dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 4px;
+  }
+  .donut-legend-label {
+    font-family: 'Figtree', sans-serif; font-size: 13px;
+    color: #676879; line-height: 18px;
+  }
+  .donut-legend-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 500; color: #323338;
+    white-space: nowrap;
+  }
+
+  /* ── TOP AGENTS AT RISK ── */
+  .risk-list { display: flex; flex-direction: column; gap: 2px; }
+  .risk-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f2f7;
+  }
+  .risk-item:last-child { border-bottom: none; }
+  .risk-icon {
+    width: 30px; height: 30px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: white; flex-shrink: 0;
+    font-family: 'Figtree', sans-serif;
+  }
+  .risk-info { flex: 1; min-width: 0; }
+  .risk-name {
+    font-family: 'Figtree', sans-serif; font-size: 13px;
+    font-weight: 500; color: #323338; line-height: 18px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .risk-type {
+    font-family: 'Figtree', sans-serif; font-size: 12px;
+    color: #676879; line-height: 16px;
+  }
+  .risk-badge {
+    font-family: 'Figtree', sans-serif; font-size: 12px;
+    font-weight: 600; padding: 4px 8px; border-radius: 4px;
+    flex-shrink: 0; letter-spacing: 0.3px;
+  }
+  .risk-badge--critical { background: #fde8ec; color: #9a1527; }
+  .risk-badge--high { background: #fef0e6; color: #8a3d06; }
+
+  /* ── VIOLATIONS LIST ── */
+  .violation-item {
+    display: flex; align-items: flex-start; gap: 8px; padding: 6px 0;
+    border-bottom: 1px solid #f0f2f7;
+  }
+  .violation-item:last-child { border-bottom: none; }
+  .violation-sev-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 6px;
+  }
+  .violation-title {
+    font-family: 'Figtree', sans-serif; font-size: 14px;
+    color: #323338; line-height: 20px; flex: 1;
+  }
+  .violation-badge {
+    font-family: 'Figtree', sans-serif; font-size: 12px;
+    font-weight: 600; padding: 4px 8px; border-radius: 4px;
+    flex-shrink: 0; letter-spacing: 0.3px; white-space: nowrap;
+  }
+  .violation-badge--high { background: #fef0e6; color: #8a3d06; }
+  .violation-badge--medium { background: #fff7ed; color: #a85d00; }
 
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
@@ -486,140 +598,206 @@
       <!-- WIDGETS -->
       <div class="widgets-frame fade-up fade-up-2">
 
-        <!-- TOP ROW: 3 cards -->
+        <!-- ROW 1: Severity | Violations by Type | Identities by Type -->
         <div class="widgets-top-row">
 
-          <!-- Security Posture -->
+          <!-- Unresolved violations by severity -->
           <div class="widget-card">
-            <span class="widget-title">Security Posture</span>
-            <div style="height:12px;"></div>
-            <div class="posture-body">
-              <div class="posture-left">
-                <div class="posture-score">
-                  <span class="widget-number">78</span>
-                  <span class="widget-number-secondary">/100</span>
+            <span class="widget-title">Unresolved violations by severity</span>
+            <div style="height:48px;"></div>
+            <div style="display:flex;flex-direction:column;gap:32px;">
+              <div style="height:10px;border-radius:5px;overflow:hidden;display:flex;">
+                <div style="flex:161;background:#b02620;"></div>
+                <div style="flex:137;background:#e97973;"></div>
+                <div style="flex:31;background:#ed9a57;"></div>
+                <div style="flex:78;background:#f3c339;"></div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div class="sev-legend-item"><div class="sev-dot" style="background:#b02620;"></div><span><span class="sev-count">3</span> Critical</span></div>
+                <div class="sev-legend-item"><div class="sev-dot" style="background:#e97973;"></div><span><span class="sev-count">10</span> High</span></div>
+                <div class="sev-legend-item"><div class="sev-dot" style="background:#ed9a57;"></div><span><span class="sev-count">197</span> Medium</span></div>
+                <div class="sev-legend-item"><div class="sev-dot" style="background:#f3c339;"></div><span><span class="sev-count">115</span> Low</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Unresolved violations by type (C-arc) -->
+          <div class="widget-card">
+            <span class="widget-title">Unresolved violations by type</span>
+            <div style="height:24px;"></div>
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="display:flex;flex-direction:column;gap:16px;flex:1;">
+                <div style="display:flex;align-items:flex-start;gap:7px;"><div style="width:7px;height:7px;border-radius:50%;background:#93c5fd;flex-shrink:0;margin-top:4px;"></div><span style="font-size:13px;color:#323338;line-height:18px;"><strong>42%</strong> unrotated secret exposed externally</span></div>
+                <div style="display:flex;align-items:flex-start;gap:7px;"><div style="width:7px;height:7px;border-radius:50%;background:#86efac;flex-shrink:0;margin-top:4px;"></div><span style="font-size:13px;color:#323338;line-height:18px;"><strong>19%</strong> Privileged stale service principal</span></div>
+                <div style="display:flex;align-items:flex-start;gap:7px;"><div style="width:7px;height:7px;border-radius:50%;background:#fca5a5;flex-shrink:0;margin-top:4px;"></div><span style="font-size:13px;color:#323338;line-height:18px;"><strong>9%</strong> Misused Access Key</span></div>
+                <div style="display:flex;align-items:flex-start;gap:7px;"><div style="width:7px;height:7px;border-radius:50%;background:#c4b5fd;flex-shrink:0;margin-top:4px;"></div><span style="font-size:13px;color:#323338;line-height:18px;"><strong>30%</strong> Other Types (15)</span></div>
+              </div>
+              <svg width="110" height="110" viewBox="0 0 120 110" style="flex-shrink:0;">
+                <path d="M 30.3 81.7 A 42 42 0 1 1 89.7 81.7" fill="none" stroke="#f1f5f9" stroke-width="14" stroke-linecap="butt"/>
+                <path d="M 30.3 81.7 A 42 42 0 1 1 89.7 81.7" fill="none" stroke="#93c5fd" stroke-width="14" stroke-linecap="butt" pathLength="100" stroke-dasharray="40 60" stroke-dashoffset="0"/>
+                <path d="M 30.3 81.7 A 42 42 0 1 1 89.7 81.7" fill="none" stroke="#86efac" stroke-width="14" stroke-linecap="butt" pathLength="100" stroke-dasharray="18 82" stroke-dashoffset="-42"/>
+                <path d="M 30.3 81.7 A 42 42 0 1 1 89.7 81.7" fill="none" stroke="#fca5a5" stroke-width="14" stroke-linecap="butt" pathLength="100" stroke-dasharray="8 92" stroke-dashoffset="-62"/>
+                <path d="M 30.3 81.7 A 42 42 0 1 1 89.7 81.7" fill="none" stroke="#c4b5fd" stroke-width="14" stroke-linecap="butt" pathLength="100" stroke-dasharray="28 72" stroke-dashoffset="-72"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Identities by Type -->
+          <div class="widget-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+              <span class="widget-title">Identities by Type</span>
+              <a href="#" style="font-size:14px;color:#676879;text-decoration:none;font-family:'Figtree',sans-serif;">View All</a>
+            </div>
+            <div style="height:26px;"></div>
+            <div style="display:flex;flex-direction:column;gap:16px;width:100%;">
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:9px;">
+                  <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><rect x="1.5" y="3.5" width="15" height="11" rx="2" stroke="#676879" stroke-width="1.5" stroke-dasharray="2.5 1.5"/></svg>
+                  <span style="font-size:14px;color:#484854;font-family:'Figtree',sans-serif;">Secret</span>
                 </div>
-                <div style="height:4px;"></div>
-                <span class="widget-delta">↑ 4 pts this week</span>
-                <div style="height:10px;"></div>
-                <a href="#" class="widget-link">View breakdown →</a>
+                <span style="font-size:18px;font-weight:700;color:#484854;font-family:'Figtree',sans-serif;width:46px;text-align:right;">30K</span>
               </div>
-              <div class="posture-sparkline">
-                <img src="../uploads/deployment-overview/sparkline.svg" alt="Score trend" width="146" height="50">
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:9px;">
+                  <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M6 5L3 9L6 13M12 5L15 9L12 13" stroke="#676879" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span style="font-size:14px;color:#484854;font-family:'Figtree',sans-serif;">API Token</span>
+                </div>
+                <span style="font-size:18px;font-weight:700;color:#5b5b66;font-family:'Figtree',sans-serif;width:46px;text-align:right;">11K</span>
               </div>
-            </div>
-          </div>
-
-          <!-- Recent Activity -->
-          <div class="widget-card" style="justify-content:space-between;">
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;flex-direction:column;gap:12px;">
-                <span class="widget-title">Recent Activity</span>
-                <span class="widget-number">8</span>
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:9px;">
+                  <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M2 5C2 4.45 2.45 4 3 4H6.5L8 6H15C15.55 6 16 6.45 16 7V14C16 14.55 15.55 15 15 15H3C2.45 15 2 14.55 2 14V5Z" stroke="#676879" stroke-width="1.5"/></svg>
+                  <span style="font-size:14px;color:#484854;font-family:'Figtree',sans-serif;">Service Principal</span>
+                </div>
+                <span style="font-size:18px;font-weight:700;color:#6a6a74;font-family:'Figtree',sans-serif;width:46px;text-align:right;">2.3K</span>
               </div>
-              <span class="widget-meta">2 permission changes · 2 new agents</span>
-            </div>
-            <a href="#" class="widget-link">View activity log →</a>
-          </div>
-
-          <!-- Pending Approvals -->
-          <div class="widget-card" style="justify-content:space-between;">
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;flex-direction:column;gap:12px;">
-                <span class="widget-title">Pending Approvals</span>
-                <span class="widget-number">3</span>
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:9px;">
+                  <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><circle cx="4.5" cy="9" r="1.5" fill="#676879"/><circle cx="9" cy="9" r="1.5" fill="#676879"/><circle cx="13.5" cy="9" r="1.5" fill="#676879"/></svg>
+                  <span style="font-size:14px;color:#484854;font-family:'Figtree',sans-serif;">Other (10)</span>
+                </div>
+                <span style="font-size:18px;font-weight:700;color:#73737d;font-family:'Figtree',sans-serif;width:46px;text-align:right;">13K</span>
               </div>
             </div>
-            <a href="#" class="widget-link">Review all 3 →</a>
           </div>
 
         </div>
 
-        <!-- BOTTOM ROW: 2 cards -->
+        <!-- ROW 2: Top at Risk | Violations | Identities by Provider -->
         <div class="widgets-bottom-row">
 
-          <!-- Open Findings -->
-          <div class="widget-card" style="justify-content:space-between;">
-            <span class="widget-title">Open Findings</span>
-            <div style="height:12px;"></div>
-            <span class="widget-number">12</span>
-            <div style="height:12px;"></div>
-            <div class="findings-divider"></div>
-            <div style="height:10px;"></div>
-            <div class="findings-list">
-              <div class="finding-item">
-                <div class="finding-dot"></div>
-                <span class="widget-body-text">HubSpot automation agent authenticates via MFA-exempt legacy API key</span>
+          <!-- Top Identities at risk -->
+          <div class="widget-card" style="display:flex;flex-direction:column;">
+            <span class="widget-title">Top Identities at risk</span>
+            <div style="height:32px;"></div>
+            <div style="display:flex;flex-direction:column;justify-content:space-between;flex:1;">
+
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:32px;height:32px;border-radius:8px;background:#f9fafc;padding:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-sizing:border-box;">
+                  <img src="../uploads/deployment-overview/logo-aws.png" style="width:100%;height:100%;object-fit:contain;" alt="AWS">
+                </div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:12px;color:#676879;line-height:1.4;">AWS | Service Account</div>
+                  <div style="font-size:12px;font-weight:600;color:#323338;line-height:1.4;">i-Billing_DE</div>
+                  <div style="font-size:12px;color:#676879;line-height:1.4;">Service Principal</div>
+                </div>
+                <span class="risk-badge risk-badge--critical" style="border-radius:20px;width:71px;text-align:center;padding:4px 0;flex-shrink:0;background:#fcf2f2;">CRITICAL</span>
               </div>
-              <div class="finding-item">
-                <div class="finding-dot"></div>
-                <span class="widget-body-text">3 marketing agents hold admin-level Salesforce scope beyond their task</span>
+
+              <div style="display:flex;align-items:center;gap:8px;">
+                <img src="../uploads/deployment-overview/logo-gcp.png" style="width:32px;height:32px;object-fit:contain;flex-shrink:0;" alt="GCP">
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:12px;color:#676879;line-height:1.4;">GCP | Service Account</div>
+                  <div style="font-size:12px;font-weight:600;color:#323338;line-height:1.4;">GCP Deployment user</div>
+                </div>
+                <span class="risk-badge risk-badge--critical" style="border-radius:20px;width:71px;text-align:center;padding:4px 0;flex-shrink:0;background:#fcf2f2;">CRITICAL</span>
               </div>
-              <div class="finding-item">
-                <div class="finding-dot"></div>
-                <span class="widget-body-text">Unmanaged app with broad API access</span>
+
+              <div style="display:flex;align-items:center;gap:8px;">
+                <img src="../uploads/deployment-overview/logo-azure.png" style="width:32px;height:32px;object-fit:contain;flex-shrink:0;" alt="Azure">
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:12px;color:#676879;line-height:1.4;">Azure Access key</div>
+                  <div style="font-size:12px;font-weight:600;color:#323338;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">E37868B9BB82954 E38986...</div>
+                </div>
+                <span class="risk-badge risk-badge--critical" style="border-radius:20px;width:71px;text-align:center;padding:4px 0;flex-shrink:0;background:#fcf2f2;">CRITICAL</span>
               </div>
+
             </div>
-            <div style="height:12px;"></div>
-            <a href="#" class="widget-link-underline">View all 12 findings →</a>
           </div>
 
-          <!-- Coverage -->
+          <!-- Violations -->
           <div class="widget-card">
-            <span class="widget-title">Coverage</span>
-            <div style="height:16px;"></div>
+            <span class="widget-title">Violations</span>
+            <div style="height:24px;"></div>
+            <div style="display:flex;flex-direction:column;gap:24px;">
 
-            <div class="coverage-row">
-              <div class="coverage-header">
-                <span class="coverage-label">Humans</span>
-                <span class="coverage-count">3400 / 4000</span>
+              <div style="position:relative;height:98px;border:1px solid #eae5ed;border-radius:13px;overflow:hidden;background:white;">
+                <div style="position:absolute;left:0;top:0;width:5px;height:100%;background:#e97973;"></div>
+                <div style="position:absolute;left:14px;top:11px;right:14px;display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:14px;font-weight:700;color:#101024;font-family:'Figtree',sans-serif;">Misused Identity</span>
+                  <span style="background:#fcf2f2;color:#9a1527;border-radius:20px;padding:4px 8px;font-size:12px;font-weight:700;font-family:'Figtree',sans-serif;white-space:nowrap;">CRITICAL</span>
+                </div>
+                <p style="position:absolute;left:14px;top:45px;right:14px;font-size:14px;color:#50505d;font-family:'Figtree',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.15;">A privileged identity is being used by multipl...</p>
+                <a href="#" style="position:absolute;left:14px;top:68px;font-size:12px;color:#0073ea;font-family:'Figtree',sans-serif;text-decoration:none;">Open</a>
               </div>
-              <div style="height:6px;"></div>
-              <div class="coverage-track">
-                <div class="coverage-fill" style="width:85%;background:#6BCB8B;"></div>
+
+              <div style="position:relative;height:95px;border:1px solid #eae5ed;border-radius:13px;overflow:hidden;background:white;">
+                <div style="position:absolute;left:0;top:0;width:5px;height:100%;background:#ed9a57;"></div>
+                <div style="position:absolute;left:14px;top:11px;right:14px;display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:14px;font-weight:700;color:#101024;font-family:'Figtree',sans-serif;">Unrotated Privileged Secret</span>
+                  <span style="background:#fff7ed;color:#a85d00;border-radius:20px;padding:4px 8px;font-size:12px;font-weight:700;font-family:'Figtree',sans-serif;white-space:nowrap;">MEDIUM</span>
+                </div>
+                <p style="position:absolute;left:14px;top:45px;right:14px;font-size:14px;color:#50505d;font-family:'Figtree',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.15;">A privileged identity is unrotated</p>
+                <a href="#" style="position:absolute;left:14px;top:68px;font-size:12px;color:#0073ea;font-family:'Figtree',sans-serif;text-decoration:none;">Open</a>
               </div>
-              <div style="height:4px;"></div>
-              <span class="coverage-pct">85% managed</span>
+
             </div>
+          </div>
 
-            <div style="height:16px;"></div>
+          <!-- Identities by provider -->
+          <div class="widget-card">
+            <span class="widget-title">Identities by provider</span>
+            <div style="height:24px;"></div>
+            <div style="display:flex;flex-direction:column;gap:30px;padding:0 9px;">
 
-            <div class="coverage-row">
-              <div class="coverage-header">
-                <span class="coverage-label">Agents</span>
-                <span class="coverage-count">180 / 600</span>
+              <div style="display:flex;gap:0;justify-content:space-between;">
+                <div style="display:flex;flex-direction:column;justify-content:space-between;height:91px;width:94px;">
+                  <img src="../uploads/deployment-overview/logo-aws.png" style="height:22px;width:37px;object-fit:contain;object-position:left;" alt="aws">
+                  <div style="display:flex;flex-direction:column;gap:5px;">
+                    <span style="font-size:25px;font-weight:700;color:#101024;line-height:1.15;font-family:'Figtree',sans-serif;">21K</span>
+                    <span style="font-size:14px;color:#50505d;line-height:1.15;font-family:'Figtree',sans-serif;">aws</span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;justify-content:space-between;height:91px;width:94px;">
+                  <img src="../uploads/deployment-overview/logo-gcp.png" style="height:22px;width:27px;object-fit:contain;object-position:left;" alt="GCP">
+                  <div style="display:flex;flex-direction:column;gap:5px;">
+                    <span style="font-size:25px;font-weight:700;color:#101024;line-height:1.15;font-family:'Figtree',sans-serif;">9.1K</span>
+                    <span style="font-size:14px;color:#50505d;line-height:1.15;font-family:'Figtree',sans-serif;">GCP</span>
+                  </div>
+                </div>
               </div>
-              <div style="height:6px;"></div>
-              <div class="coverage-track">
-                <div class="coverage-fill" style="width:30%;background:#E2B866;"></div>
+
+              <div style="display:flex;gap:0;justify-content:space-between;">
+                <div style="display:flex;flex-direction:column;justify-content:space-between;height:91px;width:94px;">
+                  <img src="../uploads/deployment-overview/logo-azure.png" style="height:28px;width:27px;object-fit:contain;object-position:left;" alt="Azure">
+                  <div style="display:flex;flex-direction:column;gap:5px;">
+                    <span style="font-size:25px;font-weight:700;color:#101024;line-height:1.15;font-family:'Figtree',sans-serif;">6.9K</span>
+                    <span style="font-size:14px;color:#50505d;line-height:1.15;font-family:'Figtree',sans-serif;">Azure</span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;justify-content:space-between;height:91px;width:94px;">
+                  <img src="../uploads/deployment-overview/logo-github.webp" style="height:28px;width:28px;object-fit:contain;object-position:left;" alt="Github">
+                  <div style="display:flex;flex-direction:column;gap:5px;">
+                    <span style="font-size:25px;font-weight:700;color:#101024;line-height:1.15;font-family:'Figtree',sans-serif;">3.3K</span>
+                    <span style="font-size:14px;color:#50505d;line-height:1.15;font-family:'Figtree',sans-serif;">Github</span>
+                  </div>
+                </div>
               </div>
-              <div style="height:4px;"></div>
-              <span class="coverage-pct">30% managed</span>
+
             </div>
-
-            <div style="height:16px;"></div>
-
-            <div class="coverage-row">
-              <div class="coverage-header">
-                <span class="coverage-label">Apps</span>
-                <span class="coverage-count">45 / 180</span>
-              </div>
-              <div style="height:6px;"></div>
-              <div class="coverage-track">
-                <div class="coverage-fill" style="width:25%;background:#F28B82;"></div>
-              </div>
-              <div style="height:4px;"></div>
-              <span class="coverage-pct">25% managed</span>
-            </div>
-
           </div>
 
         </div>
-      </div>
-
-      <!-- Last evaluation timestamp -->
-      <div style="display:flex;justify-content:flex-end;padding:0 24px 12px 24px;">
-        <span style="font-family:'Figtree',sans-serif;font-size:14px;font-weight:400;line-height:20px;color:#676879;">Last full evaluation <span style="font-weight:600;">14 minutes ago</span></span>
       </div>
 
     </div><!-- /overview-scroll -->
